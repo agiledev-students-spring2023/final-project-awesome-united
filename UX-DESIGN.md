@@ -8,11 +8,19 @@ Click [Homie Prototype](https://www.figma.com/proto/YHV6RmuVbo3eGicqq4rGhC/Aweso
 
 </br>
 
+## Site Map
+
+<br>
+
+<img src="ux-design/sitemap.png" width="300" height="352" title="New Account Selection Frame">
+
+</br>
+
 ##  New Account Selection
 <br>
 
 
-<img src="ux-design/New-Account-Selection.png" alt="Employee data" width="150" height="324" title="New Account Selection Frame">
+<img src="ux-design/New-Account-Selection.png" width="150" height="324" title="New Account Selection Frame">
 
 <br>
 

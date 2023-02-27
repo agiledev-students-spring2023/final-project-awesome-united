@@ -1,19 +1,37 @@
-# Project Repository
+# Homie
 
-This repository will be used for team projects.
+## Project Description
 
-Several sets of instructions are included in this repository. They should each be treated as separate assignments with their own due dates and sets of requirements.
+This is an real estate finding application where property owners can list their property for rent or for sale. Users can then search for properties in a dating-app style: only one property is shown at a time, and they can swipe left or right if they are interested in the property or not. If a buyer and seller match, they can message eachother to further negotiations about the property.
 
-1. See the [App Map & Wireframes](instructions-0a-app-map-wireframes.md) and [Prototyping](./instructions-0b-prototyping.md) instructions for the requirements of the initial user experience design of the app.
+### Vision Statement
 
-1. Delete the contents of this file and replace with the contents of a proper README.md, as described in the [project setup instructions](./instructions-0c-project-setup.md)
+We want to make an app where buyers can view properties that they are interested in, sellers can list their property easily, and the two can communicate with eachother smoothly.
 
-1. See the [Sprint Planning instructions](instructions-0d-sprint-planning.md) for the requirements of Sprint Planning for each Sprint.
 
-1. See the [Front-End Development instructions](./instructions-1-front-end.md) for the requirements of the initial Front-End Development.
+## Team
 
-1. See the [Back-End Development instructions](./instructions-2-back-end.md) for the requirements of the initial Back-End Development.
+[David Acevedo](https://github.com/Daceript)
 
-1. See the [Database Integration instructions](./instructions-3-database.md) for the requirements of integrating a database into the back-end.
+[Ian Nacke](https://github.com/ian41284128)
 
-1. See the [Deployment instructions](./instructions-4-deployment.md) for the requirements of deploying an app.
+[Junhyuk Lee](https://github.com/27yama)
+
+[Ashwin Rabindran](https://github.com/ashwin300)
+
+[Robert Zheng](https://github.com/sirbobthemarvelous)
+
+
+
+
+
+## History
+
+Real estate websites right now are complex and present too many choices. When searching for an apartment or house, you frequently have to filter from hundreds of options, especially in a place like New York City. We believe that this app will assist with the real estate search process by only showing a user a single property at a time, in accordence with their preferences.
+
+
+See [CONTRIBUTING.md](./CONTRIBUTING.md) for how to contribute.
+
+
+## Building and Testing
+

@@ -1,4 +1,3 @@
-
 const GeneralSettings = props => {
     return (
       <h1>

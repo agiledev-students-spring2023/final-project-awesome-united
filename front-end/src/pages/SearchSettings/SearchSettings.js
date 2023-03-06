@@ -1,4 +1,3 @@
-
 const SearchSettings = props => {
     return (
       <h1>

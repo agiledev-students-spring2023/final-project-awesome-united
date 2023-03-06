@@ -1,4 +1,3 @@
-
 const Logout = props => {
     return (
       <h1>

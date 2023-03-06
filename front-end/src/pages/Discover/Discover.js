@@ -1,4 +1,3 @@
-
 const Discover = props => {
     return (
       <h1>

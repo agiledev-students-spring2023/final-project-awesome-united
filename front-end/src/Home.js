@@ -7,7 +7,7 @@ const Home = props => {
   return (
     <div>
         <ul>
-        <li><Link to="/createAccount">Create Account Page</Link> </li>
+        <li><Link to="/createAccount"> Create Account Page</Link> </li>
         
     
         <li><Link to="/createListing">Create Listing Page</Link></li>

@@ -37,8 +37,9 @@ const App = props => {
           <Route path="/logout" element={<Logout />} />
  
         </Routes>
+        <Footer />
       </Router>
-      <Footer />
+      
     </div>
   )
 }

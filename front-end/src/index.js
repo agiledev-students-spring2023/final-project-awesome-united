@@ -1,14 +1,23 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
+<<<<<<< HEAD
 import NewAccountSelection from './NewAccountSelection';
 import reportWebVitals from './reportWebVitals';
 import SearchSettings from './SearchSettings';
+=======
+import App from './App';
+import reportWebVitals from './reportWebVitals';
+>>>>>>> master
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
+<<<<<<< HEAD
     <SearchSettings />
+=======
+    <App />
+>>>>>>> master
   </React.StrictMode>
 );
 

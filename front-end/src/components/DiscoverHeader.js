@@ -1,4 +1,4 @@
 const DiscoverHeader = (props) => {
-  return <p1>Discover Header!</p1>;
+  return <p1>Header Placeholder</p1>;
 };
 export default DiscoverHeader;

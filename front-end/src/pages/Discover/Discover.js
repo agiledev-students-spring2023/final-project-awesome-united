@@ -1,9 +1,5 @@
-const Discover = props => {
-    return (
-      <h1>
-        Discover Page
-      </h1>
-    )
-  }
-  
-  export default Discover
+const Discover = (props) => {
+  return <h1>Discover Page!</h1>;
+};
+
+export default Discover;

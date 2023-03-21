@@ -4,6 +4,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import TinderCard from "react-tinder-card";
 import "./Discover.css";
+import DiscoverButtonTray from "../../components/DiscoverButtonTray";
 const Discover = (props) => {
   const [listings, setListings] = useState([]);
   const [loaded, setLoaded] = useState(false);
@@ -11,7 +12,7 @@ const Discover = (props) => {
   useEffect(() => {
     async function fetchData() {
       const response = await axios(
-        "https://my.api.mockaroo.com/listing.json?skey=a8b2f1e0"
+        "https://my.api.mockaroo.com/listing.json?key=a8b2f1e0"
       )
         .then((response) => {
           setListings(response.data);
@@ -26,6 +27,7 @@ const Discover = (props) => {
               address: "1 Hacker Way",
               desc: "Amazing Place",
               amenities: "Dishwasher",
+              images:[{}]
             },
             {
               id: 2,
@@ -34,6 +36,7 @@ const Discover = (props) => {
               address: "2 Hacker Way",
               desc: "Amazing Place 2",
               amenities: "Laundry",
+              images: []
             },
           ];
           setListings(backupData);
@@ -74,6 +77,7 @@ const Discover = (props) => {
                 rooms={listing.rooms}
                 desc={listing.desc}
                 amenities={listing.amenities}
+                images={listing.images}
               />
             </TinderCard>
           );
@@ -81,7 +85,12 @@ const Discover = (props) => {
       ) : (
         <p1>Loading</p1>
       )}
+
+<div className="discoverButtonTray">
+  <DiscoverButtonTray />
+</div>
     </div>
+    
   );
 };
 

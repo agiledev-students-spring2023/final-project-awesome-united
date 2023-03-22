@@ -1,0 +1,21 @@
+form {
+    border: 10px dotted pink;
+    padding: 20px;
+    margin-bottom: 20px;
+  }
+  
+  .formField {
+    margin-top: 10px;
+  }
+  
+  p.SearchBar-feedback {
+    color: red;
+    background-color: pink;
+    padding: 20px;
+  }
+  
+  .formField input {
+    width: 100%;
+    padding: 10px;
+    font-size: 1.2em;
+  }

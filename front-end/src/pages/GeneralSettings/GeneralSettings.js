@@ -25,20 +25,6 @@ const GeneralSettings = (props) => {
       Account Info - linked
       Log Out - button
       </p>
-
-      <Router>
-        {/* pass the setter function that can be called if the user successfully logs in from the login screen */}
-
-        <Routes>
-          {/* a route to the home screen */}
-          <Route path="/" element={<Home />} />
-
-          <Route path="/BrightnessSettings" element={<BrightnessSettings />} />
-          <Route path="/SizeSettings" element={<SizeSettings />} />
-          <Route path="/AccountInfo" element={<AccountInfo />} />
-        </Routes>
-        
-      </Router>
     </div>
   );
 };

@@ -1,0 +1,17 @@
+*{
+    box-sizing: border-box;
+    font-size: calc(10px + 2vmin);
+}
+
+html, body{
+    margin: 0;
+}
+
+img{
+    width: 100%;
+    height: auto;
+}
+
+.CreateAccount{
+    text-align: center;
+}

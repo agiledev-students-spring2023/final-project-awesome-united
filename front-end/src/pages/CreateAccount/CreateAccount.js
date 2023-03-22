@@ -1,5 +1,4 @@
 import './CreateAccount.css';
-import { Link, useLocation } from "react-router-dom";
 
 function CreateAccount(){
   return (
@@ -9,8 +8,13 @@ function CreateAccount(){
           Create Account
         </h1>
       </header>
+      <div className='Create'>
+          <div>
+            Create
+          </div>
+      </div>
     </div>
-  )
+  );
 }
   
-  export default CreateAccount;
+export default CreateAccount; 

@@ -1,11 +1,11 @@
 h1{
     text-align: center;
-    font-size: calc(10px + 2vmin);
+    font-size: calc(15px + 3vmin);
 }
 
 *{
     box-sizing: border-box;
-    font-size: calc(5px + 2vmin);
+    font-size: calc(8px + 2vmin);
 }
 
 html, body{
@@ -18,28 +18,28 @@ img{
 }
 
 .FullName{
-    margin: calc(5px + 2vmin);
+    margin: calc(20px + 3vmin);
 }
 
 .Username{
-    margin: calc(5px + 2vmin);
+    margin: calc(20px + 3vmin);
 }
 
 .PassWord{
-    margin: calc(5px + 2vmin);
+    margin: calc(20px + 3vmin);
 }
 
 .EmailAddress{
-    margin: calc(5px + 2vmin);
+    margin: calc(20px + 3vmin);
 }
 
 .ProfilePhoto{
-    margin: calc(5px + 2vmin);
+    margin: calc(20px + 3vmin);
 }
 
 .Country, .State, .City, .Address{
-    font-size: calc(8px + 1vmin);
-    margin: calc(1px + 1vmin);
+    font-size: calc(2px + 2vmin);
+    margin: calc(8px + 1vmin);
 }
 
 .CreateAccount{

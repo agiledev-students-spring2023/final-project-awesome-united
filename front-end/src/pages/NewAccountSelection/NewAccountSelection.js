@@ -4,17 +4,17 @@ function NewAccountSelection() {
   return (
     <div className="NewAccountSelection">
       <header>
-        <p>
+        <h1>
           Why are you using Homie?
-        </p>
+        </h1>
       </header>
       <div className="Options">
-        <a href="https://reactjs.org">
+        <Link to="/createAccount">
           <div>I'm Selling</div>
-        </a>
-        <a href="https://reactjs.org">
+        </Link>
+        <Link to="/createAccount">
           <div>I'm Buying</div>
-        </a>
+        </Link>
       </div>
     </div>
   );

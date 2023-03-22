@@ -7,6 +7,8 @@ import { useNavigate } from "react-router-dom";
 
 const Matches = props => {
 
+  const navigate = useNavigate();
+
   //for spring01 set to take user to static page
   //take user to chat session with match
   const handleClick = e => {

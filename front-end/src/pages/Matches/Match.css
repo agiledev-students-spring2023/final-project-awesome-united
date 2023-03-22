@@ -1,15 +1,12 @@
-body {
-    background-color:#ffffff;
-}
+
 
 /*Useful: https://www.w3schools.com/cssref/pr_grid-row.php */
 /* useful https://webdesign.tutsplus.com/tutorials/how-to-implement-infinite-scrolling-with-javascript--cms-37055*/
 #myDIV {
     height:50px;
     display: grid;
-    grid-template-columns: 50px 300px;
+    grid-template-columns: 50px auto;
     gap: 4px;
-    background-color: #2196F3;
     padding: 10px;
   }
 #myDIV div {
@@ -20,10 +17,20 @@ body {
 .chatPrev {
     grid-row: 2;
     padding: 8px;
+    overflow-wrap: break-word;
+    border: 1px solid black;
 }
 .matchName {
     grid-row: 1;
     padding: 4px;
+
+    border: 1px solid black;
+    
+    width: 300px;
+    /* following is to handle text overflow: */
+    /* see: https://css-tricks.com/almanac/properties/t/text-overflow/ */
+    white-space: nowrap;
+    overflow: hidden;
 }
 
 .profileImage {

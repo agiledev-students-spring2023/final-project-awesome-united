@@ -5,17 +5,13 @@ const Match = props => {
   // react automatically bundles these arguments into an object called props
   return (
     <main className="Home">
-        <section>
-          <article id="row">
-            <div>
-              <img className="profileImage" src={props.MatchImg} alt="{props.name}" onClick={props.handleImageClick} />
-            </div>
-            <div id="myDIV" onClick={props.handleClick}>
-                <div className="matchName">{props.name}</div>
-                <div className="chatPrev">{props.chatPreview}</div>
-            </div>
-          </article>
-        </section>
+        <article id="myDIV">
+          <img className="profileImage" src={props.profileImg} onClick={props.handleImageClick} />
+          <div onClick={props.handleClick}>
+              <div className="matchName">{props.name}</div>
+              <div className="chatPrev">{props.chatPreview}</div>
+          </div>
+        </article>
     </main>
   )
 }

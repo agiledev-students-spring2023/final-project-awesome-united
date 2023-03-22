@@ -1,0 +1,18 @@
+.discoverButtonTray {
+  margin-top: 1rem;
+  padding: 1rem;
+
+  position: fixed;
+
+  bottom: 110px;
+  right: -36px;
+  width: 100%;
+  height: 80px;
+}
+.discoverButtonTrayButton {
+  font-size: 80px;
+  border-radius: 50%;
+  border-width: 30px;
+  border: 2px solid;
+  border-color: black;
+}

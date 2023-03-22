@@ -5,6 +5,9 @@ import Home from "./Home"
 import CreateAccount from "./pages/CreateAccount/CreateAccount"
 import SearchSettings from "./pages/SearchSettings/SearchSettings"
 import GeneralSettings from "./pages/GeneralSettings/GeneralSettings"
+import BrightnessSettings from "./pages/GeneralSettings/BrightnessSettings"
+import SizeSettings from "./pages/GeneralSettings/SizeSettings"
+import AccountInfo from "./pages/GeneralSettings/AccountInfo"
 import Discover from "./pages/Discover/Discover"
 import Matches from "./pages/Matches/Matches"
 import CreateListing from "./pages/CreateListing/CreateListing"
@@ -31,6 +34,9 @@ const App = props => {
           <Route path="/discover" element={<Discover />} />
           <Route path="/matches" element={<Matches />} />
           <Route path="/generalSettings" element={<GeneralSettings />} />
+          <Route path="/brightnessSettings" element={<BrightnessSettings />} />
+          <Route path="/sizeSettings" element={<SizeSettings />} />
+          <Route path="/accountInfo" element={<AccountInfo />} />
           <Route path="/createListing" element={<CreateListing />} />
           <Route path="/login" element={<Login />} />
           <Route path="/logout" element={<Logout />} />

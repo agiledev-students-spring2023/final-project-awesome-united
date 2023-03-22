@@ -9,12 +9,23 @@ const GeneralSettings = (props) => {
       <h1>
         General Settings Page
       </h1>
+      <Link to="/brightnessSettings">
+      Change Brightness
+      </Link>
+      <Link to="/sizeSettings">
+      Change Size of Text
+      </Link>
+      <Link to="/accountInfo">
+      See Account Info
+      </Link>
       <p>Change your Password - linked page
-      Change BrightnessChange size of Text - linked page
+      Change Brightness
+      Change size of Text - linked page
       Enable Dark StrictMode - button
       Account Info - linked
       Log Out - button
       </p>
+
       <Router>
         {/* pass the setter function that can be called if the user successfully logs in from the login screen */}
 

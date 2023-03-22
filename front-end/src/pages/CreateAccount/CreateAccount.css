@@ -1,6 +1,11 @@
+h1{
+    text-align: center;
+    font-size: calc(10px + 2vmin);
+}
+
 *{
     box-sizing: border-box;
-    font-size: calc(10px + 2vmin);
+    font-size: calc(5px + 2vmin);
 }
 
 html, body{
@@ -10,6 +15,31 @@ html, body{
 img{
     width: 100%;
     height: auto;
+}
+
+.FullName{
+    margin: calc(5px + 2vmin);
+}
+
+.Username{
+    margin: calc(5px + 2vmin);
+}
+
+.PassWord{
+    margin: calc(5px + 2vmin);
+}
+
+.EmailAddress{
+    margin: calc(5px + 2vmin);
+}
+
+.ProfilePhoto{
+    margin: calc(5px + 2vmin);
+}
+
+.Country, .State, .City, .Address{
+    font-size: calc(8px + 1vmin);
+    margin: calc(1px + 1vmin);
 }
 
 .CreateAccount{

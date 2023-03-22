@@ -1,5 +1,6 @@
 import "./Matches.css"
 import Match from "./Match"
+import SearchBar from "./SearchBar"
 import { useNavigate } from "react-router-dom";
 
 
@@ -28,31 +29,46 @@ const Matches = props => {
   // we hard-code it here so we can focus on React.js, not back-end code
   const matches = [
     {
+      // name of the match individual
       name: "Name of Person",
       lastMessagePrev: "It's good to meet you",
+      // profile picture of the match individual
       profilePicture:`${process.env.PUBLIC_URL}/logo192.png`,
+      // unique ID of the match individual
+      id:1,
     },
     {
       name: "Name2",
       lastMessagePrev: "It's good to meet you",
       profilePicture:`${process.env.PUBLIC_URL}/logo192.png`,
-    },
-    {
-      name: "Name2",
-      lastMessagePrev: "quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea",
-      profilePicture:`${process.env.PUBLIC_URL}/logo192.png`,
+      id:2,
     },
     {
       name: "Name3",
+      lastMessagePrev: "quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea",
+      profilePicture:`${process.env.PUBLIC_URL}/logo192.png`,
+      id:3,
+    },
+    {
+      name: "Name4",
       lastMessagePrev: "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
       profilePicture:`${process.env.PUBLIC_URL}/logo192.png`,
+      id:4,
     },
   ]
 
     return (
-      <main>
+      <main className="Matches">
 
-        <article className="matches">
+      <SearchBar /> {/* show the searchbar*/}
+      {feedback && (
+        <div>
+          <p class="Home-feedback">{feedback}</p>
+        </div>
+      )}
+
+
+        <article className="listMatches">
         {/*
           * loop through the array of chat list data, and return a component for each object therein
           * note how we pass arguments to the Puppy component, including a function definition.

@@ -1,7 +1,12 @@
-const GeneralSettings = props => {
-    return (
-      <div>
-        <h1>
+import React, { useState } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Footer from "./components/Footer";
+
+// set up routes so different URL routes load up different main components
+const GeneralSettings = (props) => {
+  return (
+    <div className="container">
+      <h1>
         General Settings Page
       </h1>
       <p>Change your Password - linked page
@@ -10,9 +15,22 @@ const GeneralSettings = props => {
       Account Info - linked
       Log Out - button
       </p>
-      </div>
-      
-    )
-  }
-  
-  export default GeneralSettings
+      <Router>
+        {/* pass the setter function that can be called if the user successfully logs in from the login screen */}
+
+        <Routes>
+          {/* a route to the home screen */}
+          <Route path="/" element={<Home />} />
+
+          <Route path="/BrightnessSettings" element={<BrightnessSettings />} />
+          <Route path="/SizeSettings" element={<SizeSettings />} />
+          <Route path="/AccountInfo" element={<AccountInfo />} />
+        </Routes>
+        <Footer />
+      </Router>
+    </div>
+  );
+};
+
+// make this available to other modules as an import
+export default GeneralSettings;

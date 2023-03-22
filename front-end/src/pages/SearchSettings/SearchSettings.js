@@ -37,11 +37,12 @@ const GridOption = ({name="Option", options}) => {  //options is an array of str
   );
 }
 
-const Option = ({name="Option", type="text"}) => {
+const Option = ({name="Option", type="text", unit=""}) => {
   return(
     <div className="Option">
       <p className="Option-name">{name}</p>
-      <input type={type} id={name.replace(/\s/g, '')}></input>
+      <input type={type} id={name.replace(/\s/g, '')} unit={unit}></input>
+      <span>{unit}</span>
     </div>
   );
 }
@@ -59,7 +60,7 @@ function SearchSettings() {
         <GridOption name="Types of Home" options={["Bungalow", "House", "Shack", "Apartment", "Mansion", "Cabin"]}/>
         <GridOption name="Accommodations" options={["Kitchen", "Yard", "Laundry", "Balcony"]}/>
         <Option name="Search Location"/>
-        <Option name="Distance from Location" type="number"/>
+        <Option name="Distance from Location" type="number" unit="miles"/>
         <SliderOption name="Number of Beds"/>
         <SliderOption name="Number of Bathrooms"/>
         <br/><br/>

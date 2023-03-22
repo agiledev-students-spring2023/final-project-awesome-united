@@ -35,3 +35,7 @@ See [CONTRIBUTING.md](./CONTRIBUTING.md) for how to contribute.
 
 ## Building and Testing
 
+1. Download this repository to your local machine
+2. Navigate to the ```front-end``` directory
+3. Run ```npm install```, followed by ```npm start```
+

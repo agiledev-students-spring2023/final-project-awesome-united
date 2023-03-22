@@ -26,7 +26,7 @@ const GeneralSettings = (props) => {
           <Route path="/SizeSettings" element={<SizeSettings />} />
           <Route path="/AccountInfo" element={<AccountInfo />} />
         </Routes>
-        <Footer />
+        
       </Router>
     </div>
   );

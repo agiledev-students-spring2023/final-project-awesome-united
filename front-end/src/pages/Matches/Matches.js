@@ -48,9 +48,9 @@ const Matches = props => {
   ]
 
     return (
-      <main className="matches">
+      <main>
 
-        <article className="Home-puppies">
+        <article className="matches">
         {/*
           * loop through the array of chat list data, and return a component for each object therein
           * note how we pass arguments to the Puppy component, including a function definition.

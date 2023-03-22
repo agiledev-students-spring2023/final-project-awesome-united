@@ -1,4 +1,4 @@
-import ScreenBrightness from 'react-native-screen-brightness';
+//import ScreenBrightness from 'react-native-screen-brightness';
 import Slider, { createSliderWithTooltip } from 'rc-slider';
 import 'rc-slider/assets/index.css';
 //https://barakplasma.github.io/slider/examples/slider.html
@@ -9,7 +9,7 @@ const BrightnessSettings = props => {
             <h1>
         Brightness Settings Page
             </h1>
-            <Slider onChange={ScreenBrightness.setBrightness({log})} />
+            
         </div>
       
     )

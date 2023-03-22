@@ -1,3 +1,6 @@
 .swipe {
   position: absolute;
 }
+:root {
+  overflow: hidden;
+}

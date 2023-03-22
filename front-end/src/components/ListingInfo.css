@@ -1,9 +1,10 @@
 .listingInfo {
   width: 319px;
   height: 67px;
-  background-color: gray;
+  background-color: darkgray;
   margin-bottom: 10px;
   box-sizing: border-box;
+  border: 1px black solid;
   padding: 10px;
 }
 .listingInfoCategoryText {

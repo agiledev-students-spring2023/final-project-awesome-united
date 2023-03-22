@@ -48,7 +48,7 @@ const Matches = props => {
   ]
 
     return (
-      <main className:"Matches">
+      <main className="matches">
 
         <article className="Home-puppies">
         {/*

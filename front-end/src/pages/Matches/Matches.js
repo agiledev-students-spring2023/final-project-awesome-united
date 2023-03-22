@@ -1,5 +1,6 @@
 import "./Matches.css"
 import Match from "./Match"
+import { useState, useEffect } from "react"
 import SearchBar from "./SearchBar"
 import { useNavigate } from "react-router-dom";
 
@@ -9,6 +10,10 @@ import { useNavigate } from "react-router-dom";
 const Matches = props => {
 
   const navigate = useNavigate();
+
+  const [feedback, setFeedback] = useState("")
+
+
 
   //for spring01 set to take user to static page
   //take user to chat session with match
@@ -70,8 +75,7 @@ const Matches = props => {
 
         <article className="listMatches">
         {/*
-          * loop through the array of chat list data, and return a component for each object therein
-          * note how we pass arguments to the Puppy component, including a function definition.
+          * loop through the array of match/chat list data, and return a component for each object therein
           */}
         {matches.map((match, i, matchesArray) => (
           <Match

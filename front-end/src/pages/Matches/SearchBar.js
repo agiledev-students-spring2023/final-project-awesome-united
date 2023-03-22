@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react"
 import axios from "axios"
-import "./PuppyForm.css"
+import "./SearchBar.css"
 
-const PuppyForm = props => {
+const SearchBar = props => {
   // create state variables and their setters so everytime thier value changes, the component updates them in the browser
   const [name, setName] = useState("")
   const [breed, setBreed] = useState("")
@@ -43,59 +43,27 @@ const PuppyForm = props => {
     <>
       <form onSubmit={handleSubmit}>
         {/* conditional logic within JSX, using type coercion */}
-        {breed && name && (
-          <p>
-            {/* if both breed and name have values */}
-            You are creating a <strong>{breed}</strong> with the name{" "}
-            <strong>{name}</strong>.
-          </p>
-        )}
-        {breed && !name && (
-          <p>
-            {/* if only breed has a value */}
-            You are creating a <strong>{breed}</strong>
-          </p>
-        )}
-        {!breed && name && (
-          <p>
-            {/* if only name has a value */}
-            You are naming a dog <strong>{name}</strong>.
-          </p>
-        )}
-
         <div class="formField">
-          <label htmlFor="name_field">Name of the puppy:</label>
           <br /> {/* a line break to separate the label from the input */}
           <input
             id="name_field"
             type="text"
-            placeholder="Puppy name"
+            placeholder="search"
             value={name}
             onChange={e => setName(e.target.value)}
           />
         </div>
-        <div class="formField">
-          <label htmlFor="breed_field">Breed of the puppy:</label>
-          <br /> {/* a line break to separate the label from the input */}
-          <input
-            id="breed_field"
-            type="text"
-            placeholder="Puppy breed"
-            value={breed}
-            onChange={e => setBreed(e.target.value)}
-          />
-        </div>
         {error && (
           <div>
-            <p className="PuppyForm-feedback">{error}</p>
+            <p className="SearchBar-feedback">{error}</p>
           </div>
         )}
         <div>
-          <input type="submit" value="Save puppy!" />
+          <input type="submit" value="Save!" />
         </div>
       </form>
     </>
   )
 }
 
-export default PuppyForm
+export default SearchBar

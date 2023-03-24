@@ -4,27 +4,21 @@ import "./SearchBar.css"
 
 const SearchBar = props => {
   // create state variables and their setters so everytime thier value changes, the component updates them in the browser
-  const [name, setName] = useState("")
-  const [breed, setBreed] = useState("")
+  const [query, setQuery] = useState("")
   const [error, setError] = useState("")
-
-  useEffect(() => {
-    // this function runs once when the component first loads and again whenever the value of the breed variable changes
-    // check your browser's Developer Tools -> Javascript Console to see this printed when the component first loads and anytime the breed value changes
-    console.log("hello world from within PuppyForm.js!")
-  }, [breed]) // the variable name in the array here is what causes this function to re-run any time the value of breed changes
 
   // a function that will be run whenever the user submits the form
   const handleSubmit = e => {
     e.preventDefault() // prevent the default browser form submission stuff
 
-    // send the data of the new puppy to a server
-    // this server doesn't exist, so we will see an error in the console
+    // send the data of the query to backend/server
+    // note the user can query for the profile name OR the content in a chat. so send a generic query
+    // and let the backend determine if its name query or chat-content query or both
+    // this backend/server doesn't exist, so we will see an error in the console
     // axios' get() and post() methods return a promise, so we can use our javascript Promise or async/await expertise here to deal with the resolution or rejection of the request
     axios
       .post("https://someserversomehwere.com/puppy/save", {
-        name: name,
-        breed: breed,
+        query: query,
       })
       .then(response => {
         // success
@@ -49,8 +43,8 @@ const SearchBar = props => {
             id="name_field"
             type="text"
             placeholder="search"
-            value={name}
-            onChange={e => setName(e.target.value)}
+            value={query}
+            onChange={e => setQuery(e.target.value)}
           />
         </div>
         {error && (
@@ -59,7 +53,7 @@ const SearchBar = props => {
           </div>
         )}
         <div>
-          <input type="submit" value="Save!" />
+          <input type="submit" value="Search!" />
         </div>
       </form>
     </>

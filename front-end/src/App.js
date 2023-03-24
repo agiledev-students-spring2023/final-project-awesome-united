@@ -1,6 +1,8 @@
 import React, { useState } from "react"
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
  
+import Footer from "./components/Footer"
+
 import Home from "./Home"
 import CreateAccount from "./pages/CreateAccount/CreateAccount"
 import Discover from "./pages/Discover/Discover"
@@ -35,6 +37,7 @@ const App = props => {
         </div>
         <Footer />
       </Router>
+      <Footer />
     </div>
   )
 }

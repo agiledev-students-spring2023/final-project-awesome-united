@@ -32,7 +32,7 @@ const GridOption = ({name="Option", options}) => {  //options is an array of str
   return (
     <div className="Option">
       <p className="Option-name">{name}</p>
-      <form>{optionComponents}</form>
+      <form className="Grid-form">{optionComponents}</form>
     </div>
   );
 }

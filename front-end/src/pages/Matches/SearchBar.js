@@ -41,7 +41,7 @@ const SearchBar = props => {
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
+      <form className="Search-bar" onSubmit={handleSubmit}>
         {/* conditional logic within JSX, using type coercion */}
         <div class="formField">
           <br /> {/* a line break to separate the label from the input */}

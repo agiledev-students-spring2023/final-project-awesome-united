@@ -1,8 +1,13 @@
+/* .SearchSettings{
+    all: initial !important;
+} */
+
 *{
     box-sizing: border-box;
 }
 html, body{
     margin: 0;
+    overflow-y: scroll;
 }
 
 h1{
@@ -25,7 +30,7 @@ img{
     text-align: center;
 }
 
-form{
+.Grid-form{
     width: 100%;
     margin: auto;
 }

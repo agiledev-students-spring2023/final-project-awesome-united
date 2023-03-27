@@ -3,20 +3,17 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
  
 import Home from "./Home"
 import CreateAccount from "./pages/CreateAccount/CreateAccount"
-import SearchSettings from "./pages/SearchSettings/SearchSettings"
-import GeneralSettings from "./pages/GeneralSettings/GeneralSettings"
 import Discover from "./pages/Discover/Discover"
 import Matches from "./pages/Matches/Matches"
 import CreateListing from "./pages/CreateListing/CreateListing"
 import Login from "./pages/Login/Login"
 import Logout from "./pages/Logout/Logout"
+import SearchSettings from "./pages/SearchSettings/SearchSettings"
  
 import "./App.css"
 
 // set up routes so different URL routes load up different main components
 const App = props => {
- 
-
   return (
     <div className="container">
       <Router>
@@ -30,7 +27,6 @@ const App = props => {
           <Route path="/searchSettings" element={<SearchSettings />} />
           <Route path="/discover" element={<Discover />} />
           <Route path="/matches" element={<Matches />} />
-          <Route path="/generalSettings" element={<GeneralSettings />} />
           <Route path="/createListing" element={<CreateListing />} />
           <Route path="/login" element={<Login />} />
           <Route path="/logout" element={<Logout />} />

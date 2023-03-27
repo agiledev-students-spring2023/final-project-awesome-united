@@ -16,8 +16,10 @@
   "devDependencies": {
     "chai": "^4.3.7",
     "eslint": "^8.36.0",
+    "faker": "^6.6.6",
     "istanbul": "^0.4.5",
     "mocha": "^10.2.0",
-    "nodemon": "^2.0.21"
+    "nodemon": "^2.0.21",
+    "sinon": "^15.0.3"
   }
 }

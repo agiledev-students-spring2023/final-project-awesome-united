@@ -1,4 +1,4 @@
-import './SearchSettings.css';
+import './SearchSettings.module.css';
 
 const SliderOption = ({name="Option", min=0, max=10, step=1}) => {
   return (

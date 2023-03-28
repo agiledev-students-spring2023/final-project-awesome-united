@@ -1,4 +1,4 @@
-import './CreateAccount.css';
+import './CreateAccount.module.css';
 
 function CreateAccount(){
   return (

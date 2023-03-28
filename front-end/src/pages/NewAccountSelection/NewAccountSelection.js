@@ -1,4 +1,4 @@
-import './NewAccountSelection.css';
+import './NewAccountSelection.module.css';
 import { Link, useLocation } from "react-router-dom";
 
 function NewAccountSelection() {

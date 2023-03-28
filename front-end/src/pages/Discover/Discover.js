@@ -3,7 +3,7 @@ import DiscoverListing from "../../components/DiscoverListing";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import TinderCard from "react-tinder-card";
-import "./Discover.css";
+import "./Discover.module.css";
 import DiscoverButtonTray from "../../components/DiscoverButtonTray";
 import React from "react";
 import { useRef, useMemo } from "react";

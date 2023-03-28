@@ -1,4 +1,4 @@
-import "./Match.css"
+import "./Match.module.css"
 
 const Match = props => {
   // this component expects to receive 'name', 'chatPreview', and 'handleClick' values passed as arguments to it

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react"
 import axios from "axios"
-import "./SearchBar.css"
+import "./SearchBar.module.css"
 
 const SearchBar = props => {
   // create state variables and their setters so everytime thier value changes, the component updates them in the browser

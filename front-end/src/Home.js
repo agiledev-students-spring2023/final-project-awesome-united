@@ -6,7 +6,7 @@ import SearchSettings from "./pages/SearchSettings/SearchSettings";
 // import "./Home.css";
 
 const Home = (props) => {
-  return(<SearchSettings/>)
+  return(<NewAccountSelection/>)
   // return (
   //   <div>
   //     <ul>

@@ -1,4 +1,4 @@
-import "./Matches.module.css"
+import "./Matches.Modules.css"
 import Match from "./Match"
 import { useState, useEffect } from "react"
 import SearchBar from "./SearchBar"

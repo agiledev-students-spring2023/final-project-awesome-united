@@ -4,9 +4,9 @@ const SliderOption = ({name="Option", min=0, max=10, step=1}) => {
   return (
     <div className="Option">
       <p className="Option-name">{name}</p>
-      <input type="number" className="Range Min" min={min} max={max} step={step}></input>
+      <input type="number" className="Input Range Min" min={min} max={max} step={step}></input>
       <span className="Range-dash">-</span>
-      <input type="number" className="Range Max" min={min} max={max} step={step}></input>
+      <input type="number" className="Input Range Max" min={min} max={max} step={step}></input>
     </div>
   );
 }
@@ -16,7 +16,7 @@ const GridOption = ({name="Option", options}) => {  //options is an array of str
   options.forEach(option => {
     optionComponents.push(
       <div className="Grid-option">
-        <input type="checkbox"
+        <input type="checkbox" className="Input"
           id={(str => {       //convert name to camelcase
             return str.toString().replace(/(?:^\w|[A-Z]|\b\w)/g, (letter, index) => {
               return index == 0 ? letter.toLowerCase() : letter.toUpperCase();
@@ -32,7 +32,7 @@ const GridOption = ({name="Option", options}) => {  //options is an array of str
   return (
     <div className="Option">
       <p className="Option-name">{name}</p>
-      <form>{optionComponents}</form>
+      <form className="Grid-form">{optionComponents}</form>
     </div>
   );
 }
@@ -41,7 +41,7 @@ const Option = ({name="Option", type="text", unit=""}) => {
   return(
     <div className="Option">
       <p className="Option-name">{name}</p>
-      <input type={type} id={name.replace(/\s/g, '')} unit={unit}></input>
+      <input className="Input" type={type} id={name.replace(/\s/g, '')} unit={unit}></input>
       <span>{unit}</span>
     </div>
   );
@@ -64,7 +64,7 @@ function SearchSettings() {
         <SliderOption name="Number of Beds"/>
         <SliderOption name="Number of Bathrooms"/>
         <br/><br/>
-        <input type="submit" value="Save"></input>
+        <input className="Input" type="submit" value="Save"></input>
       </div>
     </div>
   );

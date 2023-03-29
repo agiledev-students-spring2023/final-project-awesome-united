@@ -144,7 +144,7 @@ const Discover = (props) => {
   }, []);
 
   return (
-    <div>
+    <div className="Discover">
       <DiscoverHeader />
       <div className="discoverTinderCard">
         {loaded ? (

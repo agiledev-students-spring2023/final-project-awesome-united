@@ -22,13 +22,13 @@ header {
   justify-content: center;
 }
 
-a{
+.NewAccountSelectionLink{
   width: 90%;
   padding: 20vh;
   margin: 10px;
   background-color: lightgray;
 }
 
-a:hover{
+.NewAccountSelectionLink:hover{
   background-color: grey;
 }

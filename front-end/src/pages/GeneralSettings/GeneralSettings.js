@@ -3,6 +3,8 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 //import SizeSettings from "../../components/SizeSettings";
 //import BrightnessSettings from "../../components/BrightnessSettings";
 import AccountInfo from "../../components/AccountInfo";
+import ChangePassword from "../../components/ChangePassword";
+import LogOut from "../../components/LogOut";
 
 // set up routes so different URL routes load up different main components
 const GeneralSettings = (props) => {
@@ -12,10 +14,8 @@ const GeneralSettings = (props) => {
         General Settings Page
       </h1>
       <AccountInfo />
-      <p>Change your Password - linked page
-      Account Info - linked
-      Log Out - button
-      </p>
+      <ChangePassword />
+      <LogOut />
     </div>
   );
 };

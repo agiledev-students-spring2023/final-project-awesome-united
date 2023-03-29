@@ -1,11 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import NewAccountSelection from "./pages/NewAccountSelection/NewAccountSelection";
+import CreateAccount from "./pages/CreateAccount/CreateAccount";
 // import logo from './logo.svg';
 // import "./Home.css";
 
 const Home = (props) => {
-  return(<NewAccountSelection/>)
+  return(<CreateAccount/>)
   // return (
   //   <div>
   //     <ul>

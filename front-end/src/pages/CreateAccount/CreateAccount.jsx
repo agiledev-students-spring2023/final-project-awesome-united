@@ -8,6 +8,17 @@ function CreateAccount(){
           Create Account
         </h1>
       </header>
+      <div className='AccountType'>
+        &nbsp;
+        Account Type:
+        &nbsp;
+        <label class="InlineRadio">
+          <input type="radio" name="accountType"/>Seller
+        </label>
+        <label class="InlineRadio">
+          <input type="radio" name="accountType"/>Buyer
+        </label>
+      </div>
       <div className='FullName'>
         Full Name: 
         &nbsp;

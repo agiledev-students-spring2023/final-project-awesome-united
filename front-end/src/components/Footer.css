@@ -1,3 +1,8 @@
+.container-body{
+  height: calc(100vh - 60px - 2rem); /*60 px is coming from .footer height, 2rem is coming from margin and padding*/
+  overflow-y: scroll;
+}
+
 .footer {
   margin-top: 1rem;
   padding: 1rem;

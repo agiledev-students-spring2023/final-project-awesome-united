@@ -18,14 +18,18 @@
     position: relative;
     display: inline-block;
     margin: 2px;
+    overflow: hidden;
 }
 
 .Grid-option label{
     position: absolute;
     text-align: center;
-    top: 50%;
+    bottom: 0%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    width: 100%;
+    background-color: aliceblue;
+    border-radius: 0 0 5px 5px;
+    transform: translate(-50%, 0%);
     vertical-align: middle;
     text-align: center;
     font-size: 10px;
@@ -36,36 +40,29 @@
     margin: 10px;
 }
 
-input{
-    border: 2px solid black;
+.Grid-option .Input{
+    border-radius: 5px;
+    background-image: url("http://placekitten.com/100/100");
+    background-size: cover;
 }
 
-input[type="checkbox"] {
+.Input[type="checkbox"] {
     appearance: none;
     background-color: #fff;
     margin: 0;
-    width: fit-content;
-    height: fit-content;
-    border: 0.15em solid black;
+    width: 20vw;
+    height: 20vw;
     display: grid;
 }
 
-input[type="checkbox"]::before {
-    content: "";
-    width: 20vw;
-    height: 20vw;
-    transform: scale(0);
-    background-color: black;
+.Input[type="checkbox"] {
+    filter: grayscale(100%) blur(1px);
 }
 
-input[type="checkbox"]:checked + label{
-    color: white;
+.Input[type="checkbox"][value="true"] {
+    filter: grayscale(0%) blur(0px);
 }
 
-input[type="checkbox"]:checked::before {
-    transform: scale(1);
-}
-
-input[unit="miles"]{
+.Input[unit="miles"]{
     width: 50%;
 }

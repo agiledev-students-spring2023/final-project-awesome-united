@@ -1,19 +1,40 @@
 import { useScrollTrigger } from '@mui/material';
 import { useState, useEffect } from "react"
+import { Helmet } from "react-helmet"
+import MAPS_API_KEY from "../../config.js"
 import './SearchSettings.css';
 
 const SliderOption = ({name="Option", min=0, max=10, step=1}) => {
   const [minimum, setMinimum] = useState(min);
   const [maximum, setMaximum] = useState(max);
 
+  const handleChange = (setter, val) => {
+    if(val == "")
+      val = 0;
+    else if(val > max)
+      val = max;
+    else if(val < min)
+      val = min;
+
+    if (setter == setMinimum){
+      if(val > maximum)
+        setMaximum(val);
+    }
+    else{
+      if(val < minimum)
+        setMinimum(val);
+    }
+    setter(val);
+  }
+
   return (
     <div className="Option">
       <p className="Option-name">{name}</p>
       <input type="number" className="Input Range Min" min={min} max={max} step={step} 
-      value={minimum} onChange={e => setMinimum(e.target.value)}></input>
+      value={minimum} onChange={e => handleChange(setMinimum, e.target.value)}></input>
       <span className="Range-dash">-</span>
       <input type="number" className="Input Range Max" min={min} max={max} step={step}
-      value={maximum} onChange={e => setMaximum(e.target.value)}></input>
+      value={maximum} onChange={e => handleChange(setMaximum, e.target.value)}></input>
     </div>
   );
 }
@@ -31,7 +52,7 @@ const GridOption = ({name="Option", options}) => {  //options is an array of str
 }
 
 const Checkbox = ({option}) => {
-  const [checked, setChecked] = useState(false);
+  const [checked, setChecked] = useState(true);
 
   const handleChange = () => {
     console.log(option + " is " + !checked);
@@ -66,6 +87,16 @@ const Option = ({name="Option", type="text", unit="", def}) => {
       <span> {unit}</span>
     </div>
   );
+}
+
+const PlacesApiOption = () => {
+  return(
+    <Helmet>
+      <script src={"https://maps.googleapis.com/maps/api/js?key="+MAPS_API_KEY+"&libraries=places"}
+      crossOrigin="anonymous"
+      async></script>
+    </Helmet>
+  )
 }
 
 function SearchSettings() {

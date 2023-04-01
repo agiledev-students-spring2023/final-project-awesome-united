@@ -19,16 +19,17 @@
     display: inline-block;
     margin: 2px;
     overflow: hidden;
+    border-radius: 10px;
 }
 
 .Grid-option label{
     position: absolute;
     text-align: center;
-    bottom: 0%;
+    padding-bottom: 3px;
+    bottom: -1px;
     left: 50%;
-    width: 100%;
+    width: 101%;
     background-color: aliceblue;
-    border-radius: 0 0 5px 5px;
     transform: translate(-50%, 0%);
     vertical-align: middle;
     text-align: center;
@@ -41,7 +42,6 @@
 }
 
 .Grid-option .Input{
-    border-radius: 5px;
     background-image: url("http://placekitten.com/100/100");
     background-size: cover;
 }
@@ -61,6 +61,11 @@
 
 .Input[type="checkbox"][value="true"] {
     filter: grayscale(0%) blur(0px);
+}
+
+.Input[type="checkbox"][value="true"] + label{
+    background-color: dodgerblue;
+    color: #fff;
 }
 
 .Input[unit="miles"]{

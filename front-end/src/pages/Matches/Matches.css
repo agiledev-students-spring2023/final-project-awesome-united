@@ -1,0 +1,15 @@
+.Matches {
+
+  }
+
+.listMatches {
+    /* use flexbox to create a tiling area with a row of puppy articles inside */
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    gap:20px;
+
+    /* some spacing around the entire contents of the frame */
+    margin-left: 20%;
+    margin-right: 10%;
+  }

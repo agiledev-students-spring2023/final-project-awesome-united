@@ -1,0 +1,71 @@
+.Options{
+    width: 100vw;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.Option{
+    width: 100%;
+    text-align: center;
+}
+
+.Grid-form{
+    width: 100%;
+    margin: auto;
+}
+
+.Grid-option{
+    position: relative;
+    display: inline-block;
+    margin: 2px;
+}
+
+.Grid-option label{
+    position: absolute;
+    text-align: center;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    vertical-align: middle;
+    text-align: center;
+    font-size: 10px;
+    pointer-events: none;
+}
+
+.Range-dash{
+    margin: 10px;
+}
+
+input{
+    border: 2px solid black;
+}
+
+input[type="checkbox"] {
+    appearance: none;
+    background-color: #fff;
+    margin: 0;
+    width: fit-content;
+    height: fit-content;
+    border: 0.15em solid black;
+    display: grid;
+}
+
+input[type="checkbox"]::before {
+    content: "";
+    width: 20vw;
+    height: 20vw;
+    transform: scale(0);
+    background-color: black;
+}
+
+input[type="checkbox"]:checked + label{
+    color: white;
+}
+
+input[type="checkbox"]:checked::before {
+    transform: scale(1);
+}
+
+input[unit="miles"]{
+    width: 50%;
+}

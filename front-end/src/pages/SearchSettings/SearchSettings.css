@@ -68,6 +68,14 @@
     color: #fff;
 }
 
+.Input[type="submit"]{
+    background-color: dodgerblue;
+    padding: 5px;
+    border-radius: 10px;
+    border: none;
+    color: #fff;
+}
+
 .Input[unit="miles"]{
     width: 50%;
 }

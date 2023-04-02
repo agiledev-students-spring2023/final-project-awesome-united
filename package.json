@@ -1,5 +1,8 @@
 {
   "dependencies": {
     "react-script-tag": "^1.1.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.22"
   }
 }

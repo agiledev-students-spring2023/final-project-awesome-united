@@ -9,6 +9,7 @@ import CreateListing from "./pages/CreateListing/CreateListing"
 import Login from "./pages/Login/Login"
 import Logout from "./pages/Logout/Logout"
 import SearchSettings from "./pages/SearchSettings/SearchSettings"
+import Footer from "./components/Footer"
 import "./App.css"
 
 // set up routes so different URL routes load up different main components

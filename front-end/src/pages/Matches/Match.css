@@ -3,12 +3,16 @@
 /*Useful: https://www.w3schools.com/cssref/pr_grid-row.php */
 /* useful https://webdesign.tutsplus.com/tutorials/how-to-implement-infinite-scrolling-with-javascript--cms-37055*/
 #myDIV {
+    flex:1;
+    cursor: pointer; /* change the cursor to make it look like a link */
+    text-align: center;
     height:75px;
     display: grid;
     grid-template-columns: 75px auto;
     gap: 8px;
     padding: 20px;
-  }
+}
+
 #myDIV div {
     background-color: rgba(255, 255, 255, 0.8);
     text-align: left;
@@ -23,11 +27,17 @@
     border: 1px solid black;
     padding: 10px; /* padding between image itself and the circle */
 }
+.profileImage:hover{
+        /* change the background color when a user hovers */
+        color: rgb(40, 39, 39);
+        background-color: rgb(179, 178, 178)!important;
+}
 
 .chatPrev {
     grid-row: 2;
     padding: 18px;
     border: 1px solid black;
+    border-radius: 30px;
     width: 75%;
 
     /* following is to handle text overflow: */
@@ -35,13 +45,21 @@
     white-space: nowrap;
     overflow: hidden;
 }
+
 .matchName {
     grid-row: 1;
     padding: 4px;
     border: 1px solid black;
+    border-radius: 30px;
     width: 300px;
     /* following is to handle text overflow: */
     /* see: https://css-tricks.com/almanac/properties/t/text-overflow/ */
     white-space: nowrap;
     overflow: hidden;
+}
+
+.chat:hover{
+    color: rgb(40, 39, 39);
+    background-color: rgb(179, 178, 178)!important;
+    width: 75%;
 }

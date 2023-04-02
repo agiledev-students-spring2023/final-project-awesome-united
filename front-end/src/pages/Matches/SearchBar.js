@@ -7,8 +7,20 @@ const SearchBar = props => {
   const [query, setQuery] = useState("")
   const [error, setError] = useState("")
 
+  
+  /* //IF want to perform queries as user is typing:
+  useEffect(() => {
+    console.log(query)
+    //handleSubmit() // comment out if you want it to perform query as user is typing
+  }
+  ,[query])
+  */
+
+
   // a function that will be run whenever the user submits the form
   const handleSubmit = e => {
+
+    // e?.preventDefault  //comment out if you want it to perform query as user is typing
     e.preventDefault() // prevent the default browser form submission stuff
 
     // send the data of the query to backend/server
@@ -34,7 +46,7 @@ const SearchBar = props => {
   }
 
   return (
-    <>
+      <>
       <form onSubmit={handleSubmit}>
         {/* conditional logic within JSX, using type coercion */}
         <div class="formField">

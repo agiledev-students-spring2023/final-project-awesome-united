@@ -3,6 +3,7 @@ import { useState, useEffect } from "react"
 import { Helmet } from "react-helmet"
 // import MAPS_API_KEY from "../../config.js"
 import './SearchSettings.css';
+import axios from "axios"
 
 const useStateVariables = {}
 

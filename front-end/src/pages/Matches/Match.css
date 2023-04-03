@@ -1,32 +1,26 @@
 #myDIV {
     flex:1;
     cursor: pointer; /* change the cursor to make it look like a link */
-    height:75px;
-    width: 10px;
+    height:50px;
     display: grid;
-    grid-template-columns: 75px auto;
+    grid-template-columns: 60px auto;
     gap: 8px;
-<<<<<<< HEAD
     padding: 5px;
+    border-bottom: 0.5px solid black;
 }
 
-=======
-    padding: 20px;
-}
->>>>>>> origin/master
 #myDIV div {
-    background-color: rgba(255, 255, 255, 0.8);
     text-align: left;
     font-size: 11px;
 }
 
 .profileImage {
     grid-row: 1 / span 2;
-    width: 75px;
-    height: 75px;
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
     border: 1px solid black;
-    padding: 10px; /* padding between image itself and the circle */
+    padding: 1px; /* padding between image itself and the circle */
 }
 .profileImage:hover{
         /* change the background color when a user hovers */
@@ -39,20 +33,21 @@
     /*
     padding is amount of space between text/content and border of element
     */
-    padding: 18px;
-    border: 1px solid black;
-    border-radius: 30px;
+    padding: 3px;
+    padding-left: 5px;
+    /*border: 1px solid black;*/
+    /*border-radius: 30px;*/
     width: 90%;
-
     overflow: hidden; 
+    padding-bottom: 11px; /*same px as font-size... makes sure no partially cut off text shows at bottom */
+    max-height: 30px;
 }
 
 .matchName {
     grid-row: 1;
-    padding: 8px;
-    border: 1px solid black;
-<<<<<<< HEAD
-    border-radius: 30px;
+    padding: 3px;
+    /*border: 1px solid black;*/
+    /*border-radius: 30px;*/
     width: 35%;
     /*font & text formating*/
     font-weight: bold;
@@ -60,10 +55,6 @@
     /* following is to handle text overflow: */
     /* see: https://css-tricks.com/almanac/properties/t/text-overflow/ */
     white-space: nowrap;
-=======
-    /* width: 300px; */
-    /* white-space: nowrap;  <-- Do not write this, it breaks the footer*/
->>>>>>> origin/master
     overflow: hidden;
 }
 

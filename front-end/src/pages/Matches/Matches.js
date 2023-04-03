@@ -74,7 +74,7 @@ const Matches = props => {
     },
     {
       name: "Name4",
-      lastMessagePrev: "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+      lastMessagePrev: "Excepteur sint occaecat cupidatat non proident, fdsjfnsdknfknfksdfndskjfnsfknjsdfnsdfdkjnfskjfnskfjnsjfkjnfskjfnkj sunt in culpa qui officia deserunt mollit anim id est laborum.",
       profilePicture:`${process.env.PUBLIC_URL}/logo192.png`,
       id:4,
     },

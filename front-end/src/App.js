@@ -1,3 +1,19 @@
+import React, { useState } from "react"
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
+ 
+import Footer from "./components/Footer"
+
+import Home from "./Home"
+import CreateAccount from "./pages/CreateAccount/CreateAccount"
+import Discover from "./pages/Discover/Discover"
+import Matches from "./pages/Matches/Matches"
+import CreateListing from "./pages/CreateListing/CreateListing"
+import Login from "./pages/Login/Login"
+import Logout from "./pages/Logout/Logout"
+import SearchSettings from "./pages/SearchSettings/SearchSettings"
+import Footer from "./components/Footer"
+import GeneralSettings from "./pages/GeneralSettings/GeneralSettings"
+import "./App.css"
 import React, { useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
@@ -19,22 +35,29 @@ const App = (props) => {
     <div className="container">
       <Router>
         {/* pass the setter function that can be called if the user successfully logs in from the login screen */}
+        <div className="container-body">
+          <Routes>
+            {/* a route to the home screen */}
+            <Route path="/" element={<Home />} />
 
         <Routes>
           {/* a route to the home screen */}
           <Route path="/" element={<Home />} />
 
-          <Route path="/createAccount" element={<CreateAccount />} />
-          <Route path="/searchSettings" element={<SearchSettings />} />
-          <Route path="/discover" element={<Discover />} />
-          <Route path="/matches" element={<Matches />} />
-          <Route path="/createListing" element={<CreateListing />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/logout" element={<Logout />} />
-          <Route path="/listing/:listingId" element={<SingleListing />} />
-        </Routes>
+            <Route path="/createAccount" element={<CreateAccount />} />
+            <Route path="/searchSettings" element={<SearchSettings />} />
+            <Route path="/discover" element={<Discover />} />
+            <Route path="/matches" element={<Matches />} />
+            <Route path="/generalSettings" element={<GeneralSettings />} />
+            <Route path="/createListing" element={<CreateListing />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/logout" element={<Logout />} />
+           <Route path="/listing/:listingId" element={<SingleListing />} />
+          </Routes>
+        </div>
         <Footer />
       </Router>
+      <Footer />
     </div>
   );
 };

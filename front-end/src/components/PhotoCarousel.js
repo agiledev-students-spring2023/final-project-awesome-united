@@ -5,14 +5,18 @@ function PhotoCarousel(props) {
   const images = props.images;
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
-  const handlePrevClick = () => {
-    const newIndex = currentImageIndex + 1;
-    setCurrentImageIndex(newIndex >= images.length ? 0 : newIndex);
-  };
-
-  const handleNextClick = () => {
+  const handlePrevClick = (event) => {
     const newIndex = currentImageIndex - 1;
     setCurrentImageIndex(newIndex < 0 ? images.length - 1 : newIndex);
+    console.log(currentImageIndex);
+    event.preventDefault();
+  };
+
+  const handleNextClick = (event) => {
+    const newIndex = currentImageIndex + 1;
+    setCurrentImageIndex(newIndex >= images.length ? 0 : newIndex);
+    console.log(currentImageIndex);
+    event.preventDefault();
   };
   if (props.mode === "full") {
     return (

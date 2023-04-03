@@ -182,6 +182,7 @@ const Discover = (props) => {
         swipeUp();
       }
     },
+    trackMouse: true,
   });
   const swipeRight = () => {
     childRefs[currentIndex].current.style.display = "none";

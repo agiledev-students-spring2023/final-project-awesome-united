@@ -6,16 +6,17 @@ import InfoIcon from "@mui/icons-material/Info";
 const PhotoCarousel = forwardRef(function PhotoCarousel(listing, ref) {
   let listing2 = listing.listing;
   const images = listing2.images;
+
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   const handlePrevClick = () => {
-    const newIndex = currentImageIndex - 1;
-    setCurrentImageIndex(newIndex < 0 ? images.length - 1 : newIndex);
+    const newIndex = currentImageIndex + 1;
+    setCurrentImageIndex(newIndex >= images.length ? 0 : newIndex);
   };
 
   const handleNextClick = () => {
-    const newIndex = currentImageIndex + 1;
-    setCurrentImageIndex(newIndex >= images.length ? 0 : newIndex);
+    const newIndex = currentImageIndex - 1;
+    setCurrentImageIndex(newIndex < 0 ? images.length - 1 : newIndex);
   };
 
   return (
@@ -91,7 +92,7 @@ const PhotoCarousel = forwardRef(function PhotoCarousel(listing, ref) {
       <div className="photoBackgroundTextGradiant">
         <div className="photoText1">{listing2.address}</div>
         <div className="photoText3">
-          {listing.propertyType} for {listing2.leaseType}
+          {listing2.propertyType} for {listing2.leaseType}
         </div>
         <div className="photoText2">${listing2.price}</div>
       </div>

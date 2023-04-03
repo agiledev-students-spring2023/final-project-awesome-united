@@ -9,6 +9,8 @@ const multer = require('multer') // extract files from requests
 
 const path = require('path')
 
+let filter_settings = {};
+
 // we will put some server logic here later...
 app.use(morgan("dev")) // dev style gives a concise color-coded style of log output
 app.use(express.json()) // decode JSON-formatted incoming POST data
@@ -40,11 +42,19 @@ app.get("/middleware-example", (req, res) => {
   })
 
 app.use(express.static(path.join(__dirname, '../front-end/build')))
+
+app.get("/get-search-settings", (req, res) => {
+  console.log(filter_settings);
+  res.json(filter_settings);
+})
+
 app.get('/*', (req, res) => {
   res.sendFile(path.join(__dirname, '../front-end/build/index.html'))
 })
 
 app.post("/post-search-settings", (req, res) => {
+  filter_settings = req.body;
+  console.log(req.body);
   res.send("saved user data");
 })
 

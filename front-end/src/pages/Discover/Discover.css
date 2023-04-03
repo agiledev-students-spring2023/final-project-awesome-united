@@ -1,15 +1,7 @@
-.swipe {
-  position: absolute;
-}
-.hidden {
-  display: none;
-  visibility: hidden;
-}
-
 .discover {
-  background-color: aqua;
   overflow: hidden;
   max-width: 100%;
+  background-color: whitesmoke;
 }
 .discoverTinderCard {
   overflow: hidden;

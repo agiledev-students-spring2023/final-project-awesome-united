@@ -1,14 +1,11 @@
 import DiscoverHeader from "../../components/DiscoverHeader";
-import DiscoverListing from "../../components/DiscoverListing";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import TinderCard from "react-tinder-card";
 import "./Discover.css";
 import DiscoverButtonTray from "../../components/DiscoverButtonTray";
 import React from "react";
 import { useRef, useMemo } from "react";
 import DiscoverPageCard from "../../components/DiscoverPageCard";
-import ReactDOM from "react-dom";
 
 import { useSwipeable } from "react-swipeable";
 const Discover = (props) => {

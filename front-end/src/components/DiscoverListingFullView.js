@@ -3,9 +3,8 @@ import PropTypes from "prop-types";
 import "./DiscoverListing.css";
 import Stories from "react-insta-stories";
 import ListingInfo from "./ListingInfo";
-import { Typography } from "@mui/material";
 
-const DiscoverListing = (props) => {
+const DiscoverListingFullView = (props) => {
   const stories = props.images;
 
   console.log(stories);
@@ -15,17 +14,20 @@ const DiscoverListing = (props) => {
         <Stories
           stories={stories}
           width={319}
-          height={600}
+          height={304}
           defaultInterval={32500}
           loop={true}
         />
       </div>
       <div className="discoverListingInfo">
-        <h1 className="discoverListingInfoText">{props.address}</h1>
-        <h1 className="discoverListingInfoText">{props.price}</h1>
+        <ListingInfo category="Price" data={props.price} />
+        <ListingInfo category="Address" data={props.address} />
+        <ListingInfo category="Rooms" data={props.rooms} />
+        <ListingInfo category="Description" data={props.desc} />
+        <ListingInfo category="Amenities" data={props.amenities} />
       </div>
     </div>
   );
 };
 
-export default DiscoverListing;
+export default DiscoverListingFullView;

@@ -74,23 +74,24 @@ const Matches = props => {
     return (
       <main>
         <header>
-            <h1>Michael Angelo</h1>
+            <h2>1653 E 8th St, Brooklyn, NY</h2>
+            <h3>Michael Angelo</h3>
         </header>
         <article className="chatlog">
         {/*
           * loop through the array of chatlog  data, and display its messages
           */}
         {chatlog.map((comp, i, matchesArray) => (
-          if {comp.id = 0}
           <div className="">
             {comp.message}
           </div>
         ))}
         </article>
-        <footer>
-
-        </footer>
-
+        <div class="center">
+        <form id="messageForm">
+        <input class="input center" type="text" id="messageInput" />
+        </form>
+        </div>
       </main>
     )
   }

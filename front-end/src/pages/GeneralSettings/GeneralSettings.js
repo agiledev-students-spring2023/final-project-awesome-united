@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 //import SizeSettings from "../../components/SizeSettings";
 //import BrightnessSettings from "../../components/BrightnessSettings";
 import AccountInfo from "../../components/AccountInfo";
@@ -13,6 +13,9 @@ const GeneralSettings = (props) => {
       <h1>
         General Settings Page
       </h1>
+      <Link className="filter-link" to="/searchSettings">
+          <div>Search Filter Settings</div>
+      </Link>
       <AccountInfo />
       <ChangePassword />
       <LogOut />

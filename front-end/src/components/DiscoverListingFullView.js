@@ -1,30 +1,21 @@
 import React from "react";
 import PropTypes from "prop-types";
-import "./DiscoverListing.css";
+import "./DiscoverListingFullView.css";
 import Stories from "react-insta-stories";
 import ListingInfo from "./ListingInfo";
 
-const DiscoverListingFullView = (props) => {
-  const stories = props.images;
+const DiscoverListingFullView = (listing) => {
+  listing = listing.listing;
 
-  console.log(stories);
   return (
     <div className="discoverListingFrame">
-      <div className="discoverImageCarousel">
-        <Stories
-          stories={stories}
-          width={319}
-          height={304}
-          defaultInterval={32500}
-          loop={true}
-        />
-      </div>
+      <div className="discoverImageCarousel"></div>
       <div className="discoverListingInfo">
-        <ListingInfo category="Price" data={props.price} />
-        <ListingInfo category="Address" data={props.address} />
-        <ListingInfo category="Rooms" data={props.rooms} />
-        <ListingInfo category="Description" data={props.desc} />
-        <ListingInfo category="Amenities" data={props.amenities} />
+        <ListingInfo category="Price" data={listing.price} />
+        <ListingInfo category="Address" data={listing.address} />
+        <ListingInfo category="Rooms" data={listing.rooms} />
+        <ListingInfo category="Description" data={listing.desc} />
+        <ListingInfo category="Amenities" data={listing.amenities} />
       </div>
     </div>
   );

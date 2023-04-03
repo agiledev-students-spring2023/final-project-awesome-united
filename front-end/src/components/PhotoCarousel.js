@@ -2,7 +2,7 @@ import { IconButton } from "@mui/material";
 import React, { useState, forwardRef } from "react";
 import "./PhotoCarousel.css";
 import InfoIcon from "@mui/icons-material/Info";
-
+import { Link } from "react-router-dom";
 const PhotoCarousel = forwardRef(function PhotoCarousel(listing, ref) {
   let listing2 = listing.listing;
   const images = listing2.images;
@@ -96,9 +96,11 @@ const PhotoCarousel = forwardRef(function PhotoCarousel(listing, ref) {
         </div>
         <div className="photoText2">${listing2.price}</div>
       </div>
-      <IconButton>
-        <InfoIcon className="photoCaraInfoButton" fontSize="80px"></InfoIcon>
-      </IconButton>
+      <Link to={"/listing/" + listing.id} state={listing2}>
+        <IconButton>
+          <InfoIcon className="photoCaraInfoButton" fontSize="80px"></InfoIcon>
+        </IconButton>
+      </Link>
     </div>
   );
 });

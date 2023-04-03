@@ -11,6 +11,7 @@ import Logout from "./pages/Logout/Logout";
 import SearchSettings from "./pages/SearchSettings/SearchSettings";
 import Footer from "./components/Footer";
 import "./App.css";
+import SingleListing from "./pages/SingleListing/SingleListing";
 
 // set up routes so different URL routes load up different main components
 const App = (props) => {

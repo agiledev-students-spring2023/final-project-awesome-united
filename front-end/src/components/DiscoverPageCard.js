@@ -19,6 +19,7 @@ const DiscoverPageCard = forwardRef(function DiscoverPageCard(listing, ref) {
       listing={listing2}
     >
       <PhotoCarousel images={listing2.images} />
+
       <div className="photoBackgroundTextGradiant">
         <div className="photoText1">{listing2.address}</div>
         <div className="photoText3">
@@ -28,7 +29,7 @@ const DiscoverPageCard = forwardRef(function DiscoverPageCard(listing, ref) {
       </div>
       <Link to={"/listing/" + listing.id} state={listing2}>
         <IconButton>
-          <InfoIcon className="photoCaraInfoButton" fontSize="80px"></InfoIcon>
+          <InfoIcon className="infoButton" fontSize="80px" />
         </IconButton>
       </Link>
     </div>

@@ -9,14 +9,12 @@ import React from "react";
 import { useRef, useMemo } from "react";
 import DiscoverPageCard from "../../components/DiscoverPageCard";
 import ReactDOM from "react-dom";
-import DiscoverCard from "../../components/DiscoverCard";
+
 import { useSwipeable } from "react-swipeable";
 const Discover = (props) => {
   const [listings, setListings] = useState([]);
   const [loaded, setLoaded] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(listings.length - 1);
-  const [lastDirection, setLastDirection] = useState();
-  const [isVisible, setIsVisible] = useState(Array(10).fill(true));
 
   // used for outOfFrame closure
   const currentIndexRef = useRef(currentIndex);
@@ -28,7 +26,6 @@ const Discover = (props) => {
         .map((i) => React.createRef()),
     [loaded]
   );
-  const updateChildRefs = () => {};
 
   const updateCurrentIndex = (val) => {
     setCurrentIndex(val);
@@ -38,54 +35,6 @@ const Discover = (props) => {
   const canGoBack = currentIndex < listings.length - 1;
 
   const canSwipe = currentIndex >= 0;
-
-  // set last direction and decrease current index
-  const swiped = (direction, nameToDelete, index) => {
-    setLastDirection(direction);
-    updateCurrentIndex(index - 1);
-  };
-
-  const outOfFrame = (name, idx, listing, id, obj) => {
-    console.log(`${name} (${idx}) left the screen!`, currentIndexRef.current);
-
-    // handle the case in which go back is pressed before card goes outOfFrame
-    currentIndexRef.current >= idx && childRefs[idx].current.restoreCard();
-
-    console.log(childRefs[idx].current);
-    console.log(obj);
-    console.log(isVisible[idx]);
-    let visibilityArray = [isVisible];
-    visibilityArray[0][idx] = false;
-
-    console.log(visibilityArray);
-    setIsVisible(visibilityArray);
-
-    // TODO: when quickly swipe and restore multiple times the same card,
-    // it happens multiple outOfFrame events are queued and the card disappear
-    // during latest swipes. Only the last outOfFrame event should be considered valid
-  };
-  const makeHidden = (listing) => {
-    console.log(listing);
-  };
-
-  const swipe = async (dir) => {
-    console.log(childRefs);
-    console.log(canSwipe);
-    console.log(listings.length);
-
-    if (canSwipe && currentIndex < listings.length) {
-      await childRefs[currentIndex].current.swipe(dir); // Swipe the card!
-      console.log(childRefs[currentIndex].current.name);
-    }
-  };
-
-  // increase current index and show card
-  const goBack = async () => {
-    if (!canGoBack) return;
-    const newIndex = currentIndex + 1;
-    updateCurrentIndex(newIndex);
-    await childRefs[newIndex].current.restoreCard();
-  };
 
   useEffect(() => {
     async function fetchData() {

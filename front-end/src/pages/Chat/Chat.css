@@ -56,7 +56,7 @@ header h3{
   }
   /* default message styling for server notifications */
   .message {
-    background-color: rgb(223, 174, 230);
+    background-color: rgb(255, 255, 255);
     color: #333;
     font-size: 1.2rem;
     text-align: center;
@@ -66,10 +66,10 @@ header h3{
   }
   /* change colors and alignment for self and others messages */
   .self-message {
-    background-color: #ccffcc;
+    background-color: #707070;
     text-align: right;
   }
   .others-message {
-    background-color: aqua;
+    background-color: #1982FC;
     text-align: left;
   }

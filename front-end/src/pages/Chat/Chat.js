@@ -65,7 +65,7 @@ const Matches = props => {
     },
     {
       name: "me",
-      message: "your post didnt say mention anything",
+      message: "your post didn't mention anything",
       date:"2012-04-23T18:27:15.511Z",
       id:0,
     },

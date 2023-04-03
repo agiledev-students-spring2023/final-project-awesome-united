@@ -4,33 +4,27 @@ import "./SearchBar.css"
 
 const SearchBar = props => {
   // create state variables and their setters so everytime thier value changes, the component updates them in the browser
-  const [query, setQuery] = useState("")
+  const [name, setName] = useState("")
+  const [breed, setBreed] = useState("")
   const [error, setError] = useState("")
 
-  
-  /* //IF want to perform queries as user is typing:
   useEffect(() => {
-    console.log(query)
-    //handleSubmit() // comment out if you want it to perform query as user is typing
-  }
-  ,[query])
-  */
-
+    // this function runs once when the component first loads and again whenever the value of the breed variable changes
+    // check your browser's Developer Tools -> Javascript Console to see this printed when the component first loads and anytime the breed value changes
+    console.log("hello world from within PuppyForm.js!")
+  }, [breed]) // the variable name in the array here is what causes this function to re-run any time the value of breed changes
 
   // a function that will be run whenever the user submits the form
   const handleSubmit = e => {
-
-    // e?.preventDefault  //comment out if you want it to perform query as user is typing
     e.preventDefault() // prevent the default browser form submission stuff
 
-    // send the data of the query to backend/server
-    // note the user can query for the profile name OR the content in a chat. so send a generic query
-    // and let the backend determine if its name query or chat-content query or both
-    // this backend/server doesn't exist, so we will see an error in the console
+    // send the data of the new puppy to a server
+    // this server doesn't exist, so we will see an error in the console
     // axios' get() and post() methods return a promise, so we can use our javascript Promise or async/await expertise here to deal with the resolution or rejection of the request
     axios
       .post("https://someserversomehwere.com/puppy/save", {
-        query: query,
+        name: name,
+        breed: breed,
       })
       .then(response => {
         // success
@@ -46,26 +40,27 @@ const SearchBar = props => {
   }
 
   return (
-      <>
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"></link>
-      <form onSubmit={handleSubmit}>
+    <>
+      <form className="Search-bar" onSubmit={handleSubmit}>
         {/* conditional logic within JSX, using type coercion */}
-        <div className="searchBar">
+        <div class="formField">
           <br /> {/* a line break to separate the label from the input */}
           <input
             id="name_field"
             type="text"
-            placeholder="Search.."
-            value={query}
-            onChange={e => setQuery(e.target.value)}
+            placeholder="search"
+            value={name}
+            onChange={e => setName(e.target.value)}
           />
-        {/*  <button type="submit"><i className="fa fa-search"></i></button> */}
         </div>
         {error && (
           <div>
             <p className="SearchBar-feedback">{error}</p>
           </div>
         )}
+        <div>
+          <input type="submit" value="Save!" />
+        </div>
       </form>
     </>
   )

@@ -9,7 +9,7 @@ import CreateListing from "./pages/CreateListing/CreateListing"
 import Login from "./pages/Login/Login"
 import Logout from "./pages/Logout/Logout"
 import SearchSettings from "./pages/SearchSettings/SearchSettings"
- 
+import Footer from "./components/Footer"
 import "./App.css"
 
 // set up routes so different URL routes load up different main components
@@ -18,20 +18,23 @@ const App = props => {
     <div className="container">
       <Router>
         {/* pass the setter function that can be called if the user successfully logs in from the login screen */}
- 
-        <Routes>
-          {/* a route to the home screen */}
-          <Route path="/" element={<Home />} />
+        <div className="container-body">
+          <Routes>
+            {/* a route to the home screen */}
+            <Route path="/" element={<Home />} />
 
-          <Route path="/createAccount" element={<CreateAccount />} />
-          <Route path="/searchSettings" element={<SearchSettings />} />
-          <Route path="/discover" element={<Discover />} />
-          <Route path="/matches" element={<Matches />} />
-          <Route path="/createListing" element={<CreateListing />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/logout" element={<Logout />} />
- 
-        </Routes>
+            <Route path="/createAccount" element={<CreateAccount />} />
+            <Route path="/searchSettings" element={<SearchSettings />} />
+            <Route path="/discover" element={<Discover />} />
+            <Route path="/matches" element={<Matches />} />
+            <Route path="/generalSettings" element={<GeneralSettings />} />
+            <Route path="/createListing" element={<CreateListing />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/logout" element={<Logout />} />
+  
+          </Routes>
+        </div>
+        <Footer />
       </Router>
     </div>
   )

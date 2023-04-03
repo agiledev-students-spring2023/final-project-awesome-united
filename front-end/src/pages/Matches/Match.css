@@ -1,14 +1,11 @@
-
-
-/*Useful: https://www.w3schools.com/cssref/pr_grid-row.php */
-/* useful https://webdesign.tutsplus.com/tutorials/how-to-implement-infinite-scrolling-with-javascript--cms-37055*/
 #myDIV {
     height:75px;
+    width: 10px;
     display: grid;
     grid-template-columns: 75px auto;
     gap: 8px;
     padding: 20px;
-  }
+}
 #myDIV div {
     background-color: rgba(255, 255, 255, 0.8);
     text-align: left;
@@ -30,18 +27,13 @@
     border: 1px solid black;
     width: 75%;
 
-    /* following is to handle text overflow: */
-    /* see: https://css-tricks.com/almanac/properties/t/text-overflow/ */
-    white-space: nowrap;
-    overflow: hidden;
+    overflow: hidden; 
 }
 .matchName {
     grid-row: 1;
     padding: 4px;
     border: 1px solid black;
-    width: 300px;
-    /* following is to handle text overflow: */
-    /* see: https://css-tricks.com/almanac/properties/t/text-overflow/ */
-    white-space: nowrap;
+    /* width: 300px; */
+    /* white-space: nowrap;  <-- Do not write this, it breaks the footer*/
     overflow: hidden;
 }

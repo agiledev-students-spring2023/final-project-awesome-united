@@ -8,7 +8,8 @@ To get the Node server running locally:
 
 - Clone this repo
 - `npm install` to install all required dependencies
-- `npm run` to start the local server
+- `npm run build` to build the front-end
+- `nodemon server.js` to run the express app
 
 # Code Overview
 

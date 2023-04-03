@@ -7,7 +7,7 @@ import "./Discover.css";
 import DiscoverButtonTray from "../../components/DiscoverButtonTray";
 import React from "react";
 import { useRef, useMemo } from "react";
-import PhotoCarousel from "../../components/PhotoCarousel";
+import DiscoverPageCard from "../../components/DiscoverPageCard";
 import ReactDOM from "react-dom";
 import DiscoverCard from "../../components/DiscoverCard";
 import { useSwipeable } from "react-swipeable";
@@ -208,7 +208,7 @@ const Discover = (props) => {
         {loaded ? (
           listings.map((listing, index) => {
             return (
-              <PhotoCarousel
+              <DiscoverPageCard
                 ref={childRefs[index]}
                 index={index}
                 key={listing.id}

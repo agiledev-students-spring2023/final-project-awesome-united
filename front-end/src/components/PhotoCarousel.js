@@ -1,12 +1,9 @@
-import { IconButton } from "@mui/material";
-import React, { useState, forwardRef } from "react";
+import React from "react";
+import PropTypes from "prop-types";
+import { useState } from "react";
 import "./PhotoCarousel.css";
-import InfoIcon from "@mui/icons-material/Info";
-import { Link } from "react-router-dom";
-const PhotoCarousel = forwardRef(function PhotoCarousel(listing, ref) {
-  let listing2 = listing.listing;
-  const images = listing2.images;
-
+function PhotoCarousel(props) {
+  const images = props.images;
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   const handlePrevClick = () => {
@@ -18,19 +15,10 @@ const PhotoCarousel = forwardRef(function PhotoCarousel(listing, ref) {
     const newIndex = currentImageIndex - 1;
     setCurrentImageIndex(newIndex < 0 ? images.length - 1 : newIndex);
   };
-
   return (
-    <div
-      className="carouselOuterFrame"
-      style={{
-        zIndex: listing.index,
-        position: "absolute",
-      }}
-      ref={ref}
-      listing={listing2}
-    >
+    <div>
       <img
-        src={listing2.images[currentImageIndex]}
+        src={images[currentImageIndex]}
         className="carouselImage"
         onClick={handleNextClick}
         onTouchEnd={handleNextClick}
@@ -88,21 +76,8 @@ const PhotoCarousel = forwardRef(function PhotoCarousel(listing, ref) {
         onClick={handleNextClick}
         onTouchEnd={handleNextClick}
       />
-
-      <div className="photoBackgroundTextGradiant">
-        <div className="photoText1">{listing2.address}</div>
-        <div className="photoText3">
-          {listing2.propertyType} for {listing2.leaseType}
-        </div>
-        <div className="photoText2">${listing2.price}</div>
-      </div>
-      <Link to={"/listing/" + listing.id} state={listing2}>
-        <IconButton>
-          <InfoIcon className="photoCaraInfoButton" fontSize="80px"></InfoIcon>
-        </IconButton>
-      </Link>
     </div>
   );
-});
+}
 
 export default PhotoCarousel;

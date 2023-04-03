@@ -38,8 +38,11 @@ app.get("/middleware-example", (req, res) => {
 
 app.get("/", (req, res) => {
     res.send("Hello!")
-  })
+})
 
+app.post("/post-search-settings", (req, res) => {
+  res.send("saved user data");
+})
 
 // export the express app we created to make it available to other modules
 module.exports = app

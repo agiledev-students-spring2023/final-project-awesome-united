@@ -139,6 +139,17 @@ function SearchSettings() {
     e.preventDefault()
 
     console.log(useStateVariables)
+
+    axios
+    .post("/post-search-settings", useStateVariables)
+    .then(response => {
+      // success
+      console.log(`Received server response: ${response.data}`)
+    })
+    .catch(err => {
+      // failure
+      console.log(`Received server error: ${err}`)
+    })
   }
 
   return (

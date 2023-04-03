@@ -5,12 +5,11 @@
 #myDIV {
     flex:1;
     cursor: pointer; /* change the cursor to make it look like a link */
-    text-align: center;
     height:75px;
     display: grid;
     grid-template-columns: 75px auto;
     gap: 8px;
-    padding: 20px;
+    padding: 5px;
 }
 
 #myDIV div {
@@ -35,10 +34,13 @@
 
 .chatPrev {
     grid-row: 2;
+    /*
+    padding is amount of space between text/content and border of element
+    */
     padding: 18px;
     border: 1px solid black;
     border-radius: 30px;
-    width: 75%;
+    width: 90%;
 
     /* following is to handle text overflow: */
     /* see: https://css-tricks.com/almanac/properties/t/text-overflow/ */
@@ -48,10 +50,13 @@
 
 .matchName {
     grid-row: 1;
-    padding: 4px;
+    padding: 8px;
     border: 1px solid black;
     border-radius: 30px;
     width: 300px;
+    /*font & text formating*/
+    font-weight: bold;
+    font-size: large;
     /* following is to handle text overflow: */
     /* see: https://css-tricks.com/almanac/properties/t/text-overflow/ */
     white-space: nowrap;
@@ -59,7 +64,9 @@
 }
 
 .chat:hover{
+    /*
     color: rgb(40, 39, 39);
     background-color: rgb(179, 178, 178)!important;
     width: 75%;
+    */
 }

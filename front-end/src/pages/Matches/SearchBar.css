@@ -1,20 +1,42 @@
 form {
-    padding: 20px;
-    margin-bottom: 20px;
-  }
+  flex:1;
+  display: flex;
+  padding: 5px;
+}
   
-  .formField {
-    margin-top: 10px;
+.searchBar {
+  flex:1;
+  display: flex;
+  gap: 8px;
+  padding: 5px;
+
+
+
+
+  /* use flexbox to create a tiling area with a row of match articles inside */
+  width: 90%;
+  margin-left: 3%;
+  padding-bottom: 15px;
+  /* some spacing around the entire contents of the frame */
+}
+.searchBar input{
+  width: 90%;
+  float: left;
+}
+.searchBar button{
+  float: left;
+  cursor: pointer;
+  color:black;
+}
+
+p.SearchBar-feedback {
+  color: red;
+  background-color: pink;
+  padding: 20px;
+}
+
+@media screen and (max-width: 300px) {
+  .searchBar{
+    float: none;
   }
-  
-  p.SearchBar-feedback {
-    color: red;
-    background-color: pink;
-    padding: 20px;
-  }
-  
-  .formField input {
-    width: 100%;
-    padding: 10px;
-    font-size: 1.2em;
-  }
+}

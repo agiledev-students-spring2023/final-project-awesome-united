@@ -47,26 +47,25 @@ const SearchBar = props => {
 
   return (
       <>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"></link>
       <form onSubmit={handleSubmit}>
         {/* conditional logic within JSX, using type coercion */}
-        <div class="formField">
+        <div className="searchBar">
           <br /> {/* a line break to separate the label from the input */}
           <input
             id="name_field"
             type="text"
-            placeholder="search"
+            placeholder="Search.."
             value={query}
             onChange={e => setQuery(e.target.value)}
           />
+        {/*  <button type="submit"><i className="fa fa-search"></i></button> */}
         </div>
         {error && (
           <div>
             <p className="SearchBar-feedback">{error}</p>
           </div>
         )}
-        <div>
-          <input type="submit" value="Search!" />
-        </div>
       </form>
     </>
   )

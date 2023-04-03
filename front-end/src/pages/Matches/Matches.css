@@ -7,10 +7,8 @@
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
-  gap:20px;
 
   /* some spacing around the entire contents of the frame */
-  margin-left: 20%;
-  margin-right: 10%;
-  display: inline-flex;
+  margin-left: 0%;
+  margin-right: 5%;
 }

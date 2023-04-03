@@ -10,6 +10,7 @@ import Login from "./pages/Login/Login"
 import Logout from "./pages/Logout/Logout"
 import SearchSettings from "./pages/SearchSettings/SearchSettings"
 import Footer from "./components/Footer"
+import Chat from "./pages/Chat/Chat"
 import GeneralSettings from "./pages/GeneralSettings/GeneralSettings"
 import "./App.css"
 
@@ -32,6 +33,7 @@ const App = props => {
             <Route path="/createListing" element={<CreateListing />} />
             <Route path="/login" element={<Login />} />
             <Route path="/logout" element={<Logout />} />
+            <Route path="/chat" element={<Chat />} />
   
           </Routes>
         </div>

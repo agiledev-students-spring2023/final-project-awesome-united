@@ -55,9 +55,9 @@
   margin-bottom: 3px;
 }
 .infoButton {
-  position: absolute;
+  position: relative;
   color: white;
-  right: -315px;
-  transform: translateY(-150%);
+  transform: translateY(-190%);
+
   font-size: 50px;
 }

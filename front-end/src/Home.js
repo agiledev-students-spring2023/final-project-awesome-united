@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import NewAccountSelection from "./pages/NewAccountSelection/NewAccountSelection";
+import SearchSettings from "./pages/SearchSettings/SearchSettings";
 // import logo from './logo.svg';
 // import "./Home.css";
 

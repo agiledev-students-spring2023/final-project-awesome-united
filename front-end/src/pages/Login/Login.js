@@ -1,7 +1,7 @@
 const Login = props => {
     return (
       <h1>
-        Login Page
+        Welcome to Homie
       </h1>
     )
   }

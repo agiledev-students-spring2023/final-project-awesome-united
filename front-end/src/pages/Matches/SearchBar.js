@@ -46,9 +46,14 @@ const SearchBar = props => {
   }
 
   return (
+<<<<<<< HEAD
       <>
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"></link>
       <form onSubmit={handleSubmit}>
+=======
+    <>
+      <form className="Search-bar" onSubmit={handleSubmit}>
+>>>>>>> origin/master
         {/* conditional logic within JSX, using type coercion */}
         <div className="searchBar">
           <br /> {/* a line break to separate the label from the input */}

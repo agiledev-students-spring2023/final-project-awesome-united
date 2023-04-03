@@ -1,6 +1,14 @@
+<<<<<<< HEAD
 form {
   display: flex;
 }
+=======
+.Search-bar {
+    border: 10px dotted pink;
+    padding: 20px;
+    margin-bottom: 20px;
+  }
+>>>>>>> origin/master
   
 .searchBar {
   /* use flexbox to create a tiling area with a row of match articles inside */

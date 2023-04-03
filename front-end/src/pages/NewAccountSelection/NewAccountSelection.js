@@ -1,5 +1,6 @@
 import './NewAccountSelection.css';
 import { Link, useLocation } from "react-router-dom";
+import axios from "axios"
 
 function NewAccountSelection() {
   return (
@@ -10,10 +11,10 @@ function NewAccountSelection() {
         </h1>
       </header>
       <div className="Options">
-        <Link to="/createAccount">
+        <Link className="NewAccountSelectionLink" to="/createAccount">
           <div>I'm Selling</div>
         </Link>
-        <Link to="/createAccount">
+        <Link className="NewAccountSelectionLink" to="/searchSettings">
           <div>I'm Buying</div>
         </Link>
       </div>

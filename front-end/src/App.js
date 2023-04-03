@@ -27,6 +27,7 @@ const App = props => {
             <Route path="/searchSettings" element={<SearchSettings />} />
             <Route path="/discover" element={<Discover />} />
             <Route path="/matches" element={<Matches />} />
+            <Route path="/generalSettings" element={<GeneralSettings />} />
             <Route path="/createListing" element={<CreateListing />} />
             <Route path="/login" element={<Login />} />
             <Route path="/logout" element={<Logout />} />

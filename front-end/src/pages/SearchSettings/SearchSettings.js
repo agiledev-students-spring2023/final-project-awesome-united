@@ -1,12 +1,16 @@
 import { useScrollTrigger } from '@mui/material';
 import { useState, useEffect } from "react"
 import { Helmet } from "react-helmet"
-import MAPS_API_KEY from "../../config.js"
+// import MAPS_API_KEY from "../../config.js"
 import './SearchSettings.css';
+
+const useStateVariables = {}
 
 const SliderOption = ({name="Option", min=0, max=10, step=1}) => {
   const [minimum, setMinimum] = useState(min);
   const [maximum, setMaximum] = useState(max);
+
+  useStateVariables[name.split(" ").join("")] = {name: name, value: {min:minimum, max:maximum}}
 
   const handleChange = (setter, val) => {
     if(val == "")
@@ -41,7 +45,16 @@ const SliderOption = ({name="Option", min=0, max=10, step=1}) => {
 
 const GridOption = ({name="Option", options}) => {  //options is an array of strings
   const optionComponents = [];
-  options.forEach(optionName => {optionComponents.push(<Checkbox option={optionName} key={optionName}/>);});
+  options.forEach(optionName => {optionComponents.push(<Checkbox option={optionName} key={optionName} parent={name}/>);});
+
+  // useStateVariables.push((() => {
+  //   const values = [];
+  //   optionComponents.forEach(
+  //     option => {
+  //       values.push(option.getUseState())
+  //     })
+  //   return values
+  // })())
 
   return (
     <div className="Option">
@@ -51,8 +64,10 @@ const GridOption = ({name="Option", options}) => {  //options is an array of str
   );
 }
 
-const Checkbox = ({option}) => {
+const Checkbox = ({option, key, parent}) => {
   const [checked, setChecked] = useState(true);
+
+  useStateVariables[option.split(" ").join("")] = {name:option, value:checked, parent:parent}
 
   const handleChange = () => {
     console.log(option + " is " + !checked);
@@ -79,6 +94,8 @@ const Checkbox = ({option}) => {
 const Option = ({name="Option", type="text", unit="", def}) => {
   const [option, changeOption] = useState(def);
 
+  useStateVariables[name.split(" ").join("")] = {name:name, value:option}
+
   return(
     <div className="Option">
       <p className="Option-name">{name}</p>
@@ -89,17 +106,41 @@ const Option = ({name="Option", type="text", unit="", def}) => {
   );
 }
 
-const PlacesApiOption = () => {
-  return(
-    <Helmet>
-      <script src={"https://maps.googleapis.com/maps/api/js?key="+MAPS_API_KEY+"&libraries=places"}
-      crossOrigin="anonymous"
-      async></script>
-    </Helmet>
-  )
-}
+// const PlacesApiOption = () => {
+//   return(
+//     <Helmet>
+//       <script src={"https://maps.googleapis.com/maps/api/js?key="+MAPS_API_KEY+"&libraries=places"}
+//       crossOrigin="anonymous"
+//       async></script>
+//     </Helmet>
+//   )
+// }
 
 function SearchSettings() {
+  const options = [];
+  options.push(<SliderOption name="Price Range" min={0} max={1000}/>)
+  options.push(<GridOption name="Types of Home" options={["Bungalow", "House", "Shack", "Apartment", "Mansion", "Cabin"]}/>)
+  options.push(<GridOption name="Accommodations" options={["Kitchen", "Yard", "Laundry", "Balcony"]}/>)
+  options.push(<Option name="Search Location" default=""/>)
+  options.push(<Option name="Distance from Location" type="number" unit="miles" def={5}/>)
+  options.push(<SliderOption name="Number of Beds"/>)
+  options.push(<SliderOption name="Number of Bathrooms"/>)
+
+  const useStates = []
+
+  const getUseState = () => {
+    options.forEach(option => {
+      useStates.push(option)
+    })
+    return useStates
+  }
+
+  const handleSubmit = e => {
+    e.preventDefault()
+
+    console.log(useStateVariables)
+  }
+
   return (
     <div className="SearchSettings">
       <header>
@@ -107,14 +148,8 @@ function SearchSettings() {
           Search Settings
         </h1>
       </header>
-      <form className="Options">
-        <SliderOption name="Price Range" min={0} max={1000}/>
-        <GridOption name="Types of Home" options={["Bungalow", "House", "Shack", "Apartment", "Mansion", "Cabin"]}/>
-        <GridOption name="Accommodations" options={["Kitchen", "Yard", "Laundry", "Balcony"]}/>
-        <Option name="Search Location" default=""/>
-        <Option name="Distance from Location" type="number" unit="miles" def={5}/>
-        <SliderOption name="Number of Beds"/>
-        <SliderOption name="Number of Bathrooms"/>
+      <form onSubmit={handleSubmit} className="Options">
+        {options}
         <br/><br/>
         <input className="Input" type="submit" value="Save"></input>
       </form>

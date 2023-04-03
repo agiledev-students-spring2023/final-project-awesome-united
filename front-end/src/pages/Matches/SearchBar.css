@@ -1,27 +1,18 @@
 form {
-  flex:1;
   display: flex;
-  padding: 5px;
 }
   
 .searchBar {
-  flex:1;
-  display: flex;
-  gap: 8px;
-  padding: 5px;
-
-
-
-
   /* use flexbox to create a tiling area with a row of match articles inside */
-  width: 90%;
-  margin-left: 3%;
+  display: block;
+  width: 100%;
+  margin-left: 2%;
   padding-bottom: 15px;
   /* some spacing around the entire contents of the frame */
 }
 .searchBar input{
-  width: 90%;
-  float: left;
+  width: 100%;
+
 }
 .searchBar button{
   float: left;
@@ -36,6 +27,7 @@ p.SearchBar-feedback {
 }
 
 @media screen and (max-width: 300px) {
+  
   .searchBar{
     float: none;
   }

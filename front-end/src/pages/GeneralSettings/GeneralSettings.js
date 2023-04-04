@@ -13,8 +13,11 @@ const GeneralSettings = (props) => {
       <h1>
         General Settings Page
       </h1>
+      <p></p>
       <AccountInfo />
+      <p></p>
       <ChangePassword />
+      <p></p>
       <LogOut />
     </div>
   );

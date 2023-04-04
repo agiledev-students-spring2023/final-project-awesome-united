@@ -1,6 +1,8 @@
 import React, { useState } from "react"
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
  
+import Footer from "./components/Footer"
+
 import Home from "./Home"
 import CreateAccount from "./pages/CreateAccount/CreateAccount"
 import Discover from "./pages/Discover/Discover"
@@ -9,8 +11,8 @@ import CreateListing from "./pages/CreateListing/CreateListing"
 import Login from "./pages/Login/Login"
 import Logout from "./pages/Logout/Logout"
 import SearchSettings from "./pages/SearchSettings/SearchSettings"
+import Footer from "./components/Footer"
 import GeneralSettings from "./pages/GeneralSettings/GeneralSettings"
- import Footer from "./components/Footer"
 import "./App.css"
 
 // set up routes so different URL routes load up different main components
@@ -37,6 +39,7 @@ const App = props => {
         </div>
         <Footer />
       </Router>
+      <Footer />
     </div>
   )
 }

@@ -28,13 +28,15 @@ const DiscoverButtonTray = (props) => {
         spacing={0.5}
         xs={11}
       >
-        <IconButton>
-          <CancelIcon
-            className="discoverButtonTrayButton noButton"
-            fontSize="80px"
-            onClick={props.no}
-          ></CancelIcon>
-        </IconButton>
+        <Grid item>
+          <IconButton>
+            <CancelIcon
+              className="discoverButtonTrayButton noButton"
+              fontSize="80px"
+              onClick={props.no}
+            ></CancelIcon>
+          </IconButton>
+        </Grid>
 
         <IconButton>
           <BookmarkIcon

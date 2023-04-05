@@ -1,6 +1,8 @@
 import './CreateAccount.css';
+import { useNavigate } from 'react-router-dom';
 
 function CreateAccount(){
+  const Redirect = useNavigate();
   return (
     <div className='CreateAccount'>
       <header className="Header">
@@ -58,7 +60,7 @@ function CreateAccount(){
         &nbsp;
         <input type="text" id="myText" className='AddressInput' placeholder='Address'></input>
       </div>
-      <button className='CreateButton'>
+      <button className='CreateButton' onClick={()=>Redirect("/discover")}>
         Create
       </button>
     </div>

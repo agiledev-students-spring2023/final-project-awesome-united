@@ -2,6 +2,9 @@
 const express = require("express") // CommonJS import style!
 const app = express() // instantiate an Express object
 const morgan = require("morgan") // middleware for nice logging of incoming HTTP requests
+
+const listingSchema = require('./models/listing');
+
 // Postman  https://web.postman.co/
 //Mocha and chai are unit testing
 // ngrok is a tool to output a public URL for the webserver running locally 
@@ -37,6 +40,13 @@ app.get("/middleware-example", (req, res) => {
       : "Sorry, the middleware did not work!"
     // use the data added by the middleware in some way
     res.send(message)
+  })
+
+  app.get('/get-listings', (req, res) => {
+
+
+    const listing = listingSchema.generateMockListing();
+    res.json(listing);
   })
 
 app.use(express.static(path.join(__dirname, '../front-end/build')))

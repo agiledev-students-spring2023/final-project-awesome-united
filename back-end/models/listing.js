@@ -1,8 +1,13 @@
 const mongoose = require('mongoose');
 const { faker } = require('@faker-js/faker');
+const uuid = require('uuid');
 
 
 const listingSchema = new mongoose.Schema({
+  id: {
+    type: String,
+    required: true,
+  },
   location: {
     streetAddress: {
       type: String,
@@ -90,6 +95,7 @@ const Listing = mongoose.model('Listing', listingSchema);
 module.exports = { Listing, generateMockListing };
 
 function generateMockListing() {
+  const id = uuid.v4();
   const location = {
     streetAddress: faker.address.streetAddress(),
     city: faker.address.city(),
@@ -131,7 +137,7 @@ function generateMockListing() {
     faker.image.imageUrl(800, 600, 'abstract', true, 'lorempixel.com', 'jpg'),
     faker.image.imageUrl(800, 600, 'abstract', true, 'lorempixel.com', 'jpg'),
   ]
-  return {
+  return {id,
     location,
     listingDetails,
     basicDetails,

@@ -1,11 +1,14 @@
 const listingSchema = require('../models/listing');
-
+const uuid = require('uuid')
+//test mock generation
 describe('listingSchema', () => {
   test('should generate valid mock data', () => {
     const mockListing = listingSchema.generateMockListing();
     console.log(mockListing); // Add this line to log the generated listing
     expect(mockListing).toBeDefined();
+    expect(uuid.validate(mockListing.id)).toBeTruthy(); //validate id
     expect(typeof mockListing.location.streetAddress).toBe('string');
+    expect(mockListing.id)
     expect(typeof mockListing.location.city).toBe('string');
     expect(typeof mockListing.location.state).toBe('string');
     expect(typeof mockListing.location.zip).toBe('string');

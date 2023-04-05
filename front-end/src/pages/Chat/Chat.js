@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 
 
-const Matches = props => {
+const Chat = props => {
 
   const navigate = useNavigate();
 
@@ -96,4 +96,4 @@ const Matches = props => {
     )
   }
   
-  export default Matches
+  export default Chat

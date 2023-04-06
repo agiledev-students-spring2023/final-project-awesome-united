@@ -16,8 +16,11 @@ const GeneralSettings = (props) => {
       <Link className="filter-link" to="/searchSettings">
           <div>Search Filter Settings</div>
       </Link>
+      <p></p>
       <AccountInfo />
+      <p></p>
       <ChangePassword />
+      <p></p>
       <LogOut />
     </div>
   );

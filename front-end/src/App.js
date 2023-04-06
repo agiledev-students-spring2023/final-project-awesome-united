@@ -1,20 +1,21 @@
-import React, { useState } from "react"
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
- 
-import Home from "./Home"
-import CreateAccount from "./pages/CreateAccount/CreateAccount"
-import Discover from "./pages/Discover/Discover"
-import Matches from "./pages/Matches/Matches"
-import CreateListing from "./pages/CreateListing/CreateListing"
-import Login from "./pages/Login/Login"
-import Logout from "./pages/Logout/Logout"
-import SearchSettings from "./pages/SearchSettings/SearchSettings"
-import Footer from "./components/Footer"
-import GeneralSettings from "./pages/GeneralSettings/GeneralSettings"
-import "./App.css"
+import React, { useState } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Home from "./Home";
+import CreateAccount from "./pages/CreateAccount/CreateAccount";
+import Discover from "./pages/Discover/Discover";
+import Matches from "./pages/Matches/Matches";
+import CreateListing from "./pages/CreateListing/CreateListing";
+import Login from "./pages/Login/Login";
+import Logout from "./pages/Logout/Logout";
+import SearchSettings from "./pages/SearchSettings/SearchSettings";
+import Footer from "./components/Footer";
+import GeneralSettings from "./pages/GeneralSettings/GeneralSettings";
+import "./App.css";
+
+import SingleListing from "./pages/SingleListing/SingleListing";
 
 // set up routes so different URL routes load up different main components
-const App = props => {
+const App = (props) => {
   return (
     <div className="container">
       <Router>
@@ -32,14 +33,14 @@ const App = props => {
             <Route path="/createListing" element={<CreateListing />} />
             <Route path="/login" element={<Login />} />
             <Route path="/logout" element={<Logout />} />
-  
+            <Route path="/listing/:listingId" element={<SingleListing />} />
           </Routes>
         </div>
         <Footer />
       </Router>
     </div>
-  )
-}
+  );
+};
 
 // make this available to other modules as an import
-export default App
+export default App;

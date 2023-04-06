@@ -1,4 +1,5 @@
 import * as React from 'react';
+import "./LogOut.css";
 
 const LogOut = () => {
   const [isOpen, setOpen] = React.useState(false);
@@ -9,7 +10,7 @@ const LogOut = () => {
 
   return (
     <div>
-      <Button onClick={handleClick}>Log Out Button</Button>
+      <Button className="logout" onClick={handleClick}>Log Out Button</Button>
 
       {isOpen && <div>Content here</div>}
     </div>

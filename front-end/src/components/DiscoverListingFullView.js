@@ -1,7 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
 import "./DiscoverListingFullView.css";
-import Stories from "react-insta-stories";
 import ListingInfo from "./ListingInfo";
 import PhotoCarousel from "./PhotoCarousel";
 import DiscoverHeader from "./DiscoverHeader";

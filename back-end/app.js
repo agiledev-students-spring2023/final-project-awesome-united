@@ -12,6 +12,18 @@ const multer = require('multer') // extract files from requests
 
 const path = require('path')
 
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, 'ProfilePicture')
+  },
+  filename: (req, file, cb) => {
+    console.log(file)
+    cb(null, Date.now() + path.extname(file.originalname))
+  }
+})
+
+const upload_pfp = multer({storage, storage})
+
 // we will put some server logic here later...
 app.use(morgan("dev")) // dev style gives a concise color-coded style of log output
 app.use(express.json()) // decode JSON-formatted incoming POST data
@@ -56,6 +68,10 @@ app.get('/', (req, res) => {
 
 app.post("/post-search-settings", (req, res) => {
   res.send("saved user data");
+})
+
+app.post("/upload", upload_pfp.single("image"), (req, res) => {
+  console.log("Profile Picture Uploaded");
 })
 
 // export the express app we created to make it available to other modules

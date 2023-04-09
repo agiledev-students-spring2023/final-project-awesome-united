@@ -7,12 +7,22 @@
   bottom: 110px;
   right: -36px;
   width: 100%;
-  height: 80px;
+  height: 55px;
 }
+
 .discoverButtonTrayButton {
-  font-size: 80px;
-  border-radius: 50%;
-  border-width: 30px;
-  border: 2px solid;
-  border-color: black;
+  font-size: 60px;
+
+  border-radius: 55%;
+  border-width: 50px;
+}
+.noButton {
+  color: rgb(253, 72, 69);
+}
+.saveButton {
+  color: rgb(227, 194, 92);
+}
+.likeButton {
+  font-size: 54px;
+  color: rgb(82, 203, 149);
 }

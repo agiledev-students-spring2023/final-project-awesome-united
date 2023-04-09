@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "mongodb": "^5.2.0",
     "react-script-tag": "^1.1.2"
   },
   "devDependencies": {

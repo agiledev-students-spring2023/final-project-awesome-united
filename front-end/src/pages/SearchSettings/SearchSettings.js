@@ -5,15 +5,17 @@ import { Helmet } from "react-helmet"
 import './SearchSettings.css';
 import axios from "axios"
 
-const useStateVariables = {}
+const SliderOption = ({name="Option", min=0, max=10, step=1, useStateVariables}) => {
+  const key = name.split(" ").join("");
+  const [minimum, setMinimum] = useState(useStateVariables[key] ? useStateVariables[key].value.min : min);
+  const [maximum, setMaximum] = useState(useStateVariables[key] ? useStateVariables[key].value.max : max);
 
-const SliderOption = ({name="Option", min=0, max=10, step=1}) => {
-  const [minimum, setMinimum] = useState(min);
-  const [maximum, setMaximum] = useState(max);
+  useEffect(() => {
+    setMinimum(useStateVariables[key] ? useStateVariables[key].value.min : min)
+    setMaximum(useStateVariables[key] ? useStateVariables[key].value.max : max)
+  }, [useStateVariables])
 
-  useStateVariables[name.split(" ").join("")] = {name: name, value: {min:minimum, max:maximum}}
-
-  const handleChange = (setter, val) => {
+  const handleChange = (setter, val) => {    
     if(val == "")
       val = 0;
     else if(val > max)
@@ -21,6 +23,7 @@ const SliderOption = ({name="Option", min=0, max=10, step=1}) => {
     else if(val < min)
       val = min;
 
+    setter(val)
     if (setter == setMinimum){
       if(val > maximum)
         setMaximum(val);
@@ -29,7 +32,7 @@ const SliderOption = ({name="Option", min=0, max=10, step=1}) => {
       if(val < minimum)
         setMinimum(val);
     }
-    setter(val);
+    useStateVariables[key] = {name: name, value: {min:minimum, max:maximum}}
   }
 
   return (
@@ -44,9 +47,9 @@ const SliderOption = ({name="Option", min=0, max=10, step=1}) => {
   );
 }
 
-const GridOption = ({name="Option", options}) => {  //options is an array of strings
+const GridOption = ({name="Option", options, useStateVariables}) => {  //options is an array of strings
   const optionComponents = [];
-  options.forEach(optionName => {optionComponents.push(<Checkbox option={optionName} key={optionName} parent={name}/>);});
+  options.forEach(optionName => {optionComponents.push(<Checkbox option={optionName} key={optionName} parent={name} useStateVariables={useStateVariables}/>);});
 
   // useStateVariables.push((() => {
   //   const values = [];
@@ -65,13 +68,18 @@ const GridOption = ({name="Option", options}) => {  //options is an array of str
   );
 }
 
-const Checkbox = ({option, key, parent}) => {
-  const [checked, setChecked] = useState(true);
+const Checkbox = ({option, k, parent, useStateVariables}) => {
+  const key = option.split(" ").join("");
+  const [checked, setChecked] = useState(useStateVariables[key] ? useStateVariables[key].value : true);
 
-  useStateVariables[option.split(" ").join("")] = {name:option, value:checked, parent:parent}
+  useEffect(() => {
+    console.log("changed checkbox");
+    setChecked(useStateVariables[key] ? useStateVariables[key].value : checked)
+  }, [useStateVariables])
 
   const handleChange = () => {
     console.log(option + " is " + !checked);
+    useStateVariables[key] = {name:option, value:!checked, parent:parent}
     setChecked(!checked);
   }
 
@@ -92,16 +100,26 @@ const Checkbox = ({option, key, parent}) => {
   );
 }
 
-const Option = ({name="Option", type="text", unit="", def}) => {
-  const [option, changeOption] = useState(def);
+const Option = ({name="Option", type="text", unit="", def, useStateVariables}) => {
+  const key = name.split(" ").join("");
+  const [option, changeOption] = useState(useStateVariables[key] ? useStateVariables[key].value : def);
 
-  useStateVariables[name.split(" ").join("")] = {name:name, value:option}
+  useStateVariables[key] = {name:name, value:option}
+
+  useEffect(() => {
+    changeOption(useStateVariables[key] ? useStateVariables[key].value : def)
+  }, [useStateVariables])
+
+  const handleChange = (val) => {
+    changeOption(val);
+    useStateVariables[key] = {name:name, value:val}
+  }
 
   return(
     <div className="Option">
       <p className="Option-name">{name}</p>
       <input className="Input" type={type} id={name.replace(/\s/g, '')} unit={unit} 
-      onChange={e => changeOption(e.target.value)}></input>
+      onChange={e => handleChange(e.target.value)}></input>
       <span> {unit}</span>
     </div>
   );
@@ -117,15 +135,31 @@ const Option = ({name="Option", type="text", unit="", def}) => {
 //   )
 // }
 
-function SearchSettings() {
+function SearchSettings() {  
+  const [useStateVariables, setStateVariables] = useState({});
+
+  useEffect(() => {
+    axios.get('/get-search-settings')
+    .then(function (response) {
+      // handle success
+      setStateVariables(response.data);
+      console.log("got data:");
+      console.log(response.data);
+    })
+    .catch(function (error) {
+      // handle error
+      console.log(error);
+    })
+  }, [])
+
   const options = [];
-  options.push(<SliderOption name="Price Range" min={0} max={1000}/>)
-  options.push(<GridOption name="Types of Home" options={["Bungalow", "House", "Shack", "Apartment", "Mansion", "Cabin"]}/>)
-  options.push(<GridOption name="Accommodations" options={["Kitchen", "Yard", "Laundry", "Balcony"]}/>)
-  options.push(<Option name="Search Location" default=""/>)
-  options.push(<Option name="Distance from Location" type="number" unit="miles" def={5}/>)
-  options.push(<SliderOption name="Number of Beds"/>)
-  options.push(<SliderOption name="Number of Bathrooms"/>)
+  options.push(<SliderOption name="Price Range" min={0} max={1000} useStateVariables={useStateVariables}/>)
+  options.push(<GridOption name="Types of Home" options={["Bungalow", "House", "Shack", "Apartment", "Mansion", "Cabin"]} useStateVariables={useStateVariables}/>)
+  options.push(<GridOption name="Accommodations" options={["Kitchen", "Yard", "Laundry", "Balcony"]} useStateVariables={useStateVariables}/>)
+  options.push(<Option name="Search Location" default="" useStateVariables={useStateVariables}/>)
+  options.push(<Option name="Distance from Location" type="number" unit="miles" def={5} useStateVariables={useStateVariables}/>)
+  options.push(<SliderOption name="Number of Beds" useStateVariables={useStateVariables}/>)
+  options.push(<SliderOption name="Number of Bathrooms" useStateVariables={useStateVariables}/>)
 
   const useStates = []
 

@@ -33,8 +33,8 @@ function CreateAccount(){
       <div className='ProfilePhoto'>
         Profile Photo:
       </div>
-      <form action='/action_page.php'>
-          <input type='file' id = 'myFile' className='UploadPP'></input>
+      <form method='POST' action='/upload' encType='multipart/form-data'>
+          <input type='file' id = 'myFile' name='image' className='UploadPP'></input>
           <button className='UploadButton'> upload </button>
         </form>
       <div className='Location'>

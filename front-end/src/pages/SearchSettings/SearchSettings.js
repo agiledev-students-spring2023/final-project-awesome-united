@@ -24,25 +24,28 @@ const SliderOption = ({name="Option", min=0, max=10, step=1, useStateVariables})
       val = min;
 
     setter(val)
-    if (setter == setMinimum){
+    if (setter == "min"){
+      useStateVariables[key] = {name: name, value: {min:val, max:maximum}}
+      setMinimum(val);
       if(val > maximum)
         setMaximum(val);
     }
     else{
+      useStateVariables[key] = {name: name, value: {min:minimum, max:val}}
+      setMaximum(val);
       if(val < minimum)
         setMinimum(val);
     }
-    useStateVariables[key] = {name: name, value: {min:minimum, max:maximum}}
   }
 
   return (
     <div className="Option">
       <p className="Option-name">{name}</p>
       <input type="number" className="Input Range Min" min={min} max={max} step={step} 
-      value={minimum} onChange={e => handleChange(setMinimum, e.target.value)}></input>
+      value={minimum} onChange={e => handleChange("min", e.target.value)}></input>
       <span className="Range-dash">-</span>
       <input type="number" className="Input Range Max" min={min} max={max} step={step}
-      value={maximum} onChange={e => handleChange(setMaximum, e.target.value)}></input>
+      value={maximum} onChange={e => handleChange("max", e.target.value)}></input>
     </div>
   );
 }
@@ -50,15 +53,6 @@ const SliderOption = ({name="Option", min=0, max=10, step=1, useStateVariables})
 const GridOption = ({name="Option", options, useStateVariables}) => {  //options is an array of strings
   const optionComponents = [];
   options.forEach(optionName => {optionComponents.push(<Checkbox option={optionName} key={optionName} parent={name} useStateVariables={useStateVariables}/>);});
-
-  // useStateVariables.push((() => {
-  //   const values = [];
-  //   optionComponents.forEach(
-  //     option => {
-  //       values.push(option.getUseState())
-  //     })
-  //   return values
-  // })())
 
   return (
     <div className="Option">

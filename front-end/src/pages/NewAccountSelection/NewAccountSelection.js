@@ -14,7 +14,7 @@ function NewAccountSelection() {
         <Link className="NewAccountSelectionLink" to="/createAccount">
           <div>I'm Selling</div>
         </Link>
-        <Link className="NewAccountSelectionLink" to="/searchSettings">
+        <Link className="NewAccountSelectionLink" to="/createAccount">
           <div>I'm Buying</div>
         </Link>
       </div>

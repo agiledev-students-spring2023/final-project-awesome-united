@@ -45,13 +45,20 @@
     margin-bottom: calc(10px + 2vmin);
 }
 
+.UploadPFP{
+    align-items: center;
+    text-align: center;
+}
+
 .UploadPP{
+    align-items: center;
     text-align: center;
     font-size: calc(6px + 1vmin);
     margin: calc(10px + 1vmin);
 }
 
 .UploadButton{
+    align-items: center;
     text-align: center;
     font-size: calc(5px + 1vmin);
     margin: calc(5px + 1vmin);

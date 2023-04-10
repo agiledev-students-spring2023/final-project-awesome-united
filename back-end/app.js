@@ -84,5 +84,12 @@ app.post("/upload", upload_pfp.single("image"), (req, res) => {
   console.log("Profile Picture Uploaded");
 })
 
+app.post("/get-user-data", async (req, res) => {
+  console.log("Getting User Location");
+  const userLocation = JSON.stringify(req.body);
+  console.log(userLocation);
+  res.send("saved user data");  
+})
+
 // export the express app we created to make it available to other modules
 module.exports = app

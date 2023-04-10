@@ -2,8 +2,7 @@ const mongoose = require('mongoose');
 const { faker } = require('@faker-js/faker');
 const uuid = require('uuid');
 
-
-const listingSchema = new mongoose.Schema({
+const listingData = {
   id: {
     type: String,
     required: true,
@@ -46,13 +45,13 @@ const listingSchema = new mongoose.Schema({
       type: String,
       required: true,
       enum: [
-        'SingleFamily',
+        'Single-Family',
         'Condo',
         'Townhouse',
         'Coop',
-        'MultiFamily',
+        'Multi-Family',
         'Manufactured',
-        'VacantLand',
+        'Vacant Land',
         'Other',
         'Apartment'
       ]
@@ -83,16 +82,19 @@ const listingSchema = new mongoose.Schema({
   amenities: [{
     type: String,
     required: true,
+    enum: ['pool', 'gym', 'fireplace', 'washer/dryer', 'balcony']
   }],
   images: [{
     type: String,
     required: true,
   }]
-});
+}
+
+const listingSchema = new mongoose.Schema(listingData);
 
 const Listing = mongoose.model('Listing', listingSchema);
 
-module.exports = { Listing, generateMockListing };
+module.exports = { Listing, generateMockListing, listingData };
 
 function generateMockListing() {
   const id = uuid.v4();
@@ -104,21 +106,11 @@ function generateMockListing() {
     unitNumber: faker.datatype.number({min: 1, max: 9999})
   };
   const listingDetails = {
-    status: faker.helpers.arrayElement(['Active', 'For Rent', 'Sold', 'Rented']),
+    status: faker.helpers.arrayElement(listingData.listingDetails.enum),
     price: faker.datatype.number({ min: 100000, max: 1000000 }),
   };
   const basicDetails = {
-    propertyType: faker.helpers.arrayElement([
-      'SingleFamily',
-      'Condo',
-      'Townhouse',
-      'Coop',
-      'MultiFamily',
-      'Manufactured',
-      'VacantLand',
-      'Other',
-      'Apartment'
-    ]),
+    propertyType: faker.helpers.arrayElement(listingData.basicDetails.propertyType.enum),
     bedrooms: faker.datatype.number({ min: 1, max: 5 }),
     bathrooms: faker.datatype.number({ min: 1, max: 5 }),
   };
@@ -128,9 +120,9 @@ function generateMockListing() {
     lastName: faker.name.lastName(),
   };
   const amenities = [
-    faker.helpers.arrayElement(['pool', 'gym', 'fireplace', 'washer/dryer', 'balcony']),
-    faker.helpers.arrayElement(['pool', 'gym', 'fireplace', 'washer/dryer', 'balcony']),
-    faker.helpers.arrayElement(['pool', 'gym', 'fireplace', 'washer/dryer', 'balcony']),
+    faker.helpers.arrayElement(listingData.amenities.enum),
+    faker.helpers.arrayElement(listingData.amenities.enum),
+    faker.helpers.arrayElement(listingData.amenities.enum),
   ];
   const images = [
     faker.image.imageUrl(800, 600, 'abstract', true, 'lorempixel.com', 'jpg'),

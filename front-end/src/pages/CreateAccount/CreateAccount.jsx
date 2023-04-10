@@ -61,8 +61,13 @@ function CreateAccount(){
         Profile Photo:
       </div>
       <div className='UploadPFP'>
-        <form method='POST' action='/upload' encType='multipart/form-data'>
-          <input type='file' id = 'myFile' name='image' className='UploadPP'></input>
+        <form method='POST' action='/upload-pfp' encType='multipart/form-data'>
+          <input 
+          type='file' 
+          id = 'myFile' 
+          name='image' 
+          className='UploadPP'
+          />
           <button className='UploadButton'> upload </button>
         </form>
       </div>

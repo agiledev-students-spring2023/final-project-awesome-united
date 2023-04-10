@@ -37,5 +37,8 @@ See [CONTRIBUTING.md](./CONTRIBUTING.md) for how to contribute.
 
 1. Download this repository to your local machine
 2. Navigate to the ```front-end``` directory
-3. Run ```npm install```, followed by ```npm start```
+3. Run ```npm install```, followed by ```npm run build```
+4. Navigate to the ```back-end``` directory
+5. run ```npm install```, followed by ```nodemon server.js```
+6. Open your browser and run the corresponding local host address
 

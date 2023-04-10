@@ -57,8 +57,6 @@ app.get("/middleware-example", (req, res) => {
   })
 
   app.get('/get-listings', (req, res) => {
-
-
     const listing = listingSchema.generateMockListing();
     res.json(listing);
   })
@@ -66,7 +64,23 @@ app.get("/middleware-example", (req, res) => {
 app.use(express.static(path.join(__dirname, '../front-end/build')))
 
 app.get("/get-search-settings", (req, res) => {
-  console.log(filter_settings);
+  let response
+  if(Object.keys(filter_settings).length == 0){
+    let data = listingSchema.listingData
+    let propertyTypes = Object.fromEntries(data.basicDetails.propertyType.enum.map(x => [String(x), true]))
+    let amenities = Object.fromEntries(data.amenities[0].enum.map(x => [String(x), true]))
+    response = {
+                "PropertyTypes": propertyTypes,
+                "Amenities": amenities
+               }
+  }
+  else{
+    response = filter_settings
+  }
+  res.json(response);
+})
+
+app.get("/get-user-filter", (req, res) => {
   res.json(filter_settings);
 })
 
@@ -74,7 +88,7 @@ app.get('/*', (req, res) => {
   res.sendFile(path.join(__dirname, '../front-end/build/index.html'))
 })
 
-app.post("/post-search-settings", (req, res) => {
+app.post("/post-user-filter", (req, res) => {
   filter_settings = req.body;
   console.log(req.body);
   res.send("saved user data");

@@ -5,15 +5,17 @@ import { Helmet } from "react-helmet"
 import './SearchSettings.css';
 import axios from "axios"
 
-const useStateVariables = {}
+const SliderOption = ({name="Option", min=0, max=10, step=1, useStateVariables}) => {
+  const key = name.split(" ").join("");
+  const [minimum, setMinimum] = useState(useStateVariables[key] ? useStateVariables[key].min : min);
+  const [maximum, setMaximum] = useState(useStateVariables[key] ? useStateVariables[key].max : max);
 
-const SliderOption = ({name="Option", min=0, max=10, step=1}) => {
-  const [minimum, setMinimum] = useState(min);
-  const [maximum, setMaximum] = useState(max);
+  useEffect(() => {
+    setMinimum(useStateVariables[key] ? useStateVariables[key].min : min)
+    setMaximum(useStateVariables[key] ? useStateVariables[key].max : max)
+  }, [useStateVariables])
 
-  useStateVariables[name.split(" ").join("")] = {name: name, value: {min:minimum, max:maximum}}
-
-  const handleChange = (setter, val) => {
+  const handleChange = (setter, val) => {    
     if(val == "")
       val = 0;
     else if(val > max)
@@ -21,41 +23,36 @@ const SliderOption = ({name="Option", min=0, max=10, step=1}) => {
     else if(val < min)
       val = min;
 
-    if (setter == setMinimum){
+    setter(val)
+    if (setter == "min"){
+      useStateVariables[key] = {min:val, max:maximum}
+      setMinimum(val);
       if(val > maximum)
         setMaximum(val);
     }
     else{
+      useStateVariables[key] = {min:minimum, max:val}
+      setMaximum(val);
       if(val < minimum)
         setMinimum(val);
     }
-    setter(val);
   }
 
   return (
     <div className="Option">
       <p className="Option-name">{name}</p>
       <input type="number" className="Input Range Min" min={min} max={max} step={step} 
-      value={minimum} onChange={e => handleChange(setMinimum, e.target.value)}></input>
+      value={minimum} onChange={e => handleChange("min", e.target.value)}></input>
       <span className="Range-dash">-</span>
       <input type="number" className="Input Range Max" min={min} max={max} step={step}
-      value={maximum} onChange={e => handleChange(setMaximum, e.target.value)}></input>
+      value={maximum} onChange={e => handleChange("max", e.target.value)}></input>
     </div>
   );
 }
 
-const GridOption = ({name="Option", options}) => {  //options is an array of strings
+const GridOption = ({name="Option", options, useStateVariables}) => {  //options is an array of strings
   const optionComponents = [];
-  options.forEach(optionName => {optionComponents.push(<Checkbox option={optionName} key={optionName} parent={name}/>);});
-
-  // useStateVariables.push((() => {
-  //   const values = [];
-  //   optionComponents.forEach(
-  //     option => {
-  //       values.push(option.getUseState())
-  //     })
-  //   return values
-  // })())
+  options.forEach(optionName => {optionComponents.push(<Checkbox option={optionName} key={optionName} parent={name} useStateVariables={useStateVariables}/>);});
 
   return (
     <div className="Option">
@@ -65,14 +62,23 @@ const GridOption = ({name="Option", options}) => {  //options is an array of str
   );
 }
 
-const Checkbox = ({option, key, parent}) => {
-  const [checked, setChecked] = useState(true);
+const Checkbox = ({option, k, parent, useStateVariables}) => {
+  const key = option//.split(" ").join("");
+  const pkey = parent.split(" ").join("")
+  if(!useStateVariables[pkey])
+    useStateVariables[pkey] = {}
+  const [checked, setChecked] = useState(useStateVariables[pkey] ? useStateVariables[pkey][key] : true);
 
-  useStateVariables[option.split(" ").join("")] = {name:option, value:checked, parent:parent}
+  useEffect(() => {
+    if(useStateVariables[pkey])
+      setChecked(useStateVariables[pkey][key])
+  }, [useStateVariables])
 
   const handleChange = () => {
-    console.log(option + " is " + !checked);
-    setChecked(!checked);
+    console.log(option + " is " + !checked)
+    console.log(useStateVariables)
+    useStateVariables[pkey][key] = !checked
+    setChecked(!checked)
   }
 
   return (
@@ -92,16 +98,26 @@ const Checkbox = ({option, key, parent}) => {
   );
 }
 
-const Option = ({name="Option", type="text", unit="", def}) => {
-  const [option, changeOption] = useState(def);
+const Option = ({name="Option", type="text", unit="", def, useStateVariables}) => {
+  const key = name//.split(" ").join("");
+  const [option, changeOption] = useState(useStateVariables[key] ? useStateVariables[key] : def)
 
-  useStateVariables[name.split(" ").join("")] = {name:name, value:option}
+  useStateVariables[key] = option
+
+  useEffect(() => {
+    changeOption(useStateVariables[key] ? useStateVariables[key] : def)
+  }, [useStateVariables])
+
+  const handleChange = (val) => {
+    changeOption(val);
+    useStateVariables[key] = val
+  }
 
   return(
     <div className="Option">
       <p className="Option-name">{name}</p>
       <input className="Input" type={type} id={name.replace(/\s/g, '')} unit={unit} 
-      onChange={e => changeOption(e.target.value)}></input>
+      onChange={e => handleChange(e.target.value)}></input>
       <span> {unit}</span>
     </div>
   );
@@ -117,15 +133,36 @@ const Option = ({name="Option", type="text", unit="", def}) => {
 //   )
 // }
 
-function SearchSettings() {
-  const options = [];
-  options.push(<SliderOption name="Price Range" min={0} max={1000}/>)
-  options.push(<GridOption name="Types of Home" options={["Bungalow", "House", "Shack", "Apartment", "Mansion", "Cabin"]}/>)
-  options.push(<GridOption name="Accommodations" options={["Kitchen", "Yard", "Laundry", "Balcony"]}/>)
-  options.push(<Option name="Search Location" default=""/>)
-  options.push(<Option name="Distance from Location" type="number" unit="miles" def={5}/>)
-  options.push(<SliderOption name="Number of Beds"/>)
-  options.push(<SliderOption name="Number of Bathrooms"/>)
+function SearchSettings() {  
+  const [useStateVariables, setStateVariables] = useState({});
+
+  const [options, setOptions] = useState([]);
+
+  useEffect(() => {
+    axios.get('/get-search-settings')
+    .then(function (response) {
+      setStateVariables(response.data);
+      console.log("got data:");
+      console.log(response.data);
+      let o = []
+      o.push(<Option name="Search Location" default="" useStateVariables={response.data}/>)
+      o.push(<Option name="Distance from Location" type="number" unit="miles" def={5} useStateVariables={response.data}/>)
+      o.push(<SliderOption name="Price Range" min={0} max={1000} useStateVariables={response.data}/>)
+      o.push(<GridOption name="Property Types" options={Object.keys(response.data.PropertyTypes)} useStateVariables={response.data}/>)
+      o.push(<GridOption name="Amenities" options={Object.keys(response.data.Amenities)} useStateVariables={response.data}/>)
+      o.push(<SliderOption name="Number of Rooms" min={1} useStateVariables={response.data}/>)
+      o.push(<SliderOption name="Number of Beds" useStateVariables={response.data}/>)
+      o.push(<SliderOption name="Number of Bathrooms" useStateVariables={response.data}/>)
+      setOptions(o)
+    })
+    .catch(function (error) {
+      console.log(error);
+    })
+    axios.get('/get-user-filter')
+    .then(function (response){
+      
+    })
+  }, [])
 
   const useStates = []
 
@@ -142,13 +179,11 @@ function SearchSettings() {
     console.log(useStateVariables)
 
     axios
-    .post("/post-search-settings", useStateVariables)
+    .post("/post-user-filter", useStateVariables)
     .then(response => {
-      // success
       console.log(`Received server response: ${response.data}`)
     })
     .catch(err => {
-      // failure
       console.log(`Received server error: ${err}`)
     })
   }

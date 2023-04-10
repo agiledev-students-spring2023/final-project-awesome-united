@@ -60,10 +60,42 @@ app.get("/middleware-example", (req, res) => {
     res.send(message)
   })
 
-  app.get('/get-listings', (req, res) => {
-    const listing = listingSchema.generateMockListing();
-    res.json(listing);
+  app.get('/get-listings', (req, res, next) => {
+    const listings = [listingSchema.generateMockListing(),
+      listingSchema.generateMockListing(),
+      listingSchema.generateMockListing(),
+      listingSchema.generateMockListing(),
+      listingSchema.generateMockListing()
+    ];
+   
+    console.log(filter_settings)
+    
+    const filterSettings = filter_settings;
+    const filteredListings = filterListings(listings, filterSettings);
+
+    res.json(filteredListings);
   })
+
+  function filterListings(listings, filterSettings){
+    return listings.filter(listing => {
+
+      //tbd once filter front end is fixed
+  
+      return true;
+
+
+
+
+
+
+    }
+    
+    
+    
+    
+    )
+    
+  }
 
 app.use(express.static(path.join(__dirname, '../front-end/build')))
 

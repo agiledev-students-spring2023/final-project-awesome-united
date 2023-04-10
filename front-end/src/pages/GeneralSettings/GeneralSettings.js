@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import AccountInfo from "../../components/AccountInfo";
 import ChangePassword from "../../components/ChangePassword";
 import LogOut from "../../components/LogOut";
+import SearchSettings from "../SearchSettings/SearchSettings";
 
 // set up routes so different URL routes load up different main components
 const GeneralSettings = (props) => {
@@ -13,6 +14,7 @@ const GeneralSettings = (props) => {
       <h1>
         General Settings Page
       </h1>
+      <SearchSettings/>
       <p></p>
       <AccountInfo />
       <p></p>

@@ -1,75 +1,130 @@
+main {  
+  font-family: helvetica;
+  font-weight: normal;
+  height: 100%;
+  min-height: 100%;
+}
+
+
+
 header{
     margin:0;
-    padding: 0;
+    padding: 1.5rem;
     gap:0;
-}
-header h2{
-    font-size: xx-large;
-    margin: 0;
-}
-header h3{
-    margin: 0;
-}
-
-
-
-#chatContainer {
-    height: 75vh;
-    border: 1px solid #e095fd;
-    border-radius: 10px;
-    margin: 1rem 1rem;
-    padding: 0.5rem;
-    overflow: scroll;
-  }
-  #messageForm {
-    width: 80%;
-    position: absolute;
-    bottom: 10px;
-  }
-  .input {
-    margin: auto;
-    padding: 0.5rem;
-    margin: 0 0.5rem;
-    width: 70%;
-    border: 1px solid #c2c2c2;
-    border-radius: 2px;
-  }
-  .input:active,
-  .input:focus {
-    border-color: #9de3ff;
-  }
-
-  .btn {
-    padding: 0.5rem;
-    background-color: #5fcefa;
-    border: 1px solid #06b8ff;
-    border-radius: 5px;
-    color: #fff;
-    font-weight: 600;
-  }
-  .center {
     text-align: center;
-    margin: 0 auto;
+    background-color: rgb(245, 245, 245);
+    color: black;
+
+    /*https://stackoverflow.com/questions/3593594/how-to-keep-the-header-static-always-on-top-while-scrolling/58645785#58645785*/
+    position: sticky;
+    top: 0;
+    z-index: 999;
+}
+
+header h2{
+    font-size: x-large;
+    margin: 0;
+}
+
+header h3{
+    margin-top: .1;
+    margin-bottom: 0;
+    font-weight: normal;
+}
+
+
+
+
+  .messageBox {
+    background-color: #fff;
+    border-radius: 0.25rem;
+    display: flex;
+    flex-direction: column;
+    font-size: 1.2rem;
+    padding: 1.2rem 1.0rem;
+
+    min-height: 100%;
+    position: relative;
+    overflow-y: scroll;
+
   }
+  
+  .messageBox p {
+    border-radius: 1.15rem;
+    line-height: 1.25;
+    max-width: 75%;
+    padding: 0.5rem .875rem;
+    position: relative;
+    word-wrap: break-word;
+  }
+  
+  .messageBox p::before,
+  .messageBox p::after {
+    bottom: -0.1rem;
+    content: "";
+    height: 1rem;
+    position: absolute;
+  }
+  
+  p.self {
+    align-self: flex-end;
+    background-color: #248bf5;
+    color: #fff; 
+  }
+  
+  p.self ~ p.self {
+    margin: 0.25rem 0 0;
+  }
+
+  p.other {
+    align-items: flex-start;
+    background-color: #e5e5ea;
+    color: #000;
+  }
+
+
+  #messageForm {
+    position: sticky;
+    bottom:0;
+
+    border-color: black;
+    background-color: #eee;
+  }
+  textarea {
+    padding: 0.3rem;
+    margin: 0 0.5rem;
+    width: calc(100% - 80px);
+    border: 1px solid #c2c2c2;
+    border-radius: 20px;
+    display: inline-block;
+    /* by having a max height and overflow auto, input box will expand
+    to limit of max-height and then further text can be seen via using scroll wheel
+    */
+    /* https://stackoverflow.com/questions/36522474/css-form-scroll-overflow */
+    max-height: 40px;
+    overflow-y:auto;
+    
+  }
+  /*modifies the placeholder value of 'input' */
+  textarea::placeholder{
+    color: rgb(200,200,200);
+  }
+  textarea:active,
+  textarea:focus {
+    border-color: #9b0000;
+  }
+
+  #send-button{
+    border: none;
+    border-radius: 22px;
+    background: #248bf5;
+    color: #fff;
+    font-weight: bold;
+
+    width: 45px;
+    display: inline-block;
+  }
+
   .error {
     border-color: #fa7962 !important;
-  }
-  /* default message styling for server notifications */
-  .message {
-    background-color: rgb(255, 255, 255);
-    color: #333;
-    font-size: 1.2rem;
-    text-align: center;
-    border-radius: 5px;
-    padding: 0.5rem;
-    margin-top: 1rem;
-  }
-  /* change colors and alignment for self and others messages */
-  .self-message {
-    background-color: #707070;
-    text-align: right;
-  }
-  .others-message {
-    background-color: #1982FC;
-    text-align: left;
   }

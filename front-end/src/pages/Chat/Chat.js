@@ -1,31 +1,22 @@
 import { useState, useEffect } from "react"
+import axios from "axios"
 import { useNavigate } from "react-router-dom";
+import "./Chat.css"
 
 
 
 
 const Chat = props => {
 
-  const navigate = useNavigate();
+  // create state variables and their setters so everytime thier value changes, the component updates them in the browser
+  const [message, setMessage] = useState("")
+  const [error, setError] = useState("")
 
-  const [feedback, setFeedback] = useState("")
-
-
-
-  //for spring01 set to take user to static page
-  //take user to chat session with match
-  const handleClick = e => {
-    console.log("going to chat!")
-    let path = `/chat`; 
-    navigate(path);    
-  }
-  //for spring01 set to take user to static page
-  //take user to matches' profile
-  const handleImageClick = e => {
-    console.log("going to profile!")
-    let path = `/profile`; 
-    navigate(path);   
-  }
+  useEffect(() => {
+    // this function runs once when the component first loads and again whenever the value of the breed variable changes
+    // check your browser's Developer Tools -> Javascript Console to see this printed when the component first loads and anytime the breed value changes
+    console.log(message)
+  }, [message]) // the variable name in the array here is what causes this function to re-run any time the value of breed changes
 
   // info on the match ie other person's account
   const matchInfo = {
@@ -59,17 +50,98 @@ const Chat = props => {
     },
     {
       name: "me",
-      message: "Also, are utilities and furniture included?",
-      date:"2012-04-23T18:27:02.511Z",
+      message: "great! can we negotiate?",
+      date:"2012-04-23T18:26:15.511Z",
       id:0,
     },
     {
       name: "me",
-      message: "your post didn't mention anything",
-      date:"2012-04-23T18:27:15.511Z",
+      message: "great! can we negotiate?",
+      date:"2012-04-23T18:26:15.511Z",
       id:0,
     },
+    {
+      name: "me",
+      message: "great! can we negotiate?",
+      date:"2012-04-23T18:26:15.511Z",
+      id:0,
+    },
+    {
+      name: "me",
+      message: "great! can we negotiate?",
+      date:"2012-04-23T18:26:15.511Z",
+      id:0,
+    },
+    {
+      name: "me",
+      message: "great! can we negotiate?",
+      date:"2012-04-23T18:26:15.511Z",
+      id:0,
+    },
+    {
+      name: "me",
+      message: "great! can we negotiate?",
+      date:"2012-04-23T18:26:15.511Z",
+      id:0,
+    },
+    {
+      name: "me",
+      message: "great! can we negotiate?",
+      date:"2012-04-23T18:26:15.511Z",
+      id:0,
+    },
+    {
+      name: "me",
+      message: "great! can we negotiate?",
+      date:"2012-04-23T18:26:15.511Z",
+      id:0,
+    },
+    {
+      name: "me",
+      message: "great! can we negotiate?",
+      date:"2012-04-23T18:26:15.511Z",
+      id:0,
+    },
+    {
+      name: "me",
+      message: "great! can we negotiate?",
+      date:"2012-04-23T18:26:15.511Z",
+      id:0,
+    },
+
+
   ]
+
+  function whoSent(id){
+    if (id == 0) return "self"
+    else return "other"
+  }
+
+  const handleSubmit = e => {
+    e.preventDefault() // prevent the default browser form submission stuff
+
+    // send the data of the new puppy to a server
+    // this server doesn't exist, so we will see an error in the console
+    // axios' get() and post() methods return a promise, so we can use our javascript Promise or async/await expertise here to deal with the resolution or rejection of the request
+    axios
+      .post("https://someserversomehwere.com/puppy/save", {
+        message: message,
+      })
+      .then(response => {
+        // success
+        console.log(`Received server response: ${response.data}`)
+      })
+      .catch(err => {
+        // failure
+        console.log(`Received server error: ${err}`)
+        setError(
+          "This form doesn't actually work, sorry.  There is no back-end for this example app in which to save the data. Pop open your web browser's Javascript Console to see the error trying to connect to a non-existent back-end."
+        )
+      })
+      // clear form
+      setMessage('')
+  }
+
 
     return (
       <main>
@@ -77,21 +149,25 @@ const Chat = props => {
             <h2>1653 E 8th St, Brooklyn, NY</h2>
             <h3>Michael Angelo</h3>
         </header>
-        <article className="chatlog">
+        <section className="messageBox">
         {/*
           * loop through the array of chatlog  data, and display its messages
           */}
-        {chatlog.map((comp, i, matchesArray) => (
-          <div className="">
-            {comp.message}
-          </div>
+        {chatlog.map((mes, i, matchesArray) => (
+          <p className={whoSent(mes.id)}>{mes.message}</p>
         ))}
-        </article>
-        <div class="center">
-        <form id="messageForm">
-        <input class="input center" type="text" id="messageInput" />
+        </section>
+
+        {/* input box */}
+        <form id="messageForm" onSubmit={handleSubmit}>
+          <textarea 
+          type="text"
+          placeholder="Message..."
+          onChange={e => setMessage(e.target.value)}
+          value={message}
+          />
+          <input type="submit" id="send-button" value="Send"/>
         </form>
-        </div>
       </main>
     )
   }

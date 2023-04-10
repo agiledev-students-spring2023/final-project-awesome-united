@@ -13,6 +13,9 @@ const multer = require('multer') // extract files from requests
 
 const path = require('path')
 
+var cors = require('cors')
+app.use(cors())
+
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, 'ProfilePicture/UserPFPs')

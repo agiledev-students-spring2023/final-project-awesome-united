@@ -139,7 +139,7 @@ function SearchSettings() {
   const [options, setOptions] = useState([]);
 
   useEffect(() => {
-    axios.get('/get-search-settings')
+    axios.get('http://localhost:3001/get-search-settings')
     .then(function (response) {
       setStateVariables(response.data);
       console.log("got data:");
@@ -158,7 +158,7 @@ function SearchSettings() {
     .catch(function (error) {
       console.log(error);
     })
-    axios.get('/get-user-filter')
+    axios.get('http://localhost:3001/get-user-filter')
     .then(function (response){
       
     })
@@ -179,7 +179,7 @@ function SearchSettings() {
     console.log(useStateVariables)
 
     axios
-    .post("/post-user-filter", useStateVariables)
+    .post("http://localhost:3001/post-user-filter", useStateVariables)
     .then(response => {
       console.log(`Received server response: ${response.data}`)
     })

@@ -179,7 +179,7 @@ function SearchSettings() {
     console.log(useStateVariables)
 
     axios
-    .post("/post-user-filter", useStateVariables)
+    .post("http://localhost:3001/post-user-filter", useStateVariables)
     .then(response => {
       console.log(`Received server response: ${response.data}`)
     })

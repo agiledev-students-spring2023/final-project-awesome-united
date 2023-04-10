@@ -61,6 +61,7 @@ function CreateAccount(){
         Profile Photo:
       </div>
       <div className='UploadPFP'>
+        <div className='divForm'>
         <form method='POST' action='/upload-pfp' encType='multipart/form-data'>
           <input 
           type='file' 
@@ -70,6 +71,7 @@ function CreateAccount(){
           />
           <button className='UploadButton'> upload </button>
         </form>
+        </div>
       </div>
       <div className='Location'>
         Location:

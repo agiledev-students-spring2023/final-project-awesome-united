@@ -8,6 +8,16 @@
     margin-bottom: 5px;
 }
 
+.divForm{
+    align-self: center;
+    align-content: center;
+    align-items: center;
+    display: block;
+    text-align: center;
+    width: 350px; 
+    margin: 0 auto
+}
+
 .H1{
     text-align: center;
     font-size: calc(15px + 3vmin);
@@ -43,6 +53,11 @@
 .EmailAddress{
     margin-top: calc(20px + 3vmin);
     margin-bottom: calc(10px + 2vmin);
+}
+
+.ProfilePhoto{
+    margin-top: calc(10px + 3vmin);
+    align-items: center;
 }
 
 .UploadPFP{

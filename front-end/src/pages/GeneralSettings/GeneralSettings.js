@@ -1,13 +1,11 @@
 import React, { useState } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 //import SizeSettings from "../../components/SizeSettings";
 //import BrightnessSettings from "../../components/BrightnessSettings";
 import AccountInfo from "../../components/AccountInfo";
-<<<<<<< HEAD
-=======
 import ChangePassword from "../../components/ChangePassword";
 import LogOut from "../../components/LogOut";
->>>>>>> origin/master
+import SearchSettings from "../SearchSettings/SearchSettings";
 
 // set up routes so different URL routes load up different main components
 const GeneralSettings = (props) => {
@@ -16,16 +14,13 @@ const GeneralSettings = (props) => {
       <h1>
         General Settings Page
       </h1>
+      <SearchSettings/>
+      <p></p>
       <AccountInfo />
-<<<<<<< HEAD
-      <p>Change your Password - linked page
-      Account Info - linked
-      Log Out - button
-      </p>
-=======
+      <p></p>
       <ChangePassword />
+      <p></p>
       <LogOut />
->>>>>>> origin/master
     </div>
   );
 };

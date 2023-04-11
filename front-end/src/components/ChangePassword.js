@@ -2,13 +2,14 @@ const ChangePassword = props => {
     return (
         <div>
             <h1>
-        ChangePassword
+        Change Your Password
             </h1>
             <form>
-            <label>Enter your current password:
+            <label>Enter your current password: 
                 <input type="text" value = "" onChange ={''}/>
             </label>
-            <label>Enter your new password:
+            <p></p>
+            <label>Enter your new password: 
                 <input type="text" value = "" onChange ={''}/>
             </label>
             </form>

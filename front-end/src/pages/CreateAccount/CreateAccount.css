@@ -8,6 +8,16 @@
     margin-bottom: 5px;
 }
 
+.divForm{
+    align-self: center;
+    align-content: center;
+    align-items: center;
+    display: block;
+    text-align: center;
+    width: 350px; 
+    margin: 0 auto
+}
+
 .H1{
     text-align: center;
     font-size: calc(15px + 3vmin);
@@ -45,12 +55,26 @@
     margin-bottom: calc(10px + 2vmin);
 }
 
+.ProfilePhoto{
+    margin-top: calc(10px + 3vmin);
+    align-items: center;
+}
+
+.UploadPFP{
+    align-items: center;
+    text-align: center;
+}
+
 .UploadPP{
+    align-items: center;
+    text-align: center;
     font-size: calc(6px + 1vmin);
     margin: calc(10px + 1vmin);
 }
 
 .UploadButton{
+    align-items: center;
+    text-align: center;
     font-size: calc(5px + 1vmin);
     margin: calc(5px + 1vmin);
 }
@@ -71,6 +95,10 @@
 }
 
 .CreateAccount{
+    text-align: center;
+}
+
+form {
     text-align: center;
 }
 

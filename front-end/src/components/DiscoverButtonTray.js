@@ -12,6 +12,10 @@ import QuestionMarkIcon from "@mui/icons-material/QuestionMark";
 import CheckIcon from "@mui/icons-material/Check";
 import DoNotDisturbIcon from "@mui/icons-material/DoNotDisturb";
 import { Link, useLocation } from "react-router-dom";
+import CloseIcon from "@mui/icons-material/Close";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import BookmarkIcon from "@mui/icons-material/Bookmark";
+import CancelIcon from "@mui/icons-material/Cancel";
 
 const DiscoverButtonTray = (props) => {
   let location = useLocation();
@@ -24,28 +28,30 @@ const DiscoverButtonTray = (props) => {
         spacing={0.5}
         xs={11}
       >
-        <IconButton>
-          <DoNotDisturbIcon
-            className="discoverButtonTrayButton"
-            fontSize="80px"
-            onClick={props.no}
-          ></DoNotDisturbIcon>
-        </IconButton>
+        <Grid item>
+          <IconButton>
+            <CancelIcon
+              className="discoverButtonTrayButton noButton"
+              fontSize="80px"
+              onClick={props.no}
+            ></CancelIcon>
+          </IconButton>
+        </Grid>
 
         <IconButton>
-          <QuestionMarkIcon
-            className="discoverButtonTrayButton"
+          <BookmarkIcon
+            className="discoverButtonTrayButton saveButton"
             fontSize="80px"
             onClick={props.save}
-          ></QuestionMarkIcon>
+          ></BookmarkIcon>
         </IconButton>
 
         <IconButton>
-          <CheckIcon
-            className="discoverButtonTrayButton"
+          <FavoriteIcon
+            className="discoverButtonTrayButton likeButton"
             onClick={props.yes}
             fontSize="80px"
-          ></CheckIcon>
+          ></FavoriteIcon>
         </IconButton>
       </Grid>
     </div>

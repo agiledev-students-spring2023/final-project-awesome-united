@@ -109,21 +109,18 @@ function SearchSettings() {
   const [options, setOptions] = useState([]);
 
   useEffect(() => {
-    axios.get('/get-search-settings')
-    .then(function (response) {
+    axios.get('/get-search-settings').then(function (response) {
       setStateVariables(response.data);
       console.log("got data:");
       console.log(response.data);
-      let o = []
-      o.push(<Option name="Search Location" default="" useStateVariables={response.data}/>)
-      o.push(<Option name="Distance from Location" type="number" unit="miles" def={5} useStateVariables={response.data}/>)
-      o.push(<SliderOption name="Price Range" min={0} max={1000} useStateVariables={response.data}/>)
-      o.push(<GridOption name="Property Types" options={Object.keys(response.data.PropertyTypes)} useStateVariables={response.data}/>)
-      o.push(<GridOption name="Amenities" options={Object.keys(response.data.Amenities)} useStateVariables={response.data}/>)
-      o.push(<SliderOption name="Number of Rooms" min={1} useStateVariables={response.data}/>)
-      o.push(<SliderOption name="Number of Beds" useStateVariables={response.data}/>)
-      o.push(<SliderOption name="Number of Bathrooms" useStateVariables={response.data}/>)
-      setOptions(o)
+      setOptions([<Option name="Search Location" default="" useStateVariables={response.data}/>,
+      <Option name="Distance from Location" type="number" unit="miles" def={5} useStateVariables={response.data}/>,
+      <SliderOption name="Price Range" min={0} max={1000} useStateVariables={response.data}/>,
+      <GridOption name="Property Types" options={Object.keys(response.data.PropertyTypes)} useStateVariables={response.data}/>,
+      <GridOption name="Amenities" options={Object.keys(response.data.Amenities)} useStateVariables={response.data}/>,
+      <SliderOption name="Number of Rooms" min={1} useStateVariables={response.data}/>,
+      <SliderOption name="Number of Beds" useStateVariables={response.data}/>,
+      <SliderOption name="Number of Bathrooms" useStateVariables={response.data}/>])
     })
     .catch(function (error) {
       console.log(error);

@@ -19,19 +19,23 @@ import Chat from "./pages/Chat/Chat";
 import "./App.css";
 
 import SingleListing from "./pages/SingleListing/SingleListing";
+import NewAccountSelection from "./pages/NewAccountSelection/NewAccountSelection";
 
 // set up routes so different URL routes load up different main components
 const App = (props) => {
   const location = useLocation();
   return (
     <div className="container">
-      
       <div className="container-body">
         <Routes>
           {/* a route to the home screen */}
           <Route path="/" element={<Login />} />
 
           <Route path="/createAccount" element={<CreateAccount />} />
+          <Route
+            path="/newAccountSelection"
+            element={<NewAccountSelection />}
+          />
           <Route path="/searchSettings" element={<SearchSettings />} />
           <Route path="/discover" element={<Discover />} />
           <Route path="/matches" element={<Matches />} />
@@ -45,9 +49,9 @@ const App = (props) => {
       </div>
       {location.pathname !== "/createAccount" &&
         location.pathname !== "/" &&
-        location.pathname !== "/login" && <Footer />}
+        location.pathname !== "/login" &&
+        location.pathname !== "/newAccountSelection" && <Footer />}
     </div>
-    
   );
 };
 

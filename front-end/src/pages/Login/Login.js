@@ -8,12 +8,12 @@ import { Link, useLocation } from "react-router-dom";
 function Login(props) {
   const { register, handleSubmit, watch, getValues } = useForm();
   const [passwordMatch, setPasswordMatch] = useState(false);
-  const onSubmit = (e) => {
-    if (e.confirm != e.password) {
+  const onSubmit = (data) => {
+    if (data.confirm != data.password) {
       setPasswordMatch(true);
       return;
     }
-    console.log(e);
+    console.log(data);
   };
 
   return (
@@ -62,7 +62,7 @@ function Login(props) {
             Log In
           </Button>
           <div className="create-account">
-            <Link className="createAccountText" to="/createAccount">
+            <Link className="createAccountText" to="/newAccountSelection">
               <Typography variant="h7" className="createAccountText2">
                 Create Account
               </Typography>

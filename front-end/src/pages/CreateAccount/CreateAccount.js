@@ -3,22 +3,24 @@ import { useForm } from "react-hook-form";
 import { TextField, Grid, Button, Typography } from "@mui/material";
 import "./CreateAccount.css";
 import DiscoverHeader from "../../components/DiscoverHeader";
+import { Link } from "react-router-dom";
 
 function CreateAccount(props) {
   const { register, handleSubmit, watch, getValues } = useForm();
   const [passwordMatch, setPasswordMatch] = useState(false);
-  const onSubmit = (e) => {
-    if (e.confirm != e.password) {
+  const onSubmit = (data) => {
+    if (data.confirm != data.password) {
       setPasswordMatch(true);
       return;
     }
-    console.log(e);
+    console.log(props.accountType);
+    console.log(data);
   };
 
+  console.log(props);
   return (
     <div>
       <DiscoverHeader />
-
       <form className="createForm" onSubmit={handleSubmit(onSubmit)}>
         <div class="formContainer">
           <Typography variant="h6" className="headerText">
@@ -106,6 +108,13 @@ function CreateAccount(props) {
           >
             Create Account
           </Button>
+          <div className="login-text">
+            <Link className="loginLink" to="/login">
+              <Typography variant="h7" className="loginType">
+                Log In
+              </Typography>
+            </Link>
+          </div>
         </div>
       </form>
     </div>

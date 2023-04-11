@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 import mongooseSlugPlugin from 'mongoose-slug-plugin';
+require("dotenv").config({ silent: true }) // load environmental variables from a hidden file named .env
 
 // TODO: add schemas
 /* const SnakeSchema = new mongoose.eSchema({
@@ -65,7 +66,7 @@ s.save((err,saved)=>{
 console.log(User);
 console.log(a.title);
 console.log(Article);
-mongoose.connect('mongodb://localhost/Homie');
+mongoose.connect(process.env.MONGODB);
 
 //model with schema and name of model Registers model
 //model with name Retrieves

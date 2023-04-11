@@ -6,6 +6,7 @@ const morgan = require("morgan") // middleware for nice logging of incoming HTTP
 //Mocha and chai are unit testing
 // ngrok is a tool to output a public URL for the webserver running locally 
 const multer = require('multer') // extract files from requests
+require("dotenv").config({ silent: true }) // load environmental variables from a hidden file named .env
 
 const path = require('path')
 
@@ -14,6 +15,9 @@ app.use(morgan("dev")) // dev style gives a concise color-coded style of log out
 app.use(express.json()) // decode JSON-formatted incoming POST data
 app.use(express.urlencoded({ extended: true })) // decode url-encoded incoming POST data
 // app.use(express.static("../front-end/public"))
+
+//login test code https://github.com/nyu-software-engineering/data-storage-example-app/blob/master/back-end/app.js
+
 
 // custom middleware - first
 app.use((req, res, next) => {

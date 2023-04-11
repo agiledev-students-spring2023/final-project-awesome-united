@@ -23,6 +23,7 @@
     "faker": "^6.6.6",
     "istanbul": "^0.4.5",
     "mocha": "^10.2.0",
+    "mongoose-slug-plugin": "^2.1.0",
     "nodemon": "^2.0.21",
     "sinon": "^15.0.3"
   }

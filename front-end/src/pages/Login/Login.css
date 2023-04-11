@@ -1,0 +1,33 @@
+.formContainer {
+  flex-direction: column;
+  margin-top: 30%;
+}
+.headerText {
+  padding-bottom: 20px;
+}
+.createForm {
+  background: white;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  margin: 0 auto;
+  max-width: 500px;
+  padding: 30px 50px;
+}
+.formBoxGrid {
+  margin-bottom: 15px;
+}
+.createAccountButton {
+  text-transform: none;
+}
+.createAccountText {
+  text-decoration: none;
+  color: rgb(6, 69, 173);
+}
+.createAccountText2 {
+  font-size: 22px;
+}
+.create-account {
+  margin-top: 15px;
+}

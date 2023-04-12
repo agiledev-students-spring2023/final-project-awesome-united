@@ -4,8 +4,9 @@
 }
 
 .homie-icon {
-  font-size: 40px;
-
+  font-size: 50px;
+  margin: 0;
+  padding: 0;
   margin-left: 10px;
   color: gray;
 }
@@ -14,7 +15,7 @@
   font-size: 32px;
   font-weight: 600;
   color: black;
-  letter-spacing: 1.5px;
+
   margin: 0;
   padding: 0;
   font-family: "Helvetica Neue", sans-serif;

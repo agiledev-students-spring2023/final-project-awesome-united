@@ -3,74 +3,102 @@ import { useForm } from "react-hook-form";
 import { TextField, Grid, Button, Typography } from "@mui/material";
 import DiscoverHeader from "../../components/DiscoverHeader";
 import "./Login.css";
-import { Link, useLocation } from "react-router-dom";
+import { Link, redirect, useLocation, Navigate } from "react-router-dom";
+import axios from "axios";
 
 function Login(props) {
   const { register, handleSubmit, watch, getValues } = useForm();
-  const [passwordMatch, setPasswordMatch] = useState(false);
+
+  const [invalidAccount, setInvalidAccount] = useState(false);
+  const [invalidPassword, setInvalidPassword] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(false);
+
   const onSubmit = (data) => {
-    if (data.confirm != data.password) {
-      setPasswordMatch(true);
-      return;
-    }
-    console.log(data);
+    axios
+      .post("http://localhost:3001/login", {
+        userName: data.userName,
+        password: data.password,
+      })
+      .then((response) => {
+        setLoggedIn(true);
+      })
+      .catch((err) => {
+        const data = err.response.data;
+
+        if (data === "User does not exist") {
+          setInvalidAccount(true);
+        }
+        if (data === "Incorrect password") {
+          setInvalidPassword(true);
+        }
+      });
   };
 
   return (
-    <div>
-      <header className="Header">
-        <DiscoverHeader />
-      </header>
+    <>
+      {!loggedIn ? (
+        <div>
+          <header className="Header">
+            <DiscoverHeader />
+          </header>
 
-      <form className="createForm" onSubmit={handleSubmit(onSubmit)}>
-        <div class="formContainer">
-          <Typography variant="h4" className="headerText">
-            Welcome Home.
-          </Typography>
-          <Grid container className="formBoxGrid">
-            <Grid item xs={12}>
-              <TextField
-                fullWidth
-                {...register("userName", { required: true })}
-                id="outlined-basic"
-                label="Username"
-                variant="outlined"
-                required={true}
-              />
-            </Grid>
-          </Grid>
-
-          <Grid container spacing={2} className="formBoxGrid">
-            <Grid item xs={12}>
-              <TextField
-                fullWidth
-                {...register("password", { required: true })}
-                id="outlined-basic"
-                label="Password"
-                variant="outlined"
-                type="password"
-                required={true}
-              />
-            </Grid>
-          </Grid>
-          <Button
-            fullWidth
-            className="createAccountButton"
-            type="submit"
-            variant="contained"
-          >
-            Log In
-          </Button>
-          <div className="create-account">
-            <Link className="createAccountText" to="/newAccountSelection">
-              <Typography variant="h7" className="createAccountText2">
-                Create Account
+          <form className="createForm" onSubmit={handleSubmit(onSubmit)}>
+            <div class="formContainer">
+              <Typography variant="h4" className="headerText">
+                Welcome Home.
               </Typography>
-            </Link>
-          </div>
+              <Grid container className="formBoxGrid">
+                <Grid item xs={12}>
+                  <TextField
+                    fullWidth
+                    {...register("userName", { required: true })}
+                    id="outlined-basic"
+                    label="Username"
+                    variant="outlined"
+                    error={invalidAccount}
+                    helperText={!invalidAccount ? "" : "User does not exist."}
+                    required={true}
+                  />
+                </Grid>
+              </Grid>
+
+              <Grid container spacing={2} className="formBoxGrid">
+                <Grid item xs={12}>
+                  <TextField
+                    fullWidth
+                    {...register("password", { required: true })}
+                    id="outlined-basic"
+                    label="Password"
+                    variant="outlined"
+                    type="password"
+                    error={invalidPassword}
+                    helperText={!invalidPassword ? "" : "Invalid Password."}
+                    required={true}
+                  />
+                </Grid>
+              </Grid>
+              <Button
+                fullWidth
+                className="createAccountButton"
+                type="submit"
+                variant="contained"
+              >
+                Log In
+              </Button>
+              <div className="create-account">
+                <Link className="createAccountText" to="/newAccountSelection">
+                  <Typography variant="h7" className="createAccountText2">
+                    Create Account
+                  </Typography>
+                </Link>
+              </div>
+            </div>
+          </form>
         </div>
-      </form>
-    </div>
+      ) : (
+        <Navigate to="/discover" replace={true} />
+      )}
+    </>
   );
 }
 

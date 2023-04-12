@@ -3,8 +3,17 @@ const express = require("express") // CommonJS import style!
 const app = express() // instantiate an Express object
 const morgan = require("morgan") // middleware for nice logging of incoming HTTP requests
 const _ = require("lodash"); 
-
+const mongoose = require("mongoose")
 const listingSchema = require('./models/listing');
+const userSchema = require('./models/user');
+const uuid = require('uuid');
+const dotenv = require('dotenv')
+const bodyParser = require('body-parser')
+const bcrypt = require('bcrypt');
+
+
+dotenv.config()
+ 
 
 // Postman  https://web.postman.co/
 //Mocha and chai are unit testing
@@ -13,6 +22,18 @@ const multer = require('multer') // extract files from requests
 
 const path = require('path')
 
+ 
+mongoose.connect(process.env.DB_URI, {
+  dbName: process.env.DB_NAME,
+  user: process.env.DB_USERNAME,
+  pass: process.env.DB_PASSWORD
+}).then(
+() => {
+  console.log("Connection established to MongoDB")
+}
+).catch((err) => {
+  console.log(err)
+})
 var cors = require('cors')
 app.use(cors())
 
@@ -34,31 +55,6 @@ let filter_settings = {};
 app.use(morgan("dev")) // dev style gives a concise color-coded style of log output
 app.use(express.json()) // decode JSON-formatted incoming POST data
 app.use(express.urlencoded({ extended: true })) // decode url-encoded incoming POST data
-// app.use(express.static("../front-end/public"))
-
-// custom middleware - first
-app.use((req, res, next) => {
-    // make a modification to either the req or res objects
-    res.addedStuff = "First middleware function run!"
-    // run the next middleware function, if any
-    next()
-  })
-// custom middleware - second
-app.use((req, res, next) => {
-    // make a modification to either the req or res objects
-    res.addedStuff += " Second middleware function run!"
-    // run the next middleware function, if any
-    next()
-  })
-// route for HTTP GET requests to /middleware-example
-app.get("/middleware-example", (req, res) => {
-    // grab data passed along by the middleware, if available
-    const message = res.addedStuff
-      ? res.addedStuff
-      : "Sorry, the middleware did not work!"
-    // use the data added by the middleware in some way
-    res.send(message)
-  })
 
   app.get('/get-listings', (req, res) => {
     const listing = listingSchema.generateMockListing();
@@ -101,6 +97,92 @@ app.post("/post-user-filter", (req, res) => {
 app.post("/upload-pfp", upload_pfp.single("image"), (req, res) => {
   console.log("Profile Picture Uploaded");
 })
+
+const User = userSchema.User
+
+const checkDuplicateUsernameOrEmail = async (req, res, next) => {
+ 
+  bodyParser.json(req)
+ 
+  const userName = req.body.userName;
+  const email = req.body.email;
+  const usernameExists = await User.findOne({userName: userName}).exec()
+  if(usernameExists){
+    next( new Error('Username already exists'))
+    
+  }
+  const emailExists = await User.findOne({email: email}).exec()
+  if(emailExists){
+    next(new Error('Email already exists'))
+  }
+  if(!emailExists && !usernameExists){
+    next()
+  }
+ 
+  
+}
+const hashPassword = (req, res, next) => {
+  bcrypt.hash(req.body.password, 10, function(err, hash) {
+     req.body.hashedPassword = hash
+     next()
+});
+}
+const createAccountInDatabase = (req, res, next) => {
+  
+  console.log(req.body)
+ 
+  const newUser = new User({
+    userName: req.body.userName,
+    passwordHash: req.body.hashedPassword,
+    email: req.body.email,
+    firstName: req.body.firstName,
+    lastName: req.body.lastName,
+    id: uuid.v4(),
+    accountType: req.body.accountType,
+  })
+  newUser.save().then(
+    (user) => {
+      res.status(200).send("OK")
+
+    }
+  ).catch((error) => {
+    res.status(400).send("Could not save to DB")
+  })
+  
+
+}
+
+app.post("/create-account", checkDuplicateUsernameOrEmail, hashPassword, createAccountInDatabase) 
+
+const checkLoginDetails = async(req, res, next) => {
+  bodyParser.json(req)
+  console.log(req.body)
+  const userName = req.body.userName
+  const reqPassword = req.body.password
+  
+  const account = await User.findOne({userName: userName}).exec()
+   
+  if(!account){
+    next( new Error('Username does not exist'))
+  }
+  else{
+    bcrypt.compare(reqPassword, account.passwordHash, (err, result) => {
+      if(result=== true){
+        next()
+      }
+      else{
+        next(new Error('Incorrect password'))
+      }
+    }
+
+    )
+  }
+
+}
+const sendAuthTokens = (req, res, next) => {
+  res.status(200).send("OK")
+}
+app.post("/login", checkLoginDetails, sendAuthTokens);
 
 app.post("/get-user-data", async (req, res) => {
   if (_.isEqual(req.body, {"userCountry": "", "userState": "", "userCity": "", "userAddress": ""})){

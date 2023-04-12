@@ -10,6 +10,11 @@ const uuid = require("uuid");
 const dotenv = require("dotenv");
 const bodyParser = require("body-parser");
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+const passport = require("passport");
+app.use(passport.initialize()); // tell express to use passport middleware
+const { jwtOptions, jwtStrategy } = require("./jwt-config.js");
+passport.use(jwtStrategy);
 
 dotenv.config();
 
@@ -58,6 +63,16 @@ app.get("/get-listings", (req, res) => {
   const listing = listingSchema.generateMockListing();
   res.json(listing);
 });
+app.get(
+  "/auth",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    console.log(req.user);
+    res.json({
+      user: req.user,
+    });
+  }
+);
 
 app.use(express.static(path.join(__dirname, "../front-end/build")));
 
@@ -166,6 +181,7 @@ const checkLoginDetails = async (req, res, next) => {
   } else {
     bcrypt.compare(reqPassword, account.passwordHash, (err, result) => {
       if (result === true) {
+        req.account = account;
         next();
       } else {
         next(new Error("Incorrect password"));
@@ -173,8 +189,25 @@ const checkLoginDetails = async (req, res, next) => {
     });
   }
 };
+
 const sendAuthTokens = (req, res, next) => {
-  res.status(200).send("OK");
+  console.log(req.account);
+  const payload = {
+    userName: req.account.userName,
+    firstName: req.account.firstName,
+    lastName: req.account.lastName,
+    email: req.account.email,
+    id: req.account.id,
+    accountType: req.account.accountType,
+  };
+
+  console.log(payload);
+  const token = jwt.sign(payload, jwtOptions.secretOrKey);
+  console.log(token);
+  res.status(200).json({
+    success: true,
+    token: token,
+  });
 };
 app.post("/login", checkLoginDetails, sendAuthTokens);
 

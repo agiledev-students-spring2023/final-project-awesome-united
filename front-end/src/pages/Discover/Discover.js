@@ -9,6 +9,10 @@ import DiscoverPageCard from "../../components/DiscoverPageCard";
 
 import { useSwipeable } from "react-swipeable";
 const Discover = (props) => {
+  const jwtToken = localStorage.getItem("token"); // the JWT token, if we have already received one and stored it in localStorage
+
+  const [isLoggedIn, setIsLoggedIn] = useState(jwtToken && true); // if we already have a JWT token in local storage, set this to true, otherwise false
+
   const [listings, setListings] = useState([]);
   const [loaded, setLoaded] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(listings.length - 1);
@@ -32,89 +36,101 @@ const Discover = (props) => {
   const canGoBack = currentIndex < listings.length - 1;
 
   const canSwipe = currentIndex >= 0;
+  async function fetchData() {
+    const response = await axios(
+      "https://my.api.mockaroo.com/listing!.json?key=a8b2f1e0"
+    )
+      .then((response) => {
+        setListings(response.data);
+        setLoaded(true);
 
+        updateCurrentIndex(response.data.length - 1);
+      })
+      .catch((err) => {
+        const backupData = [
+          {
+            id: 1,
+            leaseType: "rent",
+            propertyType: "House",
+            price: 30,
+            rooms: 2,
+            address: "jjjjjjjjgggggggyyyyyyyyyyyyy",
+            desc: "Amazing Place",
+            amenities: "Dishwasher",
+            images: [
+              "https://www.akc.org/wp-content/uploads/2017/11/Beagle-Puppy.jpg",
+              "https://www.akc.org/wp-content/uploads/2017/11/Beagle-History-02.jpg",
+              "https://media-be.chewy.com/wp-content/uploads/2021/04/16140525/Beagle_Featured-Image-1024x615.jpg",
+            ],
+          },
+          {
+            id: 2,
+            price: 33,
+            rooms: 3,
+            address: "2 Hacker Way",
+            propertyType: "House",
+            leaseType: "buy",
+            desc: "Amazing Place 2",
+            amenities: "Laundry",
+            images: [
+              "https://www.akc.org/wp-content/uploads/2017/11/Beagle-Puppy.jpg",
+              "https://www.akc.org/wp-content/uploads/2017/11/Beagle-History-02.jpg",
+              "https://media-be.chewy.com/wp-content/uploads/2021/04/16140525/Beagle_Featured-Image-1024x615.jpg",
+            ],
+          },
+          {
+            id: 3,
+            price: 33,
+            rooms: 3,
+            address: "3 Hacker Way",
+            propertyType: "Apartment",
+            leaseType: "rent",
+            desc: "Amazing Place 3",
+            amenities: "Laundry",
+            images: [
+              "https://www.akc.org/wp-content/uploads/2017/11/Beagle-Puppy.jpg",
+              "https://www.akc.org/wp-content/uploads/2017/11/Beagle-History-02.jpg",
+              "https://media-be.chewy.com/wp-content/uploads/2021/04/16140525/Beagle_Featured-Image-1024x615.jpg",
+            ],
+          },
+          {
+            id: 4,
+            price: 33,
+            rooms: 3,
+            address: "4 Hacker Way",
+            desc: "Amazing Place 4",
+            propertyType: "House",
+            leaseType: "rent",
+            amenities: "Laundry",
+            images: [
+              "https://www.akc.org/wp-content/uploads/2017/11/Beagle-Puppy.jpg",
+              "https://www.akc.org/wp-content/uploads/2017/11/Beagle-History-02.jpg",
+              "https://media-be.chewy.com/wp-content/uploads/2021/04/16140525/Beagle_Featured-Image-1024x615.jpg",
+            ],
+          },
+        ];
+        setLoaded(true);
+        setListings(backupData);
+
+        updateCurrentIndex(backupData.length - 1);
+      });
+  }
   useEffect(() => {
-    async function fetchData() {
-      const response = await axios(
-        "https://my.api.mockaroo.com/listing!.json?key=a8b2f1e0"
-      )
-        .then((response) => {
-          setListings(response.data);
-          setLoaded(true);
-
-          updateCurrentIndex(response.data.length - 1);
-        })
-        .catch((err) => {
-          const backupData = [
-            {
-              id: 1,
-              leaseType: "rent",
-              propertyType: "House",
-              price: 30,
-              rooms: 2,
-              address: "jjjjjjjjgggggggyyyyyyyyyyyyy",
-              desc: "Amazing Place",
-              amenities: "Dishwasher",
-              images: [
-                "https://www.akc.org/wp-content/uploads/2017/11/Beagle-Puppy.jpg",
-                "https://www.akc.org/wp-content/uploads/2017/11/Beagle-History-02.jpg",
-                "https://media-be.chewy.com/wp-content/uploads/2021/04/16140525/Beagle_Featured-Image-1024x615.jpg",
-              ],
-            },
-            {
-              id: 2,
-              price: 33,
-              rooms: 3,
-              address: "2 Hacker Way",
-              propertyType: "House",
-              leaseType: "buy",
-              desc: "Amazing Place 2",
-              amenities: "Laundry",
-              images: [
-                "https://www.akc.org/wp-content/uploads/2017/11/Beagle-Puppy.jpg",
-                "https://www.akc.org/wp-content/uploads/2017/11/Beagle-History-02.jpg",
-                "https://media-be.chewy.com/wp-content/uploads/2021/04/16140525/Beagle_Featured-Image-1024x615.jpg",
-              ],
-            },
-            {
-              id: 3,
-              price: 33,
-              rooms: 3,
-              address: "3 Hacker Way",
-              propertyType: "Apartment",
-              leaseType: "rent",
-              desc: "Amazing Place 3",
-              amenities: "Laundry",
-              images: [
-                "https://www.akc.org/wp-content/uploads/2017/11/Beagle-Puppy.jpg",
-                "https://www.akc.org/wp-content/uploads/2017/11/Beagle-History-02.jpg",
-                "https://media-be.chewy.com/wp-content/uploads/2021/04/16140525/Beagle_Featured-Image-1024x615.jpg",
-              ],
-            },
-            {
-              id: 4,
-              price: 33,
-              rooms: 3,
-              address: "4 Hacker Way",
-              desc: "Amazing Place 4",
-              propertyType: "House",
-              leaseType: "rent",
-              amenities: "Laundry",
-              images: [
-                "https://www.akc.org/wp-content/uploads/2017/11/Beagle-Puppy.jpg",
-                "https://www.akc.org/wp-content/uploads/2017/11/Beagle-History-02.jpg",
-                "https://media-be.chewy.com/wp-content/uploads/2021/04/16140525/Beagle_Featured-Image-1024x615.jpg",
-              ],
-            },
-          ];
-          setLoaded(true);
-          setListings(backupData);
-
-          updateCurrentIndex(backupData.length - 1);
-        });
-    }
     fetchData();
+    authenticate();
   }, []);
+  const authenticate = () => {
+    axios
+      .get("http://localhost:3001/auth", {
+        headers: {
+          Authorization: `JWT ${jwtToken}`,
+        },
+      })
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch((err) => console.log(err));
+  };
   const handlers = useSwipeable({
     onSwiped: (eventData) => {
       let dir = eventData.dir;

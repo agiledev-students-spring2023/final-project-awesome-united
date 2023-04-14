@@ -150,7 +150,7 @@ function CreateAccount(props) {
           <div className="login-text">
             <Link className="loginLink" to="/login">
               <Typography variant="h7" className="loginType">
-                Log In
+                Sign In
               </Typography>
             </Link>
           </div>

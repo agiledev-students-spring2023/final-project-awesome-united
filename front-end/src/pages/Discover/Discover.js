@@ -6,16 +6,19 @@ import DiscoverButtonTray from "../../components/DiscoverButtonTray";
 import React from "react";
 import { useRef, useMemo } from "react";
 import DiscoverPageCard from "../../components/DiscoverPageCard";
+import { Navigate } from "react-router-dom";
+import authenticate from "../../auth/Authenticate";
 
 import { useSwipeable } from "react-swipeable";
 const Discover = (props) => {
   const jwtToken = localStorage.getItem("token"); // the JWT token, if we have already received one and stored it in localStorage
-
   const [isLoggedIn, setIsLoggedIn] = useState(jwtToken && true); // if we already have a JWT token in local storage, set this to true, otherwise false
+  const [accountInfo, setAccountInfo] = useState([])
 
   const [listings, setListings] = useState([]);
   const [loaded, setLoaded] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(listings.length - 1);
+
 
   // used for outOfFrame closure
   const currentIndexRef = useRef(currentIndex);
@@ -117,20 +120,9 @@ const Discover = (props) => {
   }
   useEffect(() => {
     fetchData();
-    authenticate();
+    authenticate(setIsLoggedIn, setAccountInfo, jwtToken);
   }, []);
-  const authenticate = () => {
-    axios
-      .get("http://localhost:3001/auth", {
-        headers: {
-          Authorization: `JWT ${jwtToken}`,
-        },
-      })
-      .then((response) => {
-        console.log(response.data);
-      })
-      .catch((err) => console.log(err));
-  };
+  
   const handlers = useSwipeable({
     onSwiped: (eventData) => {
       let dir = eventData.dir;
@@ -164,8 +156,10 @@ const Discover = (props) => {
   const r = React.useRef(null);
 
   return (
+    <>
+    {isLoggedIn ? 
     <div className="discover">
-      <DiscoverHeader />
+      <DiscoverHeader name={accountInfo.firstName}/>
       <div className="discoverTinderCard" {...handlers}>
         {loaded ? (
           listings.map((listing, index) => {
@@ -198,6 +192,8 @@ const Discover = (props) => {
         />
       </div>
     </div>
+     :<Navigate to="/login" replace={true} />}
+    </>
   );
 };
 

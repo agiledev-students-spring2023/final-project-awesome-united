@@ -84,12 +84,12 @@ function Login(props) {
                 type="submit"
                 variant="contained"
               >
-                Log In
+                Sign In
               </Button>
               <div className="create-account">
                 <Link className="createAccountText" to="/newAccountSelection">
                   <Typography variant="h7" className="createAccountText2">
-                    Create Account
+                    Register an Account
                   </Typography>
                 </Link>
               </div>

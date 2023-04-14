@@ -23,8 +23,15 @@ const jwtStrategy = new JwtStrategy(jwtOptions, async function (
   next
 ) {
   const accountExists = await User.findOne({ id: jwt_payload.id }).exec();
+  const userData = {
+    id: accountExists.id,
+    userName: accountExists.userName,
+    firstName: accountExists.firstName,
+    lastName: accountExists.lastName,
+    email: accountExists.email,
+  }
   if (accountExists) {
-    next(null, accountExists);
+    next(null, userData);
   } else {
     next(null, false);
   }

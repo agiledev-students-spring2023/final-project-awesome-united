@@ -1,38 +1,34 @@
-.NewAccountSelection {
-  text-align: center;
-  overflow: hidden;
-}
-
-header {
-  background-color: #282c34;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+.option{
   color: white;
-  margin-bottom: 5px;
-}
-.questionText {
-  padding-bottom: 20px;
-}
+  background-color: #1565C0;
+  border-radius: 5px;
+  box-shadow: 5px;
+  display: table;
 
-.Options {
-  display: flex;
-  width: 100%;
+  width: 80vmin;
+  height: 80vmin;
 
-  padding: 0;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
-.NewAccountSelectionLink {
-  border-radius: 50px;
-  padding: 50px;
+  padding: 5px;
   margin: 10px;
-  background-color: lightgray;
+  text-align: center;
 }
 
-.NewAccountSelectionLink:hover {
-  background-color: grey;
+.option .title{
+  margin-top: 40%;
+}
+
+.option.focused{
+  width: 100%;
+  height: 90vh;
+  margin-left: 0;
+  transition: all 0.5s;
+}
+
+#selling.focused{
+  transform: translate(0px, -90vmin);
+  transition: transform 0.5s;
+}
+
+.focused + .option{
+  display: none;
 }

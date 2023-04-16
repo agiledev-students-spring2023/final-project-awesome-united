@@ -5,6 +5,7 @@ import DiscoverHeader from "../../components/DiscoverHeader";
 import "./Login.css";
 import { Link, redirect, useLocation, Navigate } from "react-router-dom";
 import axios from "axios";
+import NewAccountSelection from "../NewAccountSelection/NewAccountSelection";
 
 function Login(props) {
   const { register, handleSubmit, watch, getValues } = useForm();
@@ -44,7 +45,7 @@ function Login(props) {
           </header>
 
           <form className="createForm" onSubmit={handleSubmit(onSubmit)}>
-            <div class="formContainer">
+            <div className="formContainer">
               <Typography variant="h4" className="headerText">
                 Welcome Home.
               </Typography>
@@ -87,11 +88,12 @@ function Login(props) {
                 Sign In
               </Button>
               <div className="create-account">
-                <Link className="createAccountText" to="/newAccountSelection">
+                <NewAccountSelection/>
+                {/* <Link className="createAccountText" to="/newAccountSelection">
                   <Typography variant="h7" className="createAccountText2">
                     Register an Account
                   </Typography>
-                </Link>
+                </Link> */}
               </div>
             </div>
           </form>

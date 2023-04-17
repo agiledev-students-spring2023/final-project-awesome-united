@@ -85,13 +85,17 @@ const Matches = props => {
 
       {/*
       <SearchBar /> 
-    */}
+    
       {feedback && (
         <div>
           <p class="Home-feedback">{feedback}</p>
         </div>
       )}
-
+      */}
+        <header>
+          <button onClick={}>Yes</button>
+          <button onClick={}>Maybe</button>
+        </header>
 
         <article className="listMatches">
         {/*

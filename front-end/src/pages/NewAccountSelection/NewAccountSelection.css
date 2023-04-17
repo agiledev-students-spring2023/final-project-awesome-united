@@ -1,6 +1,5 @@
 .NewAccountSelection {
   text-align: center;
-  height: 100vh;
   overflow: hidden;
 }
 
@@ -13,22 +12,27 @@ header {
   color: white;
   margin-bottom: 5px;
 }
+.questionText {
+  padding-bottom: 20px;
+}
 
-.Options{
+.Options {
   display: flex;
   width: 100%;
+
+  padding: 0;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 }
 
-.NewAccountSelectionLink{
+.NewAccountSelectionLink {
   border-radius: 50px;
   padding: 50px;
   margin: 10px;
   background-color: lightgray;
 }
 
-.NewAccountSelectionLink:hover{
+.NewAccountSelectionLink:hover {
   background-color: grey;
 }

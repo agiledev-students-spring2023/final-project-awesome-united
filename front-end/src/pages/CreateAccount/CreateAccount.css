@@ -1,16 +1,26 @@
 .Header {
-    background-color: #D9D9D9;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    color: black;
-    margin-bottom: 5px;
+  background-color: #d9d9d9;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: black;
+  margin-bottom: 5px;
 }
 
-.H1{
-    text-align: center;
-    font-size: calc(15px + 3vmin);
+.divForm {
+  align-self: center;
+  align-content: center;
+  align-items: center;
+  display: block;
+  text-align: center;
+  width: 350px;
+  margin: 0 auto;
+}
+
+.H1 {
+  text-align: center;
+  font-size: calc(15px + 3vmin);
 }
 
 /* *{
@@ -28,66 +38,107 @@
     height: auto;
 } */
 
-.FullName{
-    margin: calc(20px + 3vmin);
+.FullName {
+  margin: calc(20px + 3vmin);
 }
 
-.Username{
-    margin: calc(20px + 3vmin);
+.Username {
+  margin: calc(20px + 3vmin);
 }
 
-.PassWord{
-    margin: calc(20px + 3vmin);
+.PassWord {
+  margin: calc(20px + 3vmin);
 }
 
-.EmailAddress{
-    margin-top: calc(20px + 3vmin);
-    margin-bottom: calc(10px + 2vmin);
+.EmailAddress {
+  margin-top: calc(20px + 3vmin);
+  margin-bottom: calc(10px + 2vmin);
 }
 
-.UploadPFP{
-    align-items: center;
-    text-align: center;
+.ProfilePhoto {
+  margin-top: calc(10px + 3vmin);
+  align-items: center;
 }
 
-.UploadPP{
-    align-items: center;
-    text-align: center;
-    font-size: calc(6px + 1vmin);
-    margin: calc(10px + 1vmin);
+.UploadPFP {
+  align-items: center;
+  text-align: center;
 }
 
-.UploadButton{
-    align-items: center;
-    text-align: center;
-    font-size: calc(5px + 1vmin);
-    margin: calc(5px + 1vmin);
+.UploadPP {
+  align-items: center;
+  text-align: center;
+  font-size: calc(6px + 1vmin);
+  margin: calc(10px + 1vmin);
 }
 
-.Country, .State, .City, .Address{
-    font-size: calc(2px + 2vmin);
-    margin: calc(5px + 1vmin);
+.UploadButton {
+  align-items: center;
+  text-align: center;
+  font-size: calc(5px + 1vmin);
+  margin: calc(5px + 1vmin);
 }
 
-.CountryInput, .StateInput, .CityInput, .AddressInput{
-    font-size: calc(1px + 2vmin);
+.Country,
+.State,
+.City,
+.Address {
+  font-size: calc(2px + 2vmin);
+  margin: calc(5px + 1vmin);
 }
 
-.CreateButton{
-    font-size: calc(10px + 1vmin);
-    font-weight: 300;
-    margin: calc(10px + 1vmin);
+.CountryInput,
+.StateInput,
+.CityInput,
+.AddressInput {
+  font-size: calc(1px + 2vmin);
 }
 
-.CreateAccount{
-    text-align: center;
+.CreateButton {
+  font-size: calc(10px + 1vmin);
+  font-weight: 300;
+  margin: calc(10px + 1vmin);
+}
+
+.CreateAccount {
+  text-align: center;
 }
 
 form {
-    text-align: center;
+  text-align: center;
 }
 
-::placeholder{
-    color: #a9a9a9;
-    font-weight: 100;
+::placeholder {
+  color: #a9a9a9;
+  font-weight: 100;
+}
+
+.formContainer {
+  flex-direction: column;
+}
+.createForm {
+  background: white;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  margin: 0 auto;
+  max-width: 500px;
+  padding: 30px 50px;
+}
+.formBoxGrid {
+  margin-bottom: 15px;
+}
+.createAccountButton {
+  text-transform: none;
+}
+.login-text {
+  margin-top: 15px;
+}
+.loginLink {
+  text-decoration: none;
+  color: rgb(6, 69, 173);
+}
+.loginType {
+  font-size: 16px;
 }

@@ -1,5 +1,5 @@
 import CottageIcon from "@mui/icons-material/Cottage";
-import { Grid } from "@mui/material";
+import { Grid, Typography } from "@mui/material";
 import "./DiscoverHeader.css";
 const DiscoverHeader = (props) => {
   return (
@@ -10,9 +10,14 @@ const DiscoverHeader = (props) => {
       justifyContent="flex-start"
       alignItems="center"
     >
-      <CottageIcon className="homie-icon" fontSize="80px" />
-
-      <h1 className="header-text">Homie</h1>
+      <Grid item xs={3}>
+        <CottageIcon className="homie-icon" fontSize="90px" />
+      </Grid>
+      <Grid item>
+        <Typography variant="h4" className="header-text">
+          Homie
+        </Typography>
+      </Grid>
     </Grid>
   );
 };

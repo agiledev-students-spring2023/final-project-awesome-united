@@ -2,6 +2,20 @@ const mongoose = require('mongoose');
 const { faker } = require('@faker-js/faker');
 const uuid = require('uuid');
 
+const amenitiesList = ['pool', 'gym', 'fireplace', 'washer/dryer', 'balcony']
+const propertyTypeList = [
+  'Single-Family',
+  'Condo',
+  'Townhouse',
+  'Coop',
+  'Multi-Family',
+  'Manufactured',
+  'Vacant Land',
+  'Other',
+  'Apartment'
+]
+const listingTypeList = ['Active', 'For Rent', 'Sold', 'Rented']
+
 const listingData = {
   id: {
     type: String,
@@ -33,7 +47,7 @@ const listingData = {
     status: {
       type: String,
       required: true,
-      enum: ['Active', 'For Rent', 'Sold', 'Rented'],
+      enum: listingTypeList,
     },
     price: {
       type: Number,
@@ -44,17 +58,7 @@ const listingData = {
     propertyType: {
       type: String,
       required: true,
-      enum: [
-        'Single-Family',
-        'Condo',
-        'Townhouse',
-        'Coop',
-        'Multi-Family',
-        'Manufactured',
-        'Vacant Land',
-        'Other',
-        'Apartment'
-      ]
+      enum: propertyTypeList
     },
     bedrooms: {
       type: Number,
@@ -82,7 +86,7 @@ const listingData = {
   amenities: [{
     type: String,
     required: true,
-    enum: ['pool', 'gym', 'fireplace', 'washer/dryer', 'balcony']
+    enum: amenitiesList
   }],
   images: [{
     type: String,
@@ -106,11 +110,11 @@ function generateMockListing() {
     unitNumber: faker.datatype.number({min: 1, max: 9999})
   };
   const listingDetails = {
-    status: faker.helpers.arrayElement(listingData.listingDetails.enum),
+    status: faker.helpers.arrayElement(listingTypeList),
     price: faker.datatype.number({ min: 100000, max: 1000000 }),
   };
   const basicDetails = {
-    propertyType: faker.helpers.arrayElement(listingData.basicDetails.propertyType.enum),
+    propertyType: faker.helpers.arrayElement(propertyTypeList),
     bedrooms: faker.datatype.number({ min: 1, max: 5 }),
     bathrooms: faker.datatype.number({ min: 1, max: 5 }),
   };
@@ -120,9 +124,9 @@ function generateMockListing() {
     lastName: faker.name.lastName(),
   };
   const amenities = [
-    faker.helpers.arrayElement(listingData.amenities.enum),
-    faker.helpers.arrayElement(listingData.amenities.enum),
-    faker.helpers.arrayElement(listingData.amenities.enum),
+    faker.helpers.arrayElement(amenitiesList),
+    faker.helpers.arrayElement(amenitiesList),
+    faker.helpers.arrayElement(amenitiesList),
   ];
   const images = [
     faker.image.imageUrl(800, 600, 'abstract', true, 'lorempixel.com', 'jpg'),

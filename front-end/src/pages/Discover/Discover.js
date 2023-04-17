@@ -36,7 +36,7 @@ const Discover = (props) => {
   useEffect(() => {
     async function fetchData() {
       const response = await axios(
-        "https://my.api.mockaroo.com/listing!.json?key=a8b2f1e0"
+        "http://localhost:3001/get-listings"
       )
         .then((response) => {
           setListings(response.data);

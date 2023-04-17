@@ -13,12 +13,11 @@ import { useSwipeable } from "react-swipeable";
 const Discover = (props) => {
   const jwtToken = localStorage.getItem("token"); // the JWT token, if we have already received one and stored it in localStorage
   const [isLoggedIn, setIsLoggedIn] = useState(jwtToken && true); // if we already have a JWT token in local storage, set this to true, otherwise false
-  const [accountInfo, setAccountInfo] = useState([])
+  const [accountInfo, setAccountInfo] = useState([]);
 
   const [listings, setListings] = useState([]);
   const [loaded, setLoaded] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(listings.length - 1);
-
 
   // used for outOfFrame closure
   const currentIndexRef = useRef(currentIndex);
@@ -40,14 +39,11 @@ const Discover = (props) => {
 
   const canSwipe = currentIndex >= 0;
 
-  useEffect(() => {
-    async function fetchData() {
-      const response = await axios(
-        "http://localhost:3001/get-listings"
-      )
-        .then((response) => {
-          setListings(response.data);
-          setLoaded(true);
+  async function fetchData() {
+    const response = await axios("http://localhost:3001/get-listings")
+      .then((response) => {
+        setListings(response.data);
+        setLoaded(true);
 
         updateCurrentIndex(response.data.length - 1);
       })
@@ -120,11 +116,12 @@ const Discover = (props) => {
         updateCurrentIndex(backupData.length - 1);
       });
   }
+
   useEffect(() => {
     fetchData();
     authenticate(setIsLoggedIn, setAccountInfo, jwtToken);
   }, []);
-  
+
   const handlers = useSwipeable({
     onSwiped: (eventData) => {
       let dir = eventData.dir;
@@ -159,42 +156,44 @@ const Discover = (props) => {
 
   return (
     <>
-    {isLoggedIn ? 
-    <div className="discover">
-      <DiscoverHeader name={accountInfo.firstName}/>
-      <div className="discoverTinderCard" {...handlers}>
-        {loaded ? (
-          listings.map((listing, index) => {
-            return (
-              <DiscoverPageCard
-                ref={childRefs[index]}
-                index={index}
-                key={listing.id}
-                id={listing.id}
-                listing={listing}
-              />
-            );
-          })
-        ) : (
-          <p1>Loading</p1>
-        )}
-      </div>
+      {isLoggedIn ? (
+        <div className="discover">
+          <DiscoverHeader name={accountInfo.firstName} />
+          <div className="discoverTinderCard" {...handlers}>
+            {loaded ? (
+              listings.map((listing, index) => {
+                return (
+                  <DiscoverPageCard
+                    ref={childRefs[index]}
+                    index={index}
+                    key={listing.id}
+                    id={listing.id}
+                    listing={listing}
+                  />
+                );
+              })
+            ) : (
+              <p1>Loading</p1>
+            )}
+          </div>
 
-      <div className="discoverButtonTray">
-        <DiscoverButtonTray
-          yes={() => {
-            swipeRight();
-          }}
-          save={() => {
-            swipeUp();
-          }}
-          no={() => {
-            swipeLeft();
-          }}
-        />
-      </div>
-    </div>
-     :<Navigate to="/login" replace={true} />}
+          <div className="discoverButtonTray">
+            <DiscoverButtonTray
+              yes={() => {
+                swipeRight();
+              }}
+              save={() => {
+                swipeUp();
+              }}
+              no={() => {
+                swipeLeft();
+              }}
+            />
+          </div>
+        </div>
+      ) : (
+        <Navigate to="/login" replace={true} />
+      )}
     </>
   );
 };

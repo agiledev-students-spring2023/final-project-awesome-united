@@ -5,6 +5,7 @@ import { Typography } from "@mui/material";
 import React, { useState, useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
+import CreateAccount from "../CreateAccount/CreateAccount";
 
 function NewAccountSelection() {
   const [show, setShow] = useState(false);
@@ -41,15 +42,17 @@ function NewAccountSelection() {
         <Modal.Header closeButton>
           <Modal.Title>Why are you using Homie?</Modal.Title>
         </Modal.Header>
-        <Modal.Body>
-          <div onClick={focusBuying} id="buying" className={"option "+(buying ? "focused" : "")}>
+        <Modal.Body className="ModalBody">
+          <div onClick={focusBuying} id="buying" className={"option "+(buying ? "focused" : " ") + (selling ? "hidden" : "")}>
             <div className="title">
               I'm here to browse!
+              {(buying ? <div className="AccountCreation"><CreateAccount/></div> : "")}
             </div>
           </div>
-          <div onClick={focusSelling} id="selling" className={"option "+(selling ? "focused" : "")}>
+          <div onClick={focusSelling} id="selling" className={"option "+(selling ? "focused" : " ") + (buying ? "hidden" : "")}>
             <div className="title">
               I'm here to sell a property!
+              {(selling ? <div className="AccountCreation"><CreateAccount/></div> : "")}
             </div>
           </div>
         </Modal.Body>

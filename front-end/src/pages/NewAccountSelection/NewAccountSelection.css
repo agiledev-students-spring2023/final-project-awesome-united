@@ -1,15 +1,17 @@
 .option{
   color: white;
   background-color: #1565C0;
+  border: 2px solid #1565C0;
   border-radius: 5px;
   box-shadow: 5px;
   display: table;
 
-  width: 80vmin;
-  height: 80vmin;
+  width: 100%;
+  height: 40vh;
+  overflow-y: scroll;
 
   padding: 5px;
-  margin: 10px;
+  margin-bottom: 10px;
   text-align: center;
 }
 
@@ -17,18 +19,37 @@
   margin-top: 40%;
 }
 
-.option.focused{
-  width: 100%;
-  height: 90vh;
+.focused .title{
+  margin-top: 5px;
+  transition: all 0.5s;
+}
+
+.focused{
+  height: 85vh;
   margin-left: 0;
+  background-color: white;
+  color: black;
   transition: all 0.5s;
 }
 
 #selling.focused{
-  transform: translate(0px, -90vmin);
-  transition: transform 0.5s;
+  transform: translate(0px, -43vh);
+  height: 85vh;
+  transition-property: transform, height;
+  transition-duration: 0.5s, 0.5s;
+  transition-delay: 0s, 0.5s;
 }
 
-.focused + .option{
-  display: none;
+.hidden{
+  opacity: 0;
+  transition: all 0.5s;
+}
+
+.AccountCreation{
+  opacity: 0;
+}
+
+.focused > .title > .AccountCreation{
+  opacity: 1;
+  transition: all 0.5s;
 }

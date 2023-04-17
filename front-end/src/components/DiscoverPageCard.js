@@ -18,9 +18,14 @@ const DiscoverPageCard = forwardRef(function DiscoverPageCard(listing, ref) {
       }}
       ref={ref}
       listing={listing2}
+      onAnimationEnd={(event) => {
+        event.target.setAttribute('swiped',0)
+        event.target.style.display = 'none'
+      }}
     >
+      
       <PhotoCarousel images={listing2.images} />
-
+      
       <div className="photoBackgroundTextGradiant">
         <div className="photoText1">{listing2.location.streetAddress}</div>
         <div className="photoText3">

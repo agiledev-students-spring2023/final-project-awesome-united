@@ -21,7 +21,7 @@ const DiscoverListingFullView = (listing) => {
           justifyContent="flex-start"
           alignItems="center"
         >
-          <Link to={"/discover/"}>
+          <Link to={"/discover"}>
             <IconButton>
               <ArrowBackIcon className="backButton" fontSize="80px" />
             </IconButton>

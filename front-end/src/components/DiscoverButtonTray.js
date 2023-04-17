@@ -29,30 +29,40 @@ const DiscoverButtonTray = (props) => {
         xs={11}
       >
         <Grid item>
-          <IconButton>
+        <div className="discoverButton">
+          <IconButton sx={ {boxShadow: 6
+          }} className="discoverButton">
             <CancelIcon
               className="discoverButtonTrayButton noButton"
               fontSize="80px"
               onClick={props.no}
             ></CancelIcon>
           </IconButton>
+          </div>
         </Grid>
-
-        <IconButton>
+        <Grid item > 
+        <div >
+        <IconButton sx={ {boxShadow: 6}}>
           <BookmarkIcon
             className="discoverButtonTrayButton saveButton"
             fontSize="80px"
             onClick={props.save}
           ></BookmarkIcon>
         </IconButton>
-
-        <IconButton>
-          <FavoriteIcon
+        </div>
+        </Grid>
+        <Grid item  >
+        <div  >
+        <IconButton sx={ {boxShadow: 6} }>
+          <FavoriteIcon 
             className="discoverButtonTrayButton likeButton"
             onClick={props.yes}
             fontSize="80px"
+            
           ></FavoriteIcon>
         </IconButton>
+        </div>
+        </Grid>
       </Grid>
     </div>
   );

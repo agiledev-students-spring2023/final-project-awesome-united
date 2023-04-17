@@ -3,7 +3,85 @@
   width: 95%;
   height: 580px;
   margin: 20px;
+  
 }
+.cardOuterFrame[swiped='1']{
+  animation: swipeRight .35s 1;
+}
+.cardOuterFrame[swiped='2']{
+  animation: swipeLeft .35s 1;
+}
+.cardOuterFrame[swiped='3']{
+  animation: swipeUp .35s 1;
+}
+@keyframes swipeRight {
+  0% {
+    transform: translateX(0)  rotate(0);
+
+  }
+  25% {
+    transform: translateX(25%) translateY(-5%) rotate(15deg);
+    opacity: 75%;
+  }
+  50% {
+    transform: translateX(50%) translateY(-10%) rotate(30deg);
+    opacity: 50%;
+  }
+  75% {
+    transform: translateX(75%) translateY(-10%) rotate(30deg);
+    opacity: 25%;
+  }
+  100% {
+    transform: translateX(100%) translateY(-10%) rotate(30deg);
+    opacity: 0;
+   
+  }
+}
+@keyframes swipeLeft {
+  0% {
+    transform: translateX(0) translateY(-5%)  rotate(0);
+  }
+  25% {
+    transform: translateX(-25%)  translateY(-10%) rotate(-15deg);
+    opacity: 75%;
+  }
+  50% {
+    transform: translateX(-50%) translateY(-10%) rotate(-30deg);
+    opacity: 50%;
+  }
+  75% {
+    transform: translateX(-75%) translateY(-10%)  rotate(-30deg);
+    opacity: 25%;
+  }
+  100% {
+    transform: translateX(-100%) translateY(-10%) rotate(-30deg);
+    opacity: 0;
+   
+  }
+}
+@keyframes swipeUp {
+  0% {
+    transform:  translateY(0%)  rotate(0);
+  }
+  25% {
+    transform:   translateY(-25%);
+    opacity: 75%;
+  }
+  50% {
+    transform:  translateY(-50%);
+    opacity: 50%;
+  }
+  75% {
+    transform: translateY(-75%);
+    opacity: 25%;
+  }
+  100% {
+    transform: translateY(-100%);
+    opacity: 0;
+   
+  }
+}
+
 
 .photoBackgroundTextGradiant {
   position: absolute;

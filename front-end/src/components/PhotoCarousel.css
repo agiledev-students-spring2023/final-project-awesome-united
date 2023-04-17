@@ -13,6 +13,31 @@
   object-fit: cover;
   height: 580px;
 }
+.progress-container {
+  
+  position: "absolute";
+  top: "0";
+  left: "0";
+  display: flex;
+  flex-direction: row;
+  width: 80vw;
+  padding: 10px 0;
+  cursor: pointer;
+}
+.progress {
+  height: 2px;
+  flex-grow: 1;
+  border-radius: 4px;
+  margin: 0 5px;
+  display: flex;
+ 
+  background-repeat: no-repeat;
+  background-size: 200%;
+  backgound-color: #666;
+  background-position: 100% 50%;
+  animation-timing-function: linear;
+  animation-delay: .2s;
+}
 
 .photoBackgroundTextGradiant {
   position: absolute;

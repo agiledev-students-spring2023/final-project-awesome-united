@@ -3,22 +3,24 @@ import { Grid, Typography } from "@mui/material";
 import "./DiscoverHeader.css";
 const DiscoverHeader = (props) => {
   return (
-    <Grid
-      className="discoverheader"
-      container
-      direction="row"
-      justifyContent="flex-start"
-      alignItems="center"
-    >
-      <Grid item xs={3}>
+    <div className="discoverheader"> 
+
         <CottageIcon className="homie-icon" fontSize="90px" />
-      </Grid>
-      <Grid item>
-        <Typography variant="h4" className="header-text">
-          Homie
+      
+       
+        <Typography variant="h4" className="header-text" sx= {
+          {
+            fontSize: 45,
+            fontWeight: "800",
+            margin: 0,
+            padding: 0,
+          }
+        }>
+          homie
         </Typography>
-      </Grid>
-    </Grid>
+ 
+  
+    </div>
   );
 };
 export default DiscoverHeader;

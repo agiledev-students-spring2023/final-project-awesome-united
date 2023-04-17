@@ -2,8 +2,10 @@
   position: relative;
   width: 95%;
   height: 580px;
-  margin: 20px;
-  
+  margin-left: 2.5%;
+  margin-top: 6px;
+  background-color: white;
+  border-radius: 5px !important;
 }
 .cardOuterFrame[swiped='1']{
   animation: swipeRight .35s 1;
@@ -84,6 +86,7 @@
 
 
 .photoBackgroundTextGradiant {
+  border-radius: 5px;
   position: absolute;
   bottom: 0;
   left: 0;
@@ -134,7 +137,7 @@
 }
 .infoButtonContainer {
   position: absolute;
-  right: 9%;
+  right: 3%;
   top: 85%;
 }
 .infoButton {

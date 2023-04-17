@@ -39,13 +39,15 @@ const Discover = (props) => {
   const canGoBack = currentIndex < listings.length - 1;
 
   const canSwipe = currentIndex >= 0;
-  async function fetchData() {
-    const response = await axios(
-      "https://my.api.mockaroo.com/listing!.json?key=a8b2f1e0"
-    )
-      .then((response) => {
-        setListings(response.data);
-        setLoaded(true);
+
+  useEffect(() => {
+    async function fetchData() {
+      const response = await axios(
+        "http://localhost:3001/get-listings"
+      )
+        .then((response) => {
+          setListings(response.data);
+          setLoaded(true);
 
         updateCurrentIndex(response.data.length - 1);
       })

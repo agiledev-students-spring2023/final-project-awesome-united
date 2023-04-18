@@ -1,38 +1,55 @@
-.NewAccountSelection {
-  text-align: center;
-  overflow: hidden;
-}
-
-header {
-  background-color: #282c34;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+.option{
   color: white;
-  margin-bottom: 5px;
-}
-.questionText {
-  padding-bottom: 20px;
-}
+  background-color: #1565C0;
+  border: 2px solid #1565C0;
+  border-radius: 5px;
+  box-shadow: 5px;
+  display: table;
 
-.Options {
-  display: flex;
   width: 100%;
+  height: 40vh;
+  overflow-y: scroll;
 
-  padding: 0;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  padding: 5px;
+  margin-bottom: 10px;
+  text-align: center;
 }
 
-.NewAccountSelectionLink {
-  border-radius: 50px;
-  padding: 50px;
-  margin: 10px;
-  background-color: lightgray;
+.option .title{
+  margin-top: 40%;
 }
 
-.NewAccountSelectionLink:hover {
-  background-color: grey;
+.focused .title{
+  margin-top: 5px;
+  transition: all 0.5s;
+}
+
+.focused{
+  height: 85vh;
+  margin-left: 0;
+  background-color: white;
+  color: black;
+  transition: all 0.5s;
+}
+
+#selling.focused{
+  transform: translate(0px, -43vh);
+  height: 85vh;
+  transition-property: transform, height;
+  transition-duration: 0.5s, 0.5s;
+  transition-delay: 0s, 0.5s;
+}
+
+.hidden{
+  opacity: 0;
+  transition: all 0.5s;
+}
+
+.AccountCreation{
+  opacity: 0;
+}
+
+.focused > .title > .AccountCreation{
+  opacity: 1;
+  transition: all 0.5s;
 }

@@ -6,9 +6,11 @@
   box-shadow: 5px;
   display: table;
 
-  width: 98%;
-  height: 35vh;
-  overflow: hidden;
+  width: 100%;
+  height: 40vh;
+  overflow-y: scroll;
+
+  padding: 5px;
   margin-bottom: 10px;
   text-align: center;
 }
@@ -23,7 +25,7 @@
 }
 
 .focused{
-  height: 60vh;
+  height: 85vh;
   margin-left: 0;
   background-color: white;
   color: black;
@@ -31,8 +33,8 @@
 }
 
 #selling.focused{
-  transform: translate(0px, -37vh);
-  height: 60vh;
+  transform: translate(0px, -43vh);
+  height: 85vh;
   transition-property: transform, height;
   transition-duration: 0.5s, 0.5s;
   transition-delay: 0s, 0.5s;

@@ -3,22 +3,23 @@ import { Link, useLocation } from "react-router-dom";
 import axios from "axios";
 import { Typography } from "@mui/material";
 import React, { useState, useEffect } from 'react';
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
 import CreateAccount from "../CreateAccount/CreateAccount";
-import { Dialog, DialogTitle, DialogContent } from "@mui/material";
 
 function NewAccountSelection() {
-  const [open, setOpen] = useState(false);
+  const [show, setShow] = useState(false);
 
   const [selling, setSelling] = useState(false);
   const [buying, setBuying] = useState(false);
 
-  const handleClose = () => setOpen(false);
-  const handleOpen = () => setOpen(true);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
   useEffect(() => {
     setSelling(false);
     setBuying(false);
-  }, [open])
+  }, [show])
 
   const focusSelling = () => {
     setSelling(true);
@@ -31,22 +32,17 @@ function NewAccountSelection() {
 
   return (
     <>
-      <Typography variant="h7" className="createAccountText2" onClick={handleOpen}>
+      <Typography variant="h7" className="createAccountText2" onClick={handleShow}>
         {/* <Button variant="primary" > */}
           Register an Account
         {/* </Button> */}
       </Typography>
 
-      <Dialog
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <DialogTitle>
-          Why are you using Homie?
-        </DialogTitle>
-        <DialogContent>
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Why are you using Homie?</Modal.Title>
+        </Modal.Header>
+        <Modal.Body className="ModalBody">
           <div onClick={focusBuying} id="buying" className={"option "+(buying ? "focused" : " ") + (selling ? "hidden" : "")}>
             <div className="title">
               I'm here to browse!
@@ -59,8 +55,8 @@ function NewAccountSelection() {
               {(selling ? <div className="AccountCreation"><CreateAccount/></div> : "")}
             </div>
           </div>
-        </DialogContent>
-      </Dialog>
+        </Modal.Body>
+      </Modal>
     </>
   );
 }

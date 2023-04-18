@@ -77,23 +77,29 @@ app.use(express.urlencoded({ extended: true })); // decode url-encoded incoming 
 
   function filterListings(listings, filterSettings){
     return listings.filter(listing => {
-
-      //tbd once filter front end is fixed
-  
-      return true;
-
-
-
-
-
-
-    }
-    
-    
-    
-    
-    )
-    
+      if(!Object.keys(filterSettings).length){
+        return true;
+      }
+      listing.amenities.forEach(amenity => {
+        if(!filterSettings.Amenities[amenity]){
+          return false;
+        }
+      });
+      if(!filterSettings.PropertyTypes[listing.basicDetails.propertyType]){
+        return false;
+      }
+      let match = true;
+      [{listingValue: listing.listingDetails.price, filterRange: filterSettings.PriceRange},
+      {listingValue: listing.basicDetails.bedrooms, filterRange: filterSettings.NumberofBeds},
+      {listingValue: listing.basicDetails.bathrooms, filterRange: filterSettings.NumberofBathrooms}]
+      .every(({listingValue, filterRange}) => {
+        if(listingValue < filterRange.min || listingValue > filterRange.max){
+          match = false;
+          return false;
+        }
+      });
+      return match;
+    })    
   }
 
 app.use(express.static(path.join(__dirname, '../front-end/build')))

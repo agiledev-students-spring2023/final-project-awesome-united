@@ -35,9 +35,22 @@ const Matches = props => {
     navigate(path);   
   }
 
-  const {user} = useContext
-  
-  const matches = [ {} ]
+  //const {user} = useContext(authenticate);
+  //console.log(user);
+
+  /*
+  const matches = [
+    {       // name of the match individual
+    name: "Name of Person",
+    lastMessagePrev: "It's good to meet you",
+    // profile picture of the match individual
+    profilePicture:`${process.env.PUBLIC_URL}/logo192.png`,
+    // unique ID of the match individual
+    id:1,
+    }
+  ]
+  */
+ const matches = [{}]
     return (
       <>
       {isLoggedIn ? 
@@ -62,6 +75,7 @@ const Matches = props => {
         {/*
           * loop through the array of match/chat list data, and return a component for each object therein
           */}
+          
         {matches.map((match, i, matchesArray) => (
           <Match
             profileImg={match.profilePicture}
@@ -72,7 +86,6 @@ const Matches = props => {
           />
         ))}
         </article>
-
       </main>
        : ""}
       </>

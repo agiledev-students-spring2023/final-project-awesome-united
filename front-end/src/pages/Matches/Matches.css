@@ -7,7 +7,8 @@
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
-  overflow: hidden;
+  height: 100%;
+  overflow-y: scroll;
   text-overflow: "ellipsis";
 
   /* some spacing around the entire contents of the frame */

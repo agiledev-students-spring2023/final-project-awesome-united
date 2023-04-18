@@ -41,6 +41,7 @@
     overflow: hidden; 
     padding-bottom: 11px; /*same px as font-size... makes sure no partially cut off text shows at bottom */
     max-height: 30px;
+    text-overflow: clip;
 }
 
 .matchName {
@@ -56,6 +57,7 @@
     /* see: https://css-tricks.com/almanac/properties/t/text-overflow/ */
     white-space: nowrap;
     overflow: hidden;
+    text-overflow: clip;
 }
 
 .chat:hover{

@@ -11,10 +11,10 @@ function NewAccountSelection() {
         </h1>
       </header>
       <div className="Options">
-        <Link className="NewAccountSelectionLink" to="/createAccountSeller">
+        <Link className="NewAccountSelectionLink" to="/createAccount">
           <div>I'm Selling</div>
         </Link>
-        <Link className="NewAccountSelectionLink" to="/createAccountBuyer">
+        <Link className="NewAccountSelectionLink" to="/createAccount">
           <div>I'm Buying</div>
         </Link>
       </div>

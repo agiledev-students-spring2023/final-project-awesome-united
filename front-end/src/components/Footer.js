@@ -9,7 +9,10 @@ import { Grid } from "@mui/material";
 import AddHomeWorkIcon from "@mui/icons-material/AddHomeWork";
 import IconButton from "@mui/material/IconButton";
 import { Link, useLocation } from "react-router-dom";
-
+import ChatBubbleOutlineOutlinedIcon from '@mui/icons-material/ChatBubbleOutlineOutlined';
+import ChatBubbleOutlinedIcon from '@mui/icons-material/ChatBubbleOutlined';
+import ForumIcon from '@mui/icons-material/Forum';
+import ForumOutlinedIcon from '@mui/icons-material/ForumOutlined';
 const Footer = (props) => {
   let location = useLocation();
   return (
@@ -38,9 +41,9 @@ const Footer = (props) => {
         <Link to="/matches">
           <IconButton>
             {location.pathname == "/matches" ? (
-              <AddHomeWorkIcon className="footerButton" fontSize="60px" />
+              <ForumIcon className="footerButton" fontSize="60px" />
             ) : (
-              <AddHomeWorkOutlinedIcon
+              <ForumOutlinedIcon
                 className="footerButton"
                 fontSize="60px"
               />

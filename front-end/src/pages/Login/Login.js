@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { TextField, Grid, Button, Typography } from "@mui/material";
 import DiscoverHeader from "../../components/DiscoverHeader";
@@ -35,6 +35,9 @@ function Login(props) {
         }
       });
   };
+  useEffect(() => {
+    document.title = 'Login';
+  }, []);
 
   return (
     <>

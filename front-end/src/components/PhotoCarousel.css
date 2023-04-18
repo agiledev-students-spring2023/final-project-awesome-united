@@ -3,22 +3,75 @@
   width: 100%;
   height: 300px;
 }
+.carouselFrame {
+  position: relative;
+  width: 100%;
+ 
+  
+}
 .carouselImageFull {
   width: 100%;
   object-fit: cover;
   height: 300px;
+  
+  
 }
 .carouselImage {
-  width: 95%;
+  width: 100%;
   object-fit: cover;
   height: 580px;
+  border-radius: 5px;
+  
+}
+.progress-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height:3%;
+  align-items: center;
+  cursor: pointer;
+}
+.progress-containerFull {
+  position: absolute;
+  top: 290px;
+  left: 0;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height:3%;
+  align-items: center;
+  cursor: pointer;
+}
+
+.progress {
+  height: 1px;
+  width: 100%;
+  border-radius: 4px;
+  margin: 0 5px;
+  margin-top: 0px;
+  display: flex;
+  background: #666;
+  border: solid .5px rgb(102, 102, 102);
+}
+.progressFilled {
+  height: 1px;
+  width: 100%;
+  border-radius: 4px;
+  margin: 0 5px;
+  margin-top: 0px;
+  display: flex;
+  background: white;
+  border: solid .5px white;
 }
 
 .photoBackgroundTextGradiant {
   position: absolute;
   bottom: 0;
   left: 0;
-  width: 95%;
+  width: 100%;
   height: 21%;
   background: linear-gradient(
     0deg,

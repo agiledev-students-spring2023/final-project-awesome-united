@@ -2,6 +2,9 @@
   flex-direction: column;
   margin-top: 30%;
 }
+.Header{
+  background-color: white;
+}
 .headerText {
   padding-bottom: 20px;
 }

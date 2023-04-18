@@ -16,17 +16,17 @@ const SliderOption = ({name="Option", min=0, max=10, step=1, useStateVariables})
   }, [useStateVariables])
 
   useEffect(() => {
-    useStateVariables[key] = {min: minimum, max: maximum}
+    useStateVariables[key] = {min: minimum, max: maximum};
   }, [minimum, maximum])
 
   return (
     <div className="Option">
       <p className="Option-name">{name}</p>
-      <input type="number" className="Input Range Min" min={min} max={max} step={step} 
-      value={minimum} onChange={e => setMinimum(e.target.value)}></input>
+      <input type="number" className="Input Range Min" step={step} 
+      value={minimum} onChange={e => setMinimum(parseInt(e.target.value))}></input>
       <span className="Range-dash">-</span>
-      <input type="number" className="Input Range Max" min={min} max={max} step={step}
-      value={maximum} onChange={e => setMaximum(e.target.value)}></input>
+      <input type="number" className="Input Range Max" step={step}
+      value={maximum} onChange={e => setMaximum(parseInt(e.target.value))}></input>
     </div>
   );
 }

@@ -61,6 +61,20 @@ app.use(express.urlencoded({ extended: true })) // decode url-encoded incoming P
     res.json(listing);
   })
 
+  function filterListings(listings, filterSettings){
+    return listings.filter(listing => {
+      listing.amenities.forEach(amenity => {
+        if(!filterSettings.Amenities[amenity]){
+          return false;
+        }
+      });
+      if(!filterSettings.PropertyTypes[listing.basicDetails.propertyType]){
+        return false;
+      }
+      return true;
+    })    
+  }
+
 app.use(express.static(path.join(__dirname, '../front-end/build')))
 
 app.get("/get-search-settings", (req, res) => {

@@ -133,6 +133,16 @@ const Option = ({name="Option", type="text", unit="", def, useStateVariables}) =
 //   )
 // }
 
+// // put all possible image urls in this list
+// const images = ['1.jpg', '2.jpg', '3.jpg', 'cat.jpg', 'dog.jpg'];
+
+// $(document).ready(function () {
+//   let current = 0;
+//   $(".image").on("click", function () {
+//     $(".image").css({ 'background-image': `url(${images[++current % images.length]})` });
+//   });
+// });
+
 function SearchSettings() {  
   const [useStateVariables, setStateVariables] = useState({});
 

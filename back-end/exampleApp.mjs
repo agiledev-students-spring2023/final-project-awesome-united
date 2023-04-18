@@ -29,9 +29,7 @@ const loginMessages = {"PASSWORDS DO NOT MATCH": 'Incorrect password', "USER NOT
 const registrationMessages = {"USERNAME ALREADY EXISTS": "Username already exists", "USERNAME PASSWORD TOO SHORT": "Username or password is too short"};
 
 
-///////////////////////
 // CUSTOM MIDDLEWARE //
-///////////////////////
 
 // require authenticated user for /article/add path
 app.use(auth.authRequired(['/article/add']));
@@ -55,9 +53,8 @@ app.use((req, res, next) => {
   next();
 });
 
-////////////////////
 // ROUTE HANDLERS //
-////////////////////
+
 app.get('/', (req, res) => {
   Article.find({}).sort('-createdAt').exec((err, articles) => {
     res.render('index', {user: req.session.user, home: true, articles: articles});

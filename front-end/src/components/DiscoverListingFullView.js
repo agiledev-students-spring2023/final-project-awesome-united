@@ -21,21 +21,21 @@ const DiscoverListingFullView = (listing) => {
           justifyContent="flex-start"
           alignItems="center"
         >
-          <Link to={"/discover/"}>
+          <Link to={"/discover"}>
             <IconButton>
               <ArrowBackIcon className="backButton" fontSize="80px" />
             </IconButton>
           </Link>
-          <div className="headerListingText">{listing.address}</div>
+          <div className="headerListingText">{listing.location.streetAddress}</div>
         </Grid>
       </div>
       <PhotoCarousel images={listing.images} mode={"full"} />
       <div className="discoverListingFrame">
         <div className="discoverListingInfo">
-          <ListingInfo category="Price" data={listing.price} />
-          <ListingInfo category="Address" data={listing.address} />
-          <ListingInfo category="Rooms" data={listing.rooms} />
-          <ListingInfo category="Description" data={listing.desc} />
+          <ListingInfo category="Price" data={listing.listingDetails.price} />
+          <ListingInfo category="Address" data={listing.location.streetAddress} />
+          <ListingInfo category="Bedrooms" data={listing.basicDetails.bedrooms} />
+          <ListingInfo category="Bathrooms" data={listing.basicDetails.bathrooms} />
           <ListingInfo category="Amenities" data={listing.amenities} />
         </div>
       </div>

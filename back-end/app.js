@@ -56,9 +56,20 @@ app.use(morgan("dev")) // dev style gives a concise color-coded style of log out
 app.use(express.json()) // decode JSON-formatted incoming POST data
 app.use(express.urlencoded({ extended: true })) // decode url-encoded incoming POST data
 
-  app.get('/get-listings', (req, res) => {
-    const listing = listingSchema.generateMockListing();
-    res.json(listing);
+  app.get('/get-listings', (req, res, next) => {
+    const listings = [listingSchema.generateMockListing(),
+      listingSchema.generateMockListing(),
+      listingSchema.generateMockListing(),
+      listingSchema.generateMockListing(),
+      listingSchema.generateMockListing()
+    ];
+   
+    console.log(filter_settings)
+    
+    const filterSettings = filter_settings;
+    const filteredListings = filterListings(listings, filterSettings);
+
+    res.json(filteredListings);
   })
 
   function filterListings(listings, filterSettings){

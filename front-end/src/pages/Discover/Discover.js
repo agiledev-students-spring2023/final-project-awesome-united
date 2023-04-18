@@ -36,7 +36,7 @@ const Discover = (props) => {
   useEffect(() => {
     async function fetchData() {
       const response = await axios(
-        "https://my.api.mockaroo.com/listing!.json?key=a8b2f1e0"
+        "http://localhost:3001/get-listings"
       )
         .then((response) => {
           setListings(response.data);
@@ -131,17 +131,20 @@ const Discover = (props) => {
     trackMouse: true,
   });
   const swipeRight = () => {
-    childRefs[currentIndex].current.style.display = "none";
+    // childRefs[currentIndex].current.style.display = "none";
+    console.log(childRefs[currentIndex].current.setAttribute('swiped', 1))
     console.log("swiped right on " + listings[currentIndex].id);
     updateCurrentIndex(currentIndex - 1);
   };
   const swipeLeft = () => {
-    childRefs[currentIndex].current.style.display = "none";
+   
+
     console.log("swiped left on " + listings[currentIndex].id);
+    console.log(childRefs[currentIndex].current.setAttribute('swiped', 2))
     updateCurrentIndex(currentIndex - 1);
   };
   const swipeUp = () => {
-    childRefs[currentIndex].current.style.display = "none";
+    console.log(childRefs[currentIndex].current.setAttribute('swiped', 3));
     console.log("swiped up on " + listings[currentIndex].id);
     updateCurrentIndex(currentIndex - 1);
   };

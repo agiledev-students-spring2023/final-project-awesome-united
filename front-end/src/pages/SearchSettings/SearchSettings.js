@@ -1,7 +1,5 @@
-import { useScrollTrigger } from '@mui/material';
+import { useScrollTrigger, FormGroup, FormControl, Input, Typography, FormLabel, Slider, Box, TextField } from '@mui/material';
 import { useState, useEffect } from "react"
-import { Helmet } from "react-helmet"
-// import MAPS_API_KEY from "../../config.js"
 import './SearchSettings.css';
 import axios from "axios"
 
@@ -19,15 +17,30 @@ const SliderOption = ({name="Option", min=0, max=10, step=1, useStateVariables})
     useStateVariables[key] = {min: minimum, max: maximum};
   }, [minimum, maximum])
 
+  const handleChange = (event, newValue) => {
+    setMinimum(newValue[0]);
+    setMaximum(newValue[1]);
+  }
+
+  let marks = new Array(4);
+
+  for(let i = 0; i < 5; i++){
+    marks[i] = { value: Math.round((max-min)*i/4), label: Math.round((max-min)*i/4)}
+  }
+
   return (
-    <div className="Option">
-      <p className="Option-name">{name}</p>
-      <input type="number" className="Input Range Min" step={step} 
-      value={minimum} onChange={e => setMinimum(parseInt(e.target.value))}></input>
-      <span className="Range-dash">-</span>
-      <input type="number" className="Input Range Max" step={step}
-      value={maximum} onChange={e => setMaximum(parseInt(e.target.value))}></input>
-    </div>
+    <Box className="Option">
+      <FormLabel className="Option-name">{name}</FormLabel>
+      <Slider
+      getAriaLabel = {() => (name)}
+      value = {[minimum, maximum]}
+      onChange={handleChange}
+      step={step}
+      min={min}
+      max={max}
+      marks={marks}
+      valueLabelDisplay="auto"/>
+    </Box>
   );
 }
 
@@ -36,10 +49,12 @@ const GridOption = ({name="Option", options, useStateVariables}) => {  //options
   options.forEach(optionName => {optionComponents.push(<Checkbox option={optionName} key={optionName} parent={name} useStateVariables={useStateVariables}/>);});
 
   return (
-    <div className="Option">
-      <p className="Option-name">{name}</p>
-      <div className="Grid-form">{optionComponents}</div>
-    </div>
+    <Box className="Grid Option">
+      <FormGroup className="Option">
+        <FormLabel className="Option-name">{name}</FormLabel>
+        <div className="Grid-form">{optionComponents}</div>
+      </FormGroup>
+    </Box>
   );
 }
 
@@ -94,12 +109,17 @@ const Option = ({name="Option", type="text", unit="", def, useStateVariables}) =
   }, [option])
 
   return(
-    <div className="Option">
-      <p className="Option-name">{name}</p>
-      <input className="Input" value={option} type={type} id={name.replace(/\s/g, '')} unit={unit} 
-      onChange={e => changeOption(e.target.value)}></input>
-      <span> {unit}</span>
-    </div>
+    <Box className="Option">
+      <FormLabel className="Option-name">{name}</FormLabel>
+      <TextField 
+        className="Input" 
+        value={option}
+        type={type} 
+        id={name.replace(/\s/g, '')}
+        helperText={unit}
+        onChange={e => changeOption(e.target.value)}
+      />
+    </Box>
   );
 }
 
@@ -125,6 +145,14 @@ function SearchSettings() {
     })
     .catch(function (error) {
       console.log(error);
+      setOptions([<Option name="Search Location" default="" useStateVariables={useStateVariables}/>,
+      <Option name="Distance from Location" type="number" unit="miles" def={5} useStateVariables={useStateVariables}/>,
+      <SliderOption name="Price Range" min={0} max={1000} step={100} useStateVariables={useStateVariables}/>,
+      <GridOption name="Property Types" options={["test1", "test2", "test3"]} useStateVariables={useStateVariables}/>,
+      <GridOption name="Amenities" options={["test1", "test2", "test3"]} useStateVariables={useStateVariables}/>,
+      <SliderOption name="Number of Rooms" min={1} useStateVariables={useStateVariables}/>,
+      <SliderOption name="Number of Beds" useStateVariables={useStateVariables}/>,
+      <SliderOption name="Number of Bathrooms" useStateVariables={useStateVariables}/>])
     })
     axios.get('http://localhost:3001/get-user-filter')
     .then(function (response){
@@ -159,15 +187,15 @@ function SearchSettings() {
   return (
     <div className="SearchSettings">
       <header>
-        <h1>
+        <Typography variant="h4">
           Search Settings
-        </h1>
+        </Typography>
       </header>
-      <form onSubmit={handleSubmit} className="Options">
+      <FormControl onSubmit={handleSubmit} className="Options">
         {options}
         <br/><br/>
-        <input className="Input" type="submit" value="Save"></input>
-      </form>
+        <Input className="Input" type="submit" value="Save"></Input>
+      </FormControl>
     </div>
   );
 }

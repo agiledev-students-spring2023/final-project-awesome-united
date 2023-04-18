@@ -4,23 +4,47 @@ import { TextField, Grid, Button, Typography } from "@mui/material";
 import "./CreateAccount.css";
 import DiscoverHeader from "../../components/DiscoverHeader";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 function CreateAccount(props) {
   const { register, handleSubmit, watch, getValues } = useForm();
   const [passwordMatch, setPasswordMatch] = useState(false);
+  const [userExists, setUserExists] = useState(false);
+  const [emailExists, setEmailExists] = useState(false);
+  const [accountCreated, setAccountCreated] = useState(false);
   const onSubmit = (data) => {
     if (data.confirm != data.password) {
       setPasswordMatch(true);
       return;
     }
-    console.log(props.accountType);
-    console.log(data);
+    axios
+      .post("http://localhost:3001/create-account", {
+        userName: data.userName,
+        firstName: data.firstName,
+        lastName: data.lastName,
+        email: data.email,
+        password: data.password,
+        accountType: "Buyer",
+      })
+      .then((response) => {
+        setAccountCreated(true);
+      })
+      .catch((err) => {
+        const data = err.response.data;
+
+        if (data === "Username already exists") {
+          setUserExists(true);
+        }
+        if (data === "Email already exists") {
+          setEmailExists(true);
+        }
+      });
   };
 
   console.log(props);
   return (
     <div>
-      <DiscoverHeader />
+      {/* <DiscoverHeader /> */}
       <form className="createForm" onSubmit={handleSubmit(onSubmit)}>
         <div class="formContainer">
           <Typography variant="h6" className="headerText">
@@ -55,6 +79,8 @@ function CreateAccount(props) {
                 {...register("userName", { required: true })}
                 id="outlined-basic"
                 label="Username"
+                error={userExists}
+                helperText={!userExists ? "" : "Username already exists."}
                 variant="outlined"
                 required={true}
               />
@@ -68,6 +94,8 @@ function CreateAccount(props) {
                 id="outlined-basic"
                 label="Email Address"
                 variant="outlined"
+                error={emailExists}
+                helperText={!emailExists ? "" : "Email already exists."}
                 required={true}
               />
             </Grid>
@@ -100,18 +128,29 @@ function CreateAccount(props) {
               />
             </Grid>
           </Grid>
-          <Button
-            fullWidth
-            className="createAccountButton"
-            type="submit"
-            variant="contained"
-          >
-            Create Account
-          </Button>
+          {!accountCreated ? (
+            <Button
+              fullWidth
+              type="submit"
+              variant="contained"
+              className="createAccountButton"
+            >
+              Create Account
+            </Button>
+          ) : (
+            <Button
+              fullWidth
+              className="accountCreatedButton"
+              variant="contained"
+              color="success"
+            >
+              Account Created
+            </Button>
+          )}
           <div className="login-text">
             <Link className="loginLink" to="/login">
               <Typography variant="h7" className="loginType">
-                Log In
+                Sign In
               </Typography>
             </Link>
           </div>

@@ -3,6 +3,7 @@ const express = require("express") // CommonJS import style!
 const app = express() // instantiate an Express object
 const morgan = require("morgan") // middleware for nice logging of incoming HTTP requests
 const _ = require("lodash"); 
+import * as auth from './authenticate.js';
 
 const listingSchema = require('./models/listing');
 
@@ -36,7 +37,23 @@ app.use(express.json()) // decode JSON-formatted incoming POST data
 app.use(express.urlencoded({ extended: true })) // decode url-encoded incoming POST data
 // app.use(express.static("../front-end/public"))
 
-// custom middleware - first
+
+// require authenticated user for /article/add path
+app.use(auth.authRequired(['/get-listings']));
+
+// make {{user}} variable available for all paths
+app.use((req, res, next) => {
+  res.locals.user = req.session.user;
+  next();
+});
+//if you have user session authenticated
+// add req.session.user to every context object for templates
+app.use((req, res, next) => {
+  // now you can use {{user}} in your template!
+  res.locals.user = req.session.user;
+  next();
+});
+// custom middleware - example
 app.use((req, res, next) => {
     // make a modification to either the req or res objects
     res.addedStuff = "First middleware function run!"
@@ -61,8 +78,22 @@ app.get("/middleware-example", (req, res) => {
   })
 
   app.get('/get-listings', (req, res) => {
-    const listing = listingSchema.generateMockListing();
-    res.json(listing);
+    if(req.session.buyer){
+      const listing = listingSchema.generateMockListing();
+      res.json(listing);
+      console.log('you are a buyer')
+    }
+    else if(req.session.seller){
+      const listing = listingSchema.generateMockListing();
+      res.json(listing);
+      console.log('you are a seller')
+    }
+    else{
+      const listing = listingSchema.generateMockListing();
+      res.json(listing);
+      console.log('you are neither a buyer nor seller')
+    }
+    
   })
 
 app.use(express.static(path.join(__dirname, '../front-end/build')))

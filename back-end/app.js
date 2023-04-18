@@ -82,6 +82,18 @@ app.use(express.urlencoded({ extended: true })) // decode url-encoded incoming P
       if(!filterSettings.PropertyTypes[listing.basicDetails.propertyType]){
         return false;
       }
+      if(listing.listingDetails.price < filterSettings.PriceRange.min || 
+        listing.listingDetails.price > filterSettings.PriceRange.max){
+          return false;
+      }
+      if(listing.basicDetails.bedrooms < filterSettings.NumberofBeds.min || 
+        listing.basicDetails.bedrooms > filterSettings.NumberofBeds.max){
+         return false;
+     }
+     if(listing.basicDetails.bathrooms < filterSettings.NumberofBathrooms.min || 
+      listing.basicDetails.bathrooms > filterSettings.NumberofBathrooms.max){
+       return false;
+   }
       return true;
     })    
   }

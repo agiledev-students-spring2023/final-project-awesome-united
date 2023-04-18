@@ -3,7 +3,6 @@ import Match from "./Match"
 import { useState, useEffect, useContext } from "react"
 import SearchBar from "./SearchBar"
 import { useNavigate } from "react-router-dom";
-import { useContext } from "react";
 
 
 
@@ -33,6 +32,7 @@ const Matches = props => {
 
   const {user} = useContext
   
+  const matches = [ {} ]
     return (
       <main className="Matches">
 

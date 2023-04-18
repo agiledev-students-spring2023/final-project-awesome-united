@@ -74,6 +74,9 @@ app.use(express.urlencoded({ extended: true })) // decode url-encoded incoming P
 
   function filterListings(listings, filterSettings){
     return listings.filter(listing => {
+      if(!Object.keys(filterSettings).length){
+        return true;
+      }
       listing.amenities.forEach(amenity => {
         if(!filterSettings.Amenities[amenity]){
           return false;
@@ -82,19 +85,17 @@ app.use(express.urlencoded({ extended: true })) // decode url-encoded incoming P
       if(!filterSettings.PropertyTypes[listing.basicDetails.propertyType]){
         return false;
       }
-      if(listing.listingDetails.price < filterSettings.PriceRange.min || 
-        listing.listingDetails.price > filterSettings.PriceRange.max){
+      let match = true;
+      [{listingValue: listing.listingDetails.price, filterRange: filterSettings.PriceRange},
+      {listingValue: listing.basicDetails.bedrooms, filterRange: filterSettings.NumberofBeds},
+      {listingValue: listing.basicDetails.bathrooms, filterRange: filterSettings.NumberofBathrooms}]
+      .every(({listingValue, filterRange}) => {
+        if(listingValue < filterRange.min || listingValue > filterRange.max){
+          match = false;
           return false;
-      }
-      if(listing.basicDetails.bedrooms < filterSettings.NumberofBeds.min || 
-        listing.basicDetails.bedrooms > filterSettings.NumberofBeds.max){
-         return false;
-     }
-     if(listing.basicDetails.bathrooms < filterSettings.NumberofBathrooms.min || 
-      listing.basicDetails.bathrooms > filterSettings.NumberofBathrooms.max){
-       return false;
-   }
-      return true;
+        }
+      });
+      return match;
     })    
   }
 

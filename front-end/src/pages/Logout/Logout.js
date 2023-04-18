@@ -1,9 +1,18 @@
+const { useEffect } = require("react")
+const { Navigate } = require("react-router-dom")
+
 const Logout = props => {
-    return (
-      <h1>
-        Logout Page
-      </h1>
-    )
-  }
-  
-  export default Logout
+  // when this component loads, log out the user
+  useEffect(() => {
+    localStorage.removeItem("token")
+  }, [])
+
+  // navigate the user to the home page after logging them out
+  return (
+    <>
+      <Navigate to="/" />
+    </>
+  )
+}
+
+export default Logout

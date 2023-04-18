@@ -23,7 +23,7 @@ const SliderOption = ({name="Option", min=0, max=10, step=1, useStateVariables})
     else if(val < min)
       val = min;
 
-    setter(val)
+    
     if (setter == "min"){
       useStateVariables[key] = {min:val, max:maximum}
       setMinimum(val);

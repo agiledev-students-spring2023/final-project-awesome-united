@@ -1,9 +1,16 @@
 .formContainer {
   flex-direction: column;
+  margin-top: 30%;
+}
+.Header{
+  background-color: white;
+}
+.headerText {
+  padding-bottom: 20px;
 }
 .createForm {
   background: white;
-  text-align: center;
+
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -17,16 +24,13 @@
 .createAccountButton {
   text-transform: none;
 }
-.accountCreatedButton {
-  text-transform: none;
-}
-.login-text {
-  margin-top: 15px;
-}
-.loginLink {
+.createAccountText {
   text-decoration: none;
   color: rgb(6, 69, 173);
 }
-.loginType {
-  font-size: 16px;
+.createAccountText2 {
+  font-size: 22px;
+}
+.create-account {
+  margin-top: 15px;
 }

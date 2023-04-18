@@ -1,20 +1,27 @@
-import './NewAccountSelection.css';
+import "./NewAccountSelection.css";
 import { Link, useLocation } from "react-router-dom";
-import axios from "axios"
+import axios from "axios";
+import { Typography } from "@mui/material";
 
 function NewAccountSelection() {
   return (
     <div className="NewAccountSelection">
-      <header>
-        <h1>
-          Why are you using Homie?
-        </h1>
-      </header>
       <div className="Options">
-        <Link className="NewAccountSelectionLink" to="/createAccount">
+        <Typography variant="h5" className="questionText">
+          Why are you using Homie?
+        </Typography>
+        <Link
+          className="NewAccountSelectionLink"
+          to="/createAccount"
+          state={{ accountType: "seller" }}
+        >
           <div>I'm Selling</div>
         </Link>
-        <Link className="NewAccountSelectionLink" to="/createAccount">
+        <Link
+          className="NewAccountSelectionLink"
+          to="/createAccount"
+          state={{ accountType: "buyer" }}
+        >
           <div>I'm Buying</div>
         </Link>
       </div>

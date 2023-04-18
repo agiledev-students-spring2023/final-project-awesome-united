@@ -1,19 +1,26 @@
 import CottageIcon from "@mui/icons-material/Cottage";
-import { Grid } from "@mui/material";
+import { Grid, Typography } from "@mui/material";
 import "./DiscoverHeader.css";
 const DiscoverHeader = (props) => {
   return (
-    <Grid
-      className="discoverheader"
-      container
-      direction="row"
-      justifyContent="flex-start"
-      alignItems="center"
-    >
-      <CottageIcon className="homie-icon" fontSize="80px" />
+    <div className="discoverheader"> 
 
-      <h1 className="header-text">Homie</h1>
-    </Grid>
+        <CottageIcon className="homie-icon" fontSize="90px" />
+      
+       
+        <Typography variant="h4" className="header-text" sx= {
+          {
+            fontSize: 45,
+            fontWeight: "800",
+            margin: 0,
+            padding: 0,
+          }
+        }>
+          homie
+        </Typography>
+ 
+  
+    </div>
   );
 };
 export default DiscoverHeader;

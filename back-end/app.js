@@ -59,21 +59,31 @@ app.use(morgan("dev")); // dev style gives a concise color-coded style of log ou
 app.use(express.json()); // decode JSON-formatted incoming POST data
 app.use(express.urlencoded({ extended: true })); // decode url-encoded incoming POST data
 
-  app.get('/get-listings', (req, res, next) => {
-    const listings = [listingSchema.generateMockListing(),
+app.get("/get-listings", (req, res, next) => {
+  const listings = [listingSchema.generateMockListing(),
       listingSchema.generateMockListing(),
       listingSchema.generateMockListing(),
       listingSchema.generateMockListing(),
       listingSchema.generateMockListing()
     ];
-   
+ 
     console.log(filter_settings)
     
     const filterSettings = filter_settings;
     const filteredListings = filterListings(listings, filterSettings);
 
     res.json(filteredListings);
-  })
+});
+app.get(
+  "/auth",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    console.log(req.user);
+    res.json({
+      user: req.user,
+    });
+  }
+);
 
   function filterListings(listings, filterSettings){
     return listings.filter(listing => {

@@ -1,5 +1,5 @@
-import bcrypt from 'bcryptjs';
-import mongoose from 'mongoose';
+const bcrypt = require('bcryptjs');
+const mongoose = require('mongoose');
 
 // assumes that User was registered in `./db.mjs`
 const User = mongoose.model('User');

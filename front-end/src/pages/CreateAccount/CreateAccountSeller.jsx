@@ -9,13 +9,13 @@ Login credentials are going to be handled with the database
 */
 
 function CreateAccount(){
-  let buyer = False;
-  let seller = False;
   const Redirect = useNavigate();
   const [userCountry, setUserCountry] = useState('');
   const [userState, setUserState] = useState('');
   const [userCity, setUserCity] = useState('');
   const[userAddress, setUserAddress] = useState('');
+  let seller = False;
+  let buyer = False;
 
   const userUrl = 'http://localhost:3001/get-user-data';
 
@@ -30,6 +30,7 @@ function CreateAccount(){
     .then((res) => {
       console.log(res);
     });
+    seller = True;
     Redirect('/discover');
   }
   return (
@@ -130,4 +131,8 @@ function CreateAccount(){
   );
 }
 
-export default CreateAccount; 
+export {
+  CreateAccount,
+  buyer,
+  seller
+}; 

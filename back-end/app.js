@@ -3,7 +3,7 @@ const express = require("express") // CommonJS import style!
 const app = express() // instantiate an Express object
 const morgan = require("morgan") // middleware for nice logging of incoming HTTP requests
 const _ = require("lodash"); 
-import * as auth from './authenticate.js';
+const auth = require('./authenticate.js');
 
 const listingSchema = require('./models/listing');
 

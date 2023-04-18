@@ -18,6 +18,12 @@ const path = require('path')
 var cors = require('cors')
 app.use(cors())
 
+const sessionOptions = { 
+  secret: 'secret for signing session id', 
+  saveUninitialized: false, 
+  resave: false 
+};
+
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, 'ProfilePicture/UserPFPs')

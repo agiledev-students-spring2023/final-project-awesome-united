@@ -9,8 +9,6 @@ Login credentials are going to be handled with the database
 */
 
 function CreateAccount(){
-  let buyer = False;
-  let seller = False;
   const Redirect = useNavigate();
   const [userCountry, setUserCountry] = useState('');
   const [userState, setUserState] = useState('');

@@ -2,7 +2,7 @@ const bcrypt = require('bcryptjs');
 const mongoose = require('mongoose');
 
 // assumes that User was registered in `./db.mjs`
-const User = mongoose.model('User');
+//const User = mongoose.model('User');
 
 const startAuthenticatedSession = (req, user, cb) => {
   //https://www.npmjs.com/package/express-session#sessionregeneratecallback
@@ -42,7 +42,7 @@ function hashPassword(password, cb) {
     }
   });
 }
-function register(username, email, password, errorCallback, successCallback) {
+const register = (username, email, password, errorCallback, successCallback) => {
   // NOTE: does not look for duplicate emails, tho
   if (username.length >= 8 && password.length >= 8) {
     User.find({username: username}, (err, users, count) => {
@@ -125,9 +125,15 @@ const authRequired = authRequiredPaths => {
   };
 };
 
+exports.startAuthenticatedSession = startAuthenticatedSession;
+exports.register = register;
+exports.login = login;
+exports.authRequired = authRequired;
+/*
 export {
   startAuthenticatedSession,
   register,
   login,
   authRequired
 };
+*/

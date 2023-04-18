@@ -30,7 +30,7 @@ function NewAccountSelection() {
 
   return (
     <>
-      <Typography variant="h7" className="createAccountText2" onClick={handleOpen}>
+      <Typography variant="h7" className="createAccountText2"  color="blue" onClick={handleOpen}>
         {/* <Button variant="primary" > */}
           Register an Account
         {/* </Button> */}
@@ -49,13 +49,13 @@ function NewAccountSelection() {
           <div onClick={focusBuying} id="buying" className={"option "+(buying ? "focused" : " ") + (selling ? "hidden" : "")}>
             <div className="title">
               I'm here to browse!
-              {(buying ? <div className="AccountCreation"><CreateAccount/></div> : "")}
+              {(buying ? <div className="AccountCreation"><CreateAccount closeModal={handleClose}/></div> : "")}
             </div>
           </div>
           <div onClick={focusSelling} id="selling" className={"option "+(selling ? "focused" : " ") + (buying ? "hidden" : "")}>
             <div className="title">
               I'm here to sell a property!
-              {(selling ? <div className="AccountCreation"><CreateAccount/></div> : "")}
+              {(selling ? <div className="AccountCreation"><CreateAccount closeModal={handleClose} /></div> : "")}
             </div>
           </div>
         </DialogContent>

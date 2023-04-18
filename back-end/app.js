@@ -10,6 +10,8 @@ const uuid = require('uuid');
 const dotenv = require('dotenv')
 const bodyParser = require('body-parser')
 const bcrypt = require('bcrypt');
+const chatRoute = require("./routes/Chat");
+const matchRoute = require("./routes/Matches")
 
 
 dotenv.config()
@@ -227,6 +229,9 @@ app.post("/get-user-data", async (req, res) => {
     res.send("saved user data"); 
   } 
 })
+
+app.use("/api/chat", chatRoute);
+app.use("/api/matches", matchRoute);
 
 // export the express app we created to make it available to other modules
 module.exports = app

@@ -1,6 +1,8 @@
 import { useState } from "react"
 import "./Match.css"
 import axios from "axios"
+import { useState, useEffect, useContext } from "react"
+
 
 const Match = props => {
 

@@ -121,7 +121,7 @@ app.use(function(req, res, next) { //host header checking
 });
 
 // require authenticated user for /article/add path
-app.use(auth.authRequired(['/get-listings']));
+// app.use(auth.authRequired(['/get-listings']));
 
 // make {{user}} variable available for all paths
 app.use((req, res, next) => {
@@ -160,8 +160,9 @@ app.get("/middleware-example", (req, res) => {
   })
 
   app.get('/get-listings', (req, res) => {
+    let listings;
     if(req.session.user = 'buyer'){
-      const listings = [listingSchema.generateMockListing(),
+      listings = [listingSchema.generateMockListing(),
       listingSchema.generateMockListing(),
       listingSchema.generateMockListing(),
       listingSchema.generateMockListing(),
@@ -170,7 +171,7 @@ app.get("/middleware-example", (req, res) => {
       console.log('you are a buyer')
     }
     else if(req.session.user = 'seller'){
-      const listings = [listingSchema.generateMockListing(),
+      listings = [listingSchema.generateMockListing(),
       listingSchema.generateMockListing(),
       listingSchema.generateMockListing(),
       listingSchema.generateMockListing(),
@@ -179,7 +180,7 @@ app.get("/middleware-example", (req, res) => {
       console.log('you are a seller')
     }
     else{
-      const listings = [listingSchema.generateMockListing(),
+      listings = [listingSchema.generateMockListing(),
       listingSchema.generateMockListing(),
       listingSchema.generateMockListing(),
       listingSchema.generateMockListing(),

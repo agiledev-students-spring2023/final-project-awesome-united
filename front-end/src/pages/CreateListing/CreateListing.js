@@ -19,8 +19,6 @@ const CreateListing = props => {
       Property Listing Address <br></br>
 
       Images <br></br>
-
-      Listing Information
       <ImageList sx={{ width: 500, height: 450 }}>
       <ImageListItem key="Subheader" cols={2}>
         <ListSubheader component="div">Photos</ListSubheader>
@@ -48,6 +46,7 @@ const CreateListing = props => {
         </ImageListItem>
       ))}
     </ImageList>
+      Listing Information
       </Typography>
       </div>
     )

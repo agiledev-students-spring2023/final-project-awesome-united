@@ -88,28 +88,25 @@ app.get(
 
 function filterListings(listings, filterSettings){
   return listings.filter(listing => {
-    let match = true;
-    console.log(filterSettings.Amenities)
     if(filterSettings.Amenities != undefined){
       listing.amenities.forEach(amenity => {
         if(!filterSettings.Amenities[amenity]){
           console.log("Filtered out: missing amenity");
-          match = false;
           return false;
         }
       });
     }
-    //could be undefined...
-    if(!filterSettings.PropertyTypes[listing.basicDetails.propertyType]){
+    if(filterSettings.propertyTypes != undefined && !filterSettings.PropertyTypes[listing.basicDetails.propertyType]){
       console.log("Filtered out: wrong property type");
-      match = false;
       return false;
     }
+    let match = true;
     [(filterSettings.PriceRange != undefined ? {listingValue: listing.listingDetails.price, filterRange: filterSettings.PriceRange, name: "price"} : null),
     (filterSettings.NumberofBeds != undefined ? {listingValue: listing.basicDetails.bedrooms, filterRange: filterSettings.NumberofBeds, name: "number of beds"} : null),
     (filterSettings.NumberofBathrooms != undefined ? {listingValue: listing.basicDetails.bathrooms, filterRange: filterSettings.NumberofBathrooms, name: "number of bathrooms"} : null)]
     .forEach((prop) => {
       if(prop != null){
+        console.log(prop.name)
         if(prop.listingValue < prop.filterRange.min || prop.listingValue > prop.filterRange.max){
           console.log("Filtered out: " + prop.name + " out of range")
           match = false;

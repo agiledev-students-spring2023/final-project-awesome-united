@@ -16,7 +16,7 @@ const DiscoverHeader = (props) => {
         <CottageIcon className="homie-icon" fontSize="90px" />
       
        
-        {accountInfo.accountType == "Buyer" ? <Typography variant="h4" className="header-text" sx= {
+        {(accountInfo.accountType == "Buyer" || !isLoggedIn) ? <Typography variant="h4" className="header-text" sx= {
           {
             fontSize: 45,
             fontWeight: "800",

@@ -1,7 +1,6 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import "./Match.css"
 import axios from "axios"
-import { useEffect, useState } from "react"
 
 
 const Match = props => {
@@ -12,7 +11,7 @@ const Match = props => {
 
   useEffect(()=>{
     // if element (id) in member not equals current logged in user id,
-    //
+    //NEED TO IMPLEMENT 'find' see vid
     const otherId = props.match.member.find(m => m !== props.currentUserId)
     const getUser = async ()=>{
       // "/users" is placeholder

@@ -60,7 +60,7 @@ const storage = multer.diskStorage({
 
 const upload_pfp = multer({ storage, storage });
 
-let filter_settings = {};
+let current_user = null;
 
 // we will put some server logic here later...
 
@@ -188,9 +188,10 @@ app.get("/middleware-example", (req, res) => {
     ];
       console.log('you are neither a buyer nor seller')
     }
-    console.log(filter_settings)
+    console.log("filtering listings")
+    console.log(current_user.filter)
     
-    const filterSettings = filter_settings;
+    const filterSettings = current_user.filter;
     const filteredListings = filterListings(listings, filterSettings);
 
     res.json(filteredListings);
@@ -200,64 +201,75 @@ app.get(
   "/auth",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
-    console.log(req.user);
     res.json({
       user: req.user,
     });
   }
 );
 
-  function filterListings(listings, filterSettings){
-    return listings.filter(listing => {
-      if(!Object.keys(filterSettings).length){
-        return true;
-      }
-      listing.amenities.forEach(amenity => {
-        if(!filterSettings.Amenities[amenity]){
+function filterListings(listings, filterSettings){
+  return listings.filter(listing => {
+    if(true/*filterSettings.Amenities != undefined*/){
+      for (const [amenity, need] of Object.entries(filterSettings.Amenities)){
+        if(need && !listing.amenities.includes(amenity)){
+          console.log("Filtered out: missing " + amenity);
           return false;
         }
-      });
-      if(!filterSettings.PropertyTypes[listing.basicDetails.propertyType]){
-        return false;
       }
-      let match = true;
-      [{listingValue: listing.listingDetails.price, filterRange: filterSettings.PriceRange},
-      {listingValue: listing.basicDetails.bedrooms, filterRange: filterSettings.NumberofBeds},
-      {listingValue: listing.basicDetails.bathrooms, filterRange: filterSettings.NumberofBathrooms}]
-      .every(({listingValue, filterRange}) => {
-        if(listingValue < filterRange.min || listingValue > filterRange.max){
+    }
+    if(/*filterSettings.propertyTypes != undefined &&*/ !filterSettings.PropertyTypes[listing.basicDetails.propertyType]){
+      console.log("Filtered out: wrong property type");
+      return false;
+    }
+    let match = true;
+    [(filterSettings.PriceRange != undefined ? {listingValue: listing.listingDetails.price, filterRange: filterSettings.PriceRange, name: "price"} : null),
+    (filterSettings.NumberofBeds != undefined ? {listingValue: listing.basicDetails.bedrooms, filterRange: filterSettings.NumberofBeds, name: "number of beds"} : null),
+    (filterSettings.NumberofBathrooms != undefined ? {listingValue: listing.basicDetails.bathrooms, filterRange: filterSettings.NumberofBathrooms, name: "number of bathrooms"} : null)]
+    .forEach((prop) => {
+      if(prop != null){
+        console.log(prop.name)
+        if(prop.listingValue < prop.filterRange.min || prop.listingValue > prop.filterRange.max){
+          console.log("Filtered out: " + prop.name + " out of range")
           match = false;
           return false;
         }
-      });
-      return match;
-    })    
-  }
+      }
+    });
+    return match;
+  })    
+}
+
+const generateFilter = (req, res, next) => {
+  let data = listingSchema.listingData;
+  let propertyTypes = Object.fromEntries(
+    data.basicDetails.propertyType.enum.map((x) => [String(x), true])
+  );
+  let amenities = Object.fromEntries(
+    data.amenities[0].enum.map((x) => [String(x), true])
+  );
+  req.body.filter = {
+    PropertyTypes: propertyTypes,
+    Amenities: amenities,
+    PriceRange: {min: 100000, max: 1000000},
+    NumberofBeds: {min: 0, max: 10},
+    NumberofBathrooms: {min: 0, max: 10}
+  };
+  next();
+};
 
 app.use(express.static(path.join(__dirname, '../front-end/build')))
 
 app.get("/get-search-settings", (req, res) => {
   let response;
-  if (Object.keys(filter_settings).length == 0) {
-    let data = listingSchema.listingData;
-    let propertyTypes = Object.fromEntries(
-      data.basicDetails.propertyType.enum.map((x) => [String(x), true])
-    );
-    let amenities = Object.fromEntries(
-      data.amenities[0].enum.map((x) => [String(x), true])
-    );
-    response = {
-      PropertyTypes: propertyTypes,
-      Amenities: amenities,
-    };
+  if (current_user == null){
+    res.json({});
   } else {
-    response = filter_settings;
+    res.json(current_user.filter);
   }
-  res.json(response);
 });
 
 app.get("/get-user-filter", (req, res) => {
-  res.json(filter_settings);
+  res.json(current_user.filter);
 });
 
 app.get("/*", (req, res) => {
@@ -265,7 +277,7 @@ app.get("/*", (req, res) => {
 });
 
 app.post("/post-user-filter", (req, res) => {
-  filter_settings = req.body;
+  current_user.filter = req.body;
   console.log(req.body);
   res.send("saved user data");
 });
@@ -293,12 +305,14 @@ const checkDuplicateUsernameOrEmail = async (req, res, next) => {
     next();
   }
 };
+
 const hashPassword = (req, res, next) => {
   bcrypt.hash(req.body.password, 10, function (err, hash) {
     req.body.hashedPassword = hash;
     next();
   });
 };
+
 const createAccountInDatabase = (req, res, next) => {
   console.log(req.body);
 
@@ -310,6 +324,7 @@ const createAccountInDatabase = (req, res, next) => {
     lastName: req.body.lastName,
     id: uuid.v4(),
     accountType: req.body.accountType,
+    filter: req.body.filter
   });
   newUser
     .save()
@@ -325,6 +340,7 @@ app.post(
   "/create-account",
   checkDuplicateUsernameOrEmail,
   hashPassword,
+  generateFilter,
   createAccountInDatabase
 );
 
@@ -351,7 +367,6 @@ const checkLoginDetails = async (req, res, next) => {
 };
 
 const sendAuthTokens = (req, res, next) => {
-  console.log(req.account);
   const payload = {
     userName: req.account.userName,
     firstName: req.account.firstName,
@@ -359,6 +374,7 @@ const sendAuthTokens = (req, res, next) => {
     email: req.account.email,
     id: req.account.id,
     accountType: req.account.accountType,
+    filter: req.account.filter
   };
 
   console.log(payload);
@@ -368,8 +384,16 @@ const sendAuthTokens = (req, res, next) => {
     success: true,
     token: token,
   });
+  next();
 };
-app.post("/login", checkLoginDetails, sendAuthTokens);
+
+const setCurrentUser = (req, res, next) => {
+  console.log("setting current_user")
+  current_user = req.account;
+  next();
+}
+
+app.post("/login", checkLoginDetails, sendAuthTokens, setCurrentUser);
 
 app.post("/get-user-data", async (req, res) => {
   if (

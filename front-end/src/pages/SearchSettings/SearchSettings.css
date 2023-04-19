@@ -5,12 +5,19 @@
 }
 
 .Option{
-    width: 100%;
+    width: 60%;
+    margin-left: auto;
+    margin-right: auto;
     text-align: center;
+    padding: 10px;
+}
+
+.Grid{
+    width: 100%;
 }
 
 .Grid-form{
-    width: 100%;
+    width: 100%g;
     margin: auto;
 }
 

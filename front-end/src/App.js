@@ -17,7 +17,6 @@ import Footer from "./components/Footer";
 import GeneralSettings from "./pages/GeneralSettings/GeneralSettings";
 import Chat from "./pages/Chat/Chat";
 import "./App.css";
-import 'bootstrap/dist/css/bootstrap.min.css';
 
 import SingleListing from "./pages/SingleListing/SingleListing";
 import NewAccountSelection from "./pages/NewAccountSelection/NewAccountSelection";

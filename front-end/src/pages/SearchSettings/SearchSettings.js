@@ -15,37 +15,18 @@ const SliderOption = ({name="Option", min=0, max=10, step=1, useStateVariables})
     setMaximum(useStateVariables[key] ? useStateVariables[key].max : max)
   }, [useStateVariables])
 
-  const handleChange = (setter, val) => {    
-    if(val == "")
-      val = 0;
-    else if(val > max)
-      val = max;
-    else if(val < min)
-      val = min;
-
-    
-    if (setter == "min"){
-      useStateVariables[key] = {min:val, max:maximum}
-      setMinimum(val);
-      if(val > maximum)
-        setMaximum(val);
-    }
-    else{
-      useStateVariables[key] = {min:minimum, max:val}
-      setMaximum(val);
-      if(val < minimum)
-        setMinimum(val);
-    }
-  }
+  useEffect(() => {
+    useStateVariables[key] = {min: minimum, max: maximum};
+  }, [minimum, maximum])
 
   return (
     <div className="Option">
       <p className="Option-name">{name}</p>
-      <input type="number" className="Input Range Min" min={min} max={max} step={step} 
-      value={minimum} onChange={e => handleChange("min", e.target.value)}></input>
+      <input type="number" className="Input Range Min" step={step} 
+      value={minimum} onChange={e => setMinimum(parseInt(e.target.value))}></input>
       <span className="Range-dash">-</span>
-      <input type="number" className="Input Range Max" min={min} max={max} step={step}
-      value={maximum} onChange={e => handleChange("max", e.target.value)}></input>
+      <input type="number" className="Input Range Max" step={step}
+      value={maximum} onChange={e => setMaximum(parseInt(e.target.value))}></input>
     </div>
   );
 }
@@ -108,30 +89,19 @@ const Option = ({name="Option", type="text", unit="", def, useStateVariables}) =
     changeOption(useStateVariables[key] ? useStateVariables[key] : def)
   }, [useStateVariables])
 
-  const handleChange = (val) => {
-    changeOption(val);
-    useStateVariables[key] = val
-  }
+  useEffect(() => {
+    useStateVariables[key] = option
+  }, [option])
 
   return(
     <div className="Option">
       <p className="Option-name">{name}</p>
-      <input className="Input" type={type} id={name.replace(/\s/g, '')} unit={unit} 
-      onChange={e => handleChange(e.target.value)}></input>
+      <input className="Input" value={option} type={type} id={name.replace(/\s/g, '')} unit={unit} 
+      onChange={e => changeOption(e.target.value)}></input>
       <span> {unit}</span>
     </div>
   );
 }
-
-// const PlacesApiOption = () => {
-//   return(
-//     <Helmet>
-//       <script src={"https://maps.googleapis.com/maps/api/js?key="+MAPS_API_KEY+"&libraries=places"}
-//       crossOrigin="anonymous"
-//       async></script>
-//     </Helmet>
-//   )
-// }
 
 function SearchSettings() {  
   const [useStateVariables, setStateVariables] = useState({});
@@ -144,16 +114,14 @@ function SearchSettings() {
       setStateVariables(response.data);
       console.log("got data:");
       console.log(response.data);
-      let o = []
-      o.push(<Option name="Search Location" default="" useStateVariables={response.data}/>)
-      o.push(<Option name="Distance from Location" type="number" unit="miles" def={5} useStateVariables={response.data}/>)
-      o.push(<SliderOption name="Price Range" min={0} max={1000} useStateVariables={response.data}/>)
-      o.push(<GridOption name="Property Types" options={Object.keys(response.data.PropertyTypes)} useStateVariables={response.data}/>)
-      o.push(<GridOption name="Amenities" options={Object.keys(response.data.Amenities)} useStateVariables={response.data}/>)
-      o.push(<SliderOption name="Number of Rooms" min={1} useStateVariables={response.data}/>)
-      o.push(<SliderOption name="Number of Beds" useStateVariables={response.data}/>)
-      o.push(<SliderOption name="Number of Bathrooms" useStateVariables={response.data}/>)
-      setOptions(o)
+      setOptions([<Option name="Search Location" default="" useStateVariables={response.data}/>,
+      <Option name="Distance from Location" type="number" unit="miles" def={5} useStateVariables={response.data}/>,
+      <SliderOption name="Price Range" min={0} max={1000} useStateVariables={response.data}/>,
+      <GridOption name="Property Types" options={Object.keys(response.data.PropertyTypes)} useStateVariables={response.data}/>,
+      <GridOption name="Amenities" options={Object.keys(response.data.Amenities)} useStateVariables={response.data}/>,
+      <SliderOption name="Number of Rooms" min={1} useStateVariables={response.data}/>,
+      <SliderOption name="Number of Beds" useStateVariables={response.data}/>,
+      <SliderOption name="Number of Bathrooms" useStateVariables={response.data}/>])
     })
     .catch(function (error) {
       console.log(error);

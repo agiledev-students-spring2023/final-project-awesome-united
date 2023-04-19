@@ -11,6 +11,8 @@ import ImageListItemBar from '@mui/material/ImageListItemBar';
 import ListSubheader from '@mui/material/ListSubheader';
 import IconButton from '@mui/material/IconButton';
 import InfoIcon from '@mui/icons-material/Info';
+import Stack from '@mui/material/Stack';
+import PhotoCamera from '@mui/icons-material/PhotoCamera';
 
 const CreateListing = props => {
     return (
@@ -46,7 +48,17 @@ const CreateListing = props => {
         </ImageListItem>
       ))}
     </ImageList>
-      Listing Information
+    <Stack direction="row" alignItems="center" spacing={2}>
+      <Button variant="contained" component="label">
+        Upload
+        <input hidden accept="image/*" multiple type="file" />
+      </Button>
+      <IconButton color="primary" aria-label="upload picture" component="label">
+        <input hidden accept="image/*" type="file" />
+        <PhotoCamera />
+      </IconButton>
+    </Stack>
+        Listing Information
       </Typography>
       </div>
     )

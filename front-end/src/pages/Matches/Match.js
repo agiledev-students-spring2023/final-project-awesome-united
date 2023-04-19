@@ -1,7 +1,7 @@
 import { useState } from "react"
 import "./Match.css"
 import axios from "axios"
-import { useState, useEffect, useContext } from "react"
+import { useEffect, useState } from "react"
 
 
 const Match = props => {
@@ -15,6 +15,7 @@ const Match = props => {
     //
     const otherId = props.match.member.find(m => m !== props.currentUserId)
     const getUser = async ()=>{
+      // "/users" is placeholder
       const res = await axios("/users")
     } 
   },[])

@@ -13,13 +13,45 @@ import IconButton from '@mui/material/IconButton';
 import InfoIcon from '@mui/icons-material/Info';
 import Stack from '@mui/material/Stack';
 import PhotoCamera from '@mui/icons-material/PhotoCamera';
+import Box from '@mui/material/Box';
 
 const CreateListing = props => {
     return (
       <div className="listingPage">
       <Typography variant="h6" className="headerText">
       Property Listing Address <br></br>
-
+      <Box className="addressField"
+      sx={{
+        width: 500,
+        maxWidth: '100%',
+      }}
+    >
+      <TextField fullWidth label="Address" id="Address" />
+    </Box>
+    <Box className="cityField"
+      sx={{
+        width: 500,
+        maxWidth: '100%',
+      }}
+    >
+      <TextField fullWidth label="City" id="City" />
+    </Box>
+    <Box className="stateField"
+      sx={{
+        width: 500,
+        maxWidth: '100%',
+      }}
+    >
+      <TextField fullWidth label="State" id="State" />
+    </Box>
+    <Box className="countryField"
+      sx={{
+        width: 500,
+        maxWidth: '100%',
+      }}
+    >
+      <TextField fullWidth label="Country" id="Country" />
+    </Box>
       Images <br></br>
       <ImageList sx={{ width: 500, height: 450 }}>
       <ImageListItem key="Subheader" cols={2}>

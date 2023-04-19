@@ -71,8 +71,6 @@ const Checkbox = ({option, k, parent, useStateVariables}) => {
   }, [useStateVariables])
 
   const handleChange = () => {
-    console.log(option + " is " + !checked)
-    console.log(useStateVariables)
     useStateVariables[pkey][key] = !checked
     setChecked(!checked)
   }
@@ -136,10 +134,9 @@ function SearchSettings() {
       console.log(response.data);
       setOptions([<Option name="Search Location" default="" useStateVariables={response.data}/>,
       <Option name="Distance from Location" type="number" unit="miles" def={5} useStateVariables={response.data}/>,
-      <SliderOption name="Price Range" min={0} max={1000} useStateVariables={response.data}/>,
+      <SliderOption name="Price Range" min={10000} max={1000000} step={100} useStateVariables={response.data}/>,
       <GridOption name="Property Types" options={Object.keys(response.data.PropertyTypes)} useStateVariables={response.data}/>,
       <GridOption name="Amenities" options={Object.keys(response.data.Amenities)} useStateVariables={response.data}/>,
-      <SliderOption name="Number of Rooms" min={1} useStateVariables={response.data}/>,
       <SliderOption name="Number of Beds" useStateVariables={response.data}/>,
       <SliderOption name="Number of Bathrooms" useStateVariables={response.data}/>])
     })
@@ -191,11 +188,13 @@ function SearchSettings() {
           Search Settings
         </Typography>
       </header>
-      <FormControl onSubmit={handleSubmit} className="Options">
-        {options}
-        <br/><br/>
-        <Input className="Input" type="submit" value="Save"></Input>
-      </FormControl>
+        <form onSubmit={handleSubmit}>
+          <FormControl className="Options">
+            {options}
+            <br/><br/>
+            <Input className="Input" type="submit" value="Save"></Input>
+            </FormControl>
+        </form>
     </div>
   );
 }

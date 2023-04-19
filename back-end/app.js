@@ -1,8 +1,6 @@
 // import and instantiate express
-const auth = require('./authenticate.js');
 const express = require("express"); // CommonJS import style!
 const app = express(); // instantiate an Express object
-const session = require('express-session')
 const morgan = require("morgan"); // middleware for nice logging of incoming HTTP requests
 const _ = require("lodash");
 const mongoose = require("mongoose");
@@ -42,12 +40,6 @@ mongoose
 var cors = require("cors");
 app.use(cors());
 
-const sessionOptions = { 
-  secret: 'secret for signing session id', 
-  saveUninitialized: false, 
-  resave: false 
-};
-
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, "ProfilePicture/UserPFPs");
@@ -63,138 +55,25 @@ const upload_pfp = multer({ storage, storage });
 let filter_settings = {};
 
 // we will put some server logic here later...
+app.use(morgan("dev")); // dev style gives a concise color-coded style of log output
+app.use(express.json()); // decode JSON-formatted incoming POST data
+app.use(express.urlencoded({ extended: true })); // decode url-encoded incoming POST data
 
-app.use(session(sessionOptions));// gives us req.session
-app.use(morgan("dev")) // dev style gives a concise color-coded style of log output
-app.use(express.json()) // decode JSON-formatted incoming POST data
-app.use(express.urlencoded({ extended: true })) // decode url-encoded incoming POST data
-// app.use(express.static("../front-end/public"))
-
-
-app.use(function(req, res, next) { //cookie parsing
-  const cookie = req.get('Cookie');
-  if(cookie === undefined){
-      console.log('empty cookie');
-  }else{
-      const pairs = cookie.split(';');
-      req.myCookies = {};
-      for(let i = 0; i< pairs.length;i++){
-          const nameVal = pairs[i].split('=');
-          req.myCookies[nameVal[0].trim()] = nameVal[1];
-      } //parse cookie values into the myCookies property object
-      console.log(req.method, req.path);
-  }
-  next();
-});
-app.use(function(req,res,next) { //logging middleware
-  console.log('Request Method : ',req.method);
-  console.log('Request Path : ', req.path);
-  console.log('Request Query : ', req.query);
-  console.log('Request Body : ',req.body );
-  console.log('Request Cookies : ');
-  if(req.myCookies === undefined){
-      console.log('No Cookies');
-      res.locals.user = 'seller'
-  } else{
-      for (const [key, value] of Object.entries(req.myCookies)) {
-          if(key ==='connect.sid'){
-              console.log('connect.sid=[REDACTED]');
-          } else{
-              console.log(`${key} = ${value}`);
-          }
-      }
-      res.locals.user = 'buyer'
-  }
-  next();
-});
-app.use(function(req, res, next) { //host header checking
-  const host = req.get('Host');
-  if(host === undefined){
-      console.log('HTTP/1.1 400 Bad Request');
-      console.log('X-Powered-By: Express');
-      console.log('Content-Type: text/html; charset=utf-8');
-      console.log('Host Header Undefined');
-  }else{
-      console.log('Host Header Present');
-  }
-  next();
-});
-
-// require authenticated user for /article/add path
-app.use(auth.authRequired(['/get-listings']));
-
-// make {{user}} variable available for all paths
-app.use((req, res, next) => {
-  res.locals.user = req.session.user;
-  next();
-});
-//if you have user session authenticated
-// add req.session.user to every context object for templates
-app.use((req, res, next) => {
-  // now you can use {{user}} in your template!
-  res.locals.user = req.session.user;
-  next();
-});
-// custom middleware - example
-app.use((req, res, next) => {
-    // make a modification to either the req or res objects
-    res.addedStuff = "First middleware function run!"
-    // run the next middleware function, if any
-    next()
-  })
-// custom middleware - second
-app.use((req, res, next) => {
-    // make a modification to either the req or res objects
-    res.addedStuff += " Second middleware function run!"
-    // run the next middleware function, if any
-    next()
-  })
-// route for HTTP GET requests to /middleware-example
-app.get("/middleware-example", (req, res) => {
-    // grab data passed along by the middleware, if available
-    const message = res.addedStuff
-      ? res.addedStuff
-      : "Sorry, the middleware did not work!"
-    // use the data added by the middleware in some way
-    res.send(message)
-  })
-
-  app.get('/get-listings', (req, res) => {
-    if(req.session.user = 'buyer'){
-      const listings = [listingSchema.generateMockListing(),
+app.get("/get-listings", (req, res, next) => {
+  const listings = [listingSchema.generateMockListing(),
       listingSchema.generateMockListing(),
       listingSchema.generateMockListing(),
       listingSchema.generateMockListing(),
       listingSchema.generateMockListing()
     ];
-      console.log('you are a buyer')
-    }
-    else if(req.session.user = 'seller'){
-      const listings = [listingSchema.generateMockListing(),
-      listingSchema.generateMockListing(),
-      listingSchema.generateMockListing(),
-      listingSchema.generateMockListing(),
-      listingSchema.generateMockListing()
-    ];
-      console.log('you are a seller')
-    }
-    else{
-      const listings = [listingSchema.generateMockListing(),
-      listingSchema.generateMockListing(),
-      listingSchema.generateMockListing(),
-      listingSchema.generateMockListing(),
-      listingSchema.generateMockListing()
-    ];
-      console.log('you are neither a buyer nor seller')
-    }
+ 
     console.log(filter_settings)
     
     const filterSettings = filter_settings;
     const filteredListings = filterListings(listings, filterSettings);
 
     res.json(filteredListings);
-  })
-
+});
 app.get(
   "/auth",
   passport.authenticate("jwt", { session: false }),

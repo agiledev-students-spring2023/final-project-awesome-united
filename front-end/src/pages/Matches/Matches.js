@@ -16,8 +16,9 @@ const Matches = props => {
   const jwtToken = localStorage.getItem("token"); // the JWT token, if we have already received one and stored it in localStorage
   const [isLoggedIn, setIsLoggedIn] = useState(jwtToken && true); // if we already have a JWT token in local storage, set this to true, otherwise false
   const [accountInfo, setAccountInfo] = useState([])
-  useEffect(authenticate(setIsLoggedIn,setAccountInfo,jwtToken), [])
-
+  useEffect(() => {
+    authenticate(setIsLoggedIn, setAccountInfo, jwtToken);
+  }, []);
 
   //for spring01 set to take user to static page
   //take user to chat session with match
@@ -31,7 +32,7 @@ const Matches = props => {
   //take user to matches' profile
   const handleImageClick = e => {
     console.log("going to profile!")
-    let path = `/profile`; 
+    let path = `/listing/1`; 
     navigate(path);   
   }
 

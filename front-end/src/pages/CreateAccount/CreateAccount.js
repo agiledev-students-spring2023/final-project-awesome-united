@@ -44,7 +44,7 @@ function CreateAccount(props) {
   console.log(props);
   return (
     <div>
-      <DiscoverHeader />
+      {/* <DiscoverHeader /> */}
       <form className="createForm" onSubmit={handleSubmit(onSubmit)}>
         <div class="formContainer">
           <Typography variant="h6" className="headerText">

@@ -266,7 +266,7 @@ app.use((err, req, res, next) => {
   res.status(500).send(err.message);
 });
 
-app.use("/api/chat", chatRoute);
-app.use("/api/matches", matchRoute);
+app.use("/back-end/chat", chatRoute);
+app.use("/back-end/matches", matchRoute);
 // export the express app we created to make it available to other modules
 module.exports = app;

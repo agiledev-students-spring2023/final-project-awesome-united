@@ -24,7 +24,7 @@ function CreateAccount(props) {
         lastName: data.lastName,
         email: data.email,
         password: data.password,
-        accountType: "Buyer",
+        accountType: props.accountType,
       })
       .then((response) => {
         setAccountCreated(true);

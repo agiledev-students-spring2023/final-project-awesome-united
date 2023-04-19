@@ -49,13 +49,13 @@ function NewAccountSelection() {
           <div onClick={focusBuying} id="buying" className={"option "+(buying ? "focused" : " ") + (selling ? "hidden" : "")}>
             <div className="title">
               I'm here to browse!
-              {(buying ? <div className="AccountCreation"><CreateAccount closeModal={handleClose}/></div> : "")}
+              {(buying ? <div className="AccountCreation"><CreateAccount closeModal={handleClose} accountType="Buyer"/></div> : "")}
             </div>
           </div>
           <div onClick={focusSelling} id="selling" className={"option "+(selling ? "focused" : " ") + (buying ? "hidden" : "")}>
             <div className="title">
               I'm here to sell a property!
-              {(selling ? <div className="AccountCreation"><CreateAccount closeModal={handleClose} /></div> : "")}
+              {(selling ? <div className="AccountCreation"><CreateAccount closeModal={handleClose} accountType="Seller" /></div> : "")}
             </div>
           </div>
         </DialogContent>

@@ -24,7 +24,7 @@ function CreateAccount(props) {
         lastName: data.lastName,
         email: data.email,
         password: data.password,
-        accountType: "Buyer",
+        accountType: props.accountType,
       })
       .then((response) => {
         setAccountCreated(true);
@@ -148,11 +148,9 @@ function CreateAccount(props) {
             </Button>
           )}
           <div className="login-text">
-            <Link className="loginLink" to="/login">
-              <Typography variant="h7" className="loginType">
+              <Typography variant="h7" className="loginType" onClick={props.closeModal} color="blue">
                 Sign In
               </Typography>
-            </Link>
           </div>
         </div>
       </form>

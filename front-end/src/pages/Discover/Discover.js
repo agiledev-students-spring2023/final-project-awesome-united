@@ -8,6 +8,7 @@ import { useRef, useMemo } from "react";
 import DiscoverPageCard from "../../components/DiscoverPageCard";
 import { Navigate } from "react-router-dom";
 import authenticate from "../../auth/Authenticate";
+import { CircularProgress, Typography } from "@mui/material";
 
 import { useSwipeable } from "react-swipeable";
 const Discover = (props) => {
@@ -33,6 +34,10 @@ const Discover = (props) => {
   const updateCurrentIndex = (val) => {
     setCurrentIndex(val);
     currentIndexRef.current = val;
+ 
+    if(currentIndex == 0){
+      setLoaded(false)
+    }
   };
 
   const canGoBack = currentIndex < listings.length - 1;
@@ -44,7 +49,7 @@ const Discover = (props) => {
       .then((response) => {
         setListings(response.data);
         setLoaded(true);
-
+        
         updateCurrentIndex(response.data.length - 1);
       })
       .catch((err) => {
@@ -120,7 +125,7 @@ const Discover = (props) => {
   useEffect(() => {
     fetchData();
     authenticate(setIsLoggedIn, setAccountInfo, jwtToken);
-  }, []);
+  }, [loaded]);
 
   const handlers = useSwipeable({
     onSwiped: (eventData) => {
@@ -176,7 +181,11 @@ const Discover = (props) => {
                 );
               })
             ) : (
-              <p1>Loading</p1>
+              <div className="loadingBar">
+              <CircularProgress size={120}/>
+           
+              
+              </div>
             )}
           </div>
 

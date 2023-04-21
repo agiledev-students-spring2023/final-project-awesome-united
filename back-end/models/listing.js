@@ -14,7 +14,7 @@ const propertyTypeList = [
   'Other',
   'Apartment'
 ]
-const listingTypeList = ['Active', 'For Rent', 'Sold', 'Rented']
+const listingTypeList = ['Active', 'For Rent']
 
 const listingData = {
   id: {
@@ -111,8 +111,9 @@ function generateMockListing() {
   };
   const listingDetails = {
     status: faker.helpers.arrayElement(listingTypeList),
-    price: faker.datatype.number({ min: 100000, max: 1000000 }),
+    price: 0
   };
+  listingDetails.price = listingDetails.status === "For Rent" ? (faker.datatype.number({ min: 1, max: 10000 })) : faker.datatype.number({ min: 1, max: 999999 } )
   const basicDetails = {
     propertyType: faker.helpers.arrayElement(propertyTypeList),
     bedrooms: faker.datatype.number({ min: 1, max: 5 }),
@@ -132,7 +133,11 @@ function generateMockListing() {
     faker.image.imageUrl(800, 600, 'abstract', true, 'lorempixel.com', 'jpg'),
     faker.image.imageUrl(800, 600, 'abstract', true, 'lorempixel.com', 'jpg'),
     faker.image.imageUrl(800, 600, 'abstract', true, 'lorempixel.com', 'jpg'),
+    faker.image.imageUrl(800, 600, 'abstract', true, 'lorempixel.com', 'jpg'),
+    faker.image.imageUrl(800, 600, 'abstract', true, 'lorempixel.com', 'jpg'),
+    faker.image.imageUrl(800, 600, 'abstract', true, 'lorempixel.com', 'jpg'),
   ]
+  console.log(listingDetails)
   return {id,
     location,
     listingDetails,

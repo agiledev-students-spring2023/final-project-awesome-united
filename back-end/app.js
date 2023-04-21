@@ -159,35 +159,10 @@ app.get("/middleware-example", (req, res) => {
     res.send(message)
   })
 
-  app.get('/get-listings', (req, res) => {
+  app.get('/get-listings', async (req, res) => {
     let listings;
-    if(req.session.user = 'buyer'){
-      listings = [listingSchema.generateMockListing(),
-      listingSchema.generateMockListing(),
-      listingSchema.generateMockListing(),
-      listingSchema.generateMockListing(),
-      listingSchema.generateMockListing()
-    ];
-      console.log('you are a buyer')
-    }
-    else if(req.session.user = 'seller'){
-      listings = [listingSchema.generateMockListing(),
-      listingSchema.generateMockListing(),
-      listingSchema.generateMockListing(),
-      listingSchema.generateMockListing(),
-      listingSchema.generateMockListing()
-    ];
-      console.log('you are a seller')
-    }
-    else{
-      listings = [listingSchema.generateMockListing(),
-      listingSchema.generateMockListing(),
-      listingSchema.generateMockListing(),
-      listingSchema.generateMockListing(),
-      listingSchema.generateMockListing()
-    ];
-      console.log('you are neither a buyer nor seller')
-    }
+ 
+    listings = await listingSchema.Listing.aggregate().sample(3).exec()
     console.log(filter_settings)
     
     const filterSettings = filter_settings;

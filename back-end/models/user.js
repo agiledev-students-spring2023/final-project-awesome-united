@@ -38,7 +38,12 @@ const userSchema = new mongoose.Schema ({
     profilePhoto: {
         type: String, 
         default: null,
-    }
+    },
+    filter: {
+        type: Object,
+        required: true,
+        default: {},
+    },
 })
 
  function generateMockUserWithPassword(password){ 
@@ -64,7 +69,7 @@ const userSchema = new mongoose.Schema ({
     
 
     return new User({
-        id, userName, firstName, lastName, email, accountType, passwordHash, profilePhoto, location
+        id, userName, firstName, lastName, email, accountType, passwordHash, profilePhoto, location, filter
     })
     
 }

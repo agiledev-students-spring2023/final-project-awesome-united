@@ -17,6 +17,7 @@ const passport = require("passport");
 app.use(passport.initialize()); // tell express to use passport middleware
 const { jwtOptions, jwtStrategy } = require("./jwt-config.js");
 passport.use(jwtStrategy);
+const seenListingSchema = require("./models/seenListing")
 
 dotenv.config();
 
@@ -40,6 +41,7 @@ mongoose
     console.log(err);
   });
 var cors = require("cors");
+const { seenListing } = require('./models/seenListing.js');
 app.use(cors());
 
 const sessionOptions = { 
@@ -164,12 +166,12 @@ app.get("/middleware-example", (req, res) => {
  
     listings = await listingSchema.Listing.aggregate().sample(3).exec()
     console.log("filtering listings")
-    console.log(current_user.filter)
+    // console.log(current_user.filter)
     
-    const filterSettings = current_user.filter;
-    const filteredListings = filterListings(listings, filterSettings);
+    // const filterSettings = current_user.filter;
+    // const filteredListings = filterListings(listings, filterSettings);
 
-    res.json(filteredListings);
+    res.json(listings);
   })
 
 app.get(
@@ -214,6 +216,7 @@ function filterListings(listings, filterSettings){
   })    
 }
 
+
 const generateFilter = (req, res, next) => {
   let data = listingSchema.listingData;
   let propertyTypes = Object.fromEntries(
@@ -250,6 +253,18 @@ app.get("/get-user-filter", (req, res) => {
 app.get("/*", (req, res) => {
   res.sendFile(path.join(__dirname, "../front-end/build/index.html"));
 });
+const seenListing = seenListingSchema.seenListing;
+app.post("/see-listing", (req, res) => {
+  bodyParser.json(req);
+  const userId = req.body.userId;
+  const listingId = req.body.listingId;
+  
+
+
+
+
+
+})
 
 app.post("/post-user-filter", (req, res) => {
   current_user.filter = req.body;
@@ -262,6 +277,7 @@ app.post("/upload-pfp", upload_pfp.single("image"), (req, res) => {
 });
 
 const User = userSchema.User;
+
 
 const checkDuplicateUsernameOrEmail = async (req, res, next) => {
   bodyParser.json(req);

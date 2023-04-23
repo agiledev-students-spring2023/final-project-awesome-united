@@ -11,15 +11,22 @@ import ImageListItemBar from '@mui/material/ImageListItemBar';
 import ListSubheader from '@mui/material/ListSubheader';
 import IconButton from '@mui/material/IconButton';
 import InfoIcon from '@mui/icons-material/Info';
-import Stack from '@mui/material/Stack';
+import Stack from '@mui/material/Stack'; 
 import PhotoCamera from '@mui/icons-material/PhotoCamera';
 import Box from '@mui/material/Box';
+import OutlinedInput from '@mui/material/OutlinedInput';
+import InputLabel from '@mui/material/InputLabel';
+import InputAdornment from '@mui/material/InputAdornment';
+import FormControl from '@mui/material/FormControl';
+import SaveIcon from '@mui/icons-material/Save';
+import LoadingButton from '@mui/lab/LoadingButton';
 
 const CreateListing = props => {
     return (
       <div className="listingPage">
       <Typography variant="h6" className="headerText">
       Property Listing Address <br></br>
+      <br></br>
       <Box className="addressField"
       sx={{
         width: 500,
@@ -33,7 +40,7 @@ const CreateListing = props => {
         width: 500,
         maxWidth: '100%',
       }}
-    >
+    ><br></br>
       <TextField fullWidth label="City" id="City" />
     </Box>
     <Box className="stateField"
@@ -41,7 +48,7 @@ const CreateListing = props => {
         width: 500,
         maxWidth: '100%',
       }}
-    >
+    ><br></br>
       <TextField fullWidth label="State" id="State" />
     </Box>
     <Box className="countryField"
@@ -49,9 +56,10 @@ const CreateListing = props => {
         width: 500,
         maxWidth: '100%',
       }}
-    >
+    ><br></br>
       <TextField fullWidth label="Country" id="Country" />
     </Box>
+    <br></br>
       Images <br></br>
       <ImageList sx={{ width: 500, height: 450 }}>
       <ImageListItem key="Subheader" cols={2}>
@@ -90,7 +98,49 @@ const CreateListing = props => {
         <PhotoCamera />
       </IconButton>
     </Stack>
-        Listing Information
+    <br></br>
+        Listing Information<br></br>
+        <br></br>
+        <FormControl sx={{ m: 1, width: '20ch' }}>
+          <InputLabel htmlFor="outlined-adornment-amount">Amount</InputLabel>
+          <OutlinedInput
+            id="outlined-adornment-amount"
+            startAdornment={<InputAdornment position="start">$</InputAdornment>}
+            label="Amount"
+          />
+        </FormControl><br></br>
+        <br></br>
+        <TextField
+          id="outlined-number"
+          label="Number of Amenities"
+          type="number"
+          InputLabelProps={{
+            shrink: true,
+          }}
+        /><br></br>
+        <br></br>
+        <TextField
+          id="outlined-number"
+          label="Number of Bedrooms"
+          type="number"
+          InputLabelProps={{
+            shrink: true,
+          }}
+        /><br></br>
+        <br></br>
+    <Box
+      sx={{
+        width: 500,
+        maxWidth: '100%',
+      }}
+    >
+      <TextField fullWidth label="Description" id="fullWidth"></TextField>
+    </Box>
+    <br></br>
+    <br></br>
+    <Button className="saveButton" variant="contained" size="medium" maxWidth= '100%' endIcon={<SaveIcon />}>
+        Save
+      </Button>
       </Typography>
       </div>
     )

@@ -11,15 +11,22 @@ import ImageListItemBar from '@mui/material/ImageListItemBar';
 import ListSubheader from '@mui/material/ListSubheader';
 import IconButton from '@mui/material/IconButton';
 import InfoIcon from '@mui/icons-material/Info';
-import Stack from '@mui/material/Stack';
+import Stack from '@mui/material/Stack'; 
 import PhotoCamera from '@mui/icons-material/PhotoCamera';
 import Box from '@mui/material/Box';
+import OutlinedInput from '@mui/material/OutlinedInput';
+import InputLabel from '@mui/material/InputLabel';
+import InputAdornment from '@mui/material/InputAdornment';
+import FormControl from '@mui/material/FormControl';
+import SaveIcon from '@mui/icons-material/Save';
+import LoadingButton from '@mui/lab/LoadingButton';
 
 const CreateListing = props => {
     return (
       <div className="listingPage">
       <Typography variant="h6" className="headerText">
       Property Listing Address <br></br>
+      <br></br>
       <Box className="addressField"
       sx={{
         width: 500,
@@ -33,7 +40,7 @@ const CreateListing = props => {
         width: 500,
         maxWidth: '100%',
       }}
-    >
+    ><br></br>
       <TextField fullWidth label="City" id="City" />
     </Box>
     <Box className="stateField"
@@ -41,7 +48,7 @@ const CreateListing = props => {
         width: 500,
         maxWidth: '100%',
       }}
-    >
+    ><br></br>
       <TextField fullWidth label="State" id="State" />
     </Box>
     <Box className="countryField"
@@ -49,9 +56,10 @@ const CreateListing = props => {
         width: 500,
         maxWidth: '100%',
       }}
-    >
+    ><br></br>
       <TextField fullWidth label="Country" id="Country" />
     </Box>
+    <br></br>
       Images <br></br>
       <ImageList sx={{ width: 500, height: 450 }}>
       <ImageListItem key="Subheader" cols={2}>
@@ -67,13 +75,11 @@ const CreateListing = props => {
           />
           <ImageListItemBar
             title={item.title}
-            subtitle={item.author}
             actionIcon={
               <IconButton
                 sx={{ color: 'rgba(255, 255, 255, 0.54)' }}
                 aria-label={`info about ${item.title}`}
               >
-                <InfoIcon />
               </IconButton>
             }
           />
@@ -90,7 +96,49 @@ const CreateListing = props => {
         <PhotoCamera />
       </IconButton>
     </Stack>
-        Listing Information
+    <br></br>
+        Listing Information<br></br>
+        <br></br>
+        <FormControl sx={{ m: 1, width: '20ch' }}>
+          <InputLabel htmlFor="outlined-adornment-amount">Amount</InputLabel>
+          <OutlinedInput
+            id="outlined-adornment-amount"
+            startAdornment={<InputAdornment position="start">$</InputAdornment>}
+            label="Amount"
+          />
+        </FormControl><br></br>
+        <br></br>
+        <TextField
+          id="outlined-number"
+          label="Number of Amenities"
+          type="number"
+          InputLabelProps={{
+            shrink: true,
+          }}
+        /><br></br>
+        <br></br>
+        <TextField
+          id="outlined-number"
+          label="Number of Bedrooms"
+          type="number"
+          InputLabelProps={{
+            shrink: true,
+          }}
+        /><br></br>
+        <br></br>
+    <Box
+      sx={{
+        width: 500,
+        maxWidth: '100%',
+      }}
+    >
+      <TextField fullWidth label="Description" id="fullWidth"></TextField>
+    </Box>
+    <br></br>
+    <br></br>
+    <Button className="saveButton" variant="contained" size="medium" maxWidth= '100%' endIcon={<SaveIcon />}>
+        Save
+      </Button>
       </Typography>
       </div>
     )
@@ -99,52 +147,44 @@ const CreateListing = props => {
 
   const listingPhotos = [
     {
-      img: 'https://images.unsplash.com/photo-1551963831-b3b1ca40c98e',
-      title: 'Breakfast',
-      author: '@bkristastucchio',
+      img: 'http://murphysvacationhouse.com/files/resized/7cf78900-1b46-43b5-8fad-ffbea5790982/1024;485;998e6fe33d7526dc448d1f01b99cbe831d72b7b9.jpg',
+      title: 'Living Room',
       rows: 2,
       cols: 2,
       featured: true,
     },
     {
-      img: 'https://images.unsplash.com/photo-1551782450-a2132b4ba21d',
-      title: 'Burger',
-      author: '@rollelflex_graphy726',
+      img: 'http://murphysvacationhouse.com/files/resized/7cf78900-1b46-43b5-8fad-ffbea5790982/1024;485;998e6fe33d7526dc448d1f01b99cbe831d72b7b9.jpg',
+      title: 'Kitchen',
     },
     {
-      img: 'https://images.unsplash.com/photo-1522770179533-24471fcdba45',
-      title: 'Camera',
-      author: '@helloimnik',
+      img: 'http://murphysvacationhouse.com/files/resized/7cf78900-1b46-43b5-8fad-ffbea5790982/1024;485;998e6fe33d7526dc448d1f01b99cbe831d72b7b9.jpg',
+      title: 'Bathroom',
     },
     {
-      img: 'https://images.unsplash.com/photo-1444418776041-9c7e33cc5a9c',
-      title: 'Coffee',
-      author: '@nolanissac',
+      img: 'http://murphysvacationhouse.com/files/resized/7cf78900-1b46-43b5-8fad-ffbea5790982/1024;485;998e6fe33d7526dc448d1f01b99cbe831d72b7b9.jpg',
+      title: 'Bedroom 1',
       cols: 2,
     },
     {
-      img: 'https://images.unsplash.com/photo-1533827432537-70133748f5c8',
-      title: 'Hats',
-      author: '@hjrc33',
+      img: 'http://murphysvacationhouse.com/files/resized/7cf78900-1b46-43b5-8fad-ffbea5790982/1024;485;998e6fe33d7526dc448d1f01b99cbe831d72b7b9.jpg',
+      title: 'Bedroom 2',
       cols: 2,
     },
     {
-      img: 'https://images.unsplash.com/photo-1558642452-9d2a7deb7f62',
-      title: 'Honey',
-      author: '@arwinneil',
+      img: 'http://murphysvacationhouse.com/files/resized/7cf78900-1b46-43b5-8fad-ffbea5790982/1024;485;998e6fe33d7526dc448d1f01b99cbe831d72b7b9.jpg',
+      title: 'Basement',
       rows: 2,
       cols: 2,
       featured: true,
     },
     {
-      img: 'https://images.unsplash.com/photo-1516802273409-68526ee1bdd6',
-      title: 'Basketball',
-      author: '@tjdragotta',
+      img: 'http://murphysvacationhouse.com/files/resized/7cf78900-1b46-43b5-8fad-ffbea5790982/1024;485;998e6fe33d7526dc448d1f01b99cbe831d72b7b9.jpg',
+      title: 'Backyard',
     },
     {
-      img: 'https://images.unsplash.com/photo-1518756131217-31eb79b20e8f',
-      title: 'Fern',
-      author: '@katie_wasserman',
+      img: 'http://murphysvacationhouse.com/files/resized/7cf78900-1b46-43b5-8fad-ffbea5790982/1024;485;998e6fe33d7526dc448d1f01b99cbe831d72b7b9.jpg',
+      title: 'Garage',
     },
   ];
   

@@ -5,7 +5,6 @@ import axios from "axios"
 const Match = props => {
 
 
-  //fetch name associated with user-id
   const [otherUser,setOtherUser] = useState(null)
 
   useEffect(()=>{
@@ -21,9 +20,11 @@ const Match = props => {
       }catch(err){
         console.log(err)
         // REMOVE WHEN DONE
-        console.log("IDK why")
         console.log(props.match)
+        // remove when done
         setOtherUser(props.match)
+        console.log("OVA HERE INGLAND")
+        console.log(props.match)
       }
     };
     getUser()
@@ -35,11 +36,11 @@ const Match = props => {
   return (
     <article id="myDIV">
       <img className="profileImage" 
-        src={ otherUser.profilePhoto ? otherUser.profilePhoto : `${process.env.PUBLIC_URL}/no-profile-pic.webp`} 
+        src={ /* otherUser.profilePhoto ? otherUser.profilePhoto : `${process.env.PUBLIC_URL}/no-profile-pic.webp` */ `${process.env.PUBLIC_URL}/no-profile-pic.webp`} 
         onClick={props.handleImageClick} />
       <div className="chat" onClick={props.handleClick}>
           {/* for buyer POV, they will see the name of t*/}
-          <div className="matchName">{otherUser.firstName + " " + otherUser.lastName}</div>
+          <div className="matchName">{ /*  otherUser.firstName + " " + otherUser.lastName */ }</div>
           {/* <div className="chatPrev">{props.chatPreview}</div> */}
       </div>
     </article>

@@ -41,7 +41,7 @@ const Matches = props => {
              id:999999999998,
              firstName:"Jane",
              lastName:"Smith",
-             profilePhoto: `${process.env.PUBLIC_URL}/nno-profile-pic.webp`,
+             profilePhoto: `${process.env.PUBLIC_URL}/no-profile-pic.webp`,
              createdAt: "2023-04-18T18:25:43.511Z",
              members:["4e8df0eb-6b1d-45a2-8272-0993de89334e",""],
              updatedAt: "2023-04-18T18:25:43.511Z",
@@ -52,18 +52,22 @@ const Matches = props => {
              id: 999999999999,
              firstName: "John",
              lastName: "Doe",
-             profilePhoto: `${process.env.PUBLIC_URL}/nno-profile-pic.webp`,
+             profilePhoto: `${process.env.PUBLIC_URL}/no-profile-pic.webp`,
              createdAt: "2023-04-18T19:14:43.511Z",
              members:["4e8df0eb-6b1d-45a2-8272-0993de89334e",""],
              updatedAt: "2023-04-18T19:14:43.511Z",
              id:"9999999",
              __v: 0
            }
-         ]
+         ];
          setMatches(backupData)
+         console.log("LOOK AT ME")
+         console.log(matches)
+         console.log("IM DON")
        }
      };
      getMatches()
+     console.log(matches)
   },[accountInfo.id])
   
   
@@ -109,7 +113,7 @@ const Matches = props => {
           <Match
             match = {match}
             currentUser = {accountInfo}
-            chatPreview={match.lastMessagePrev}
+            //chatPreview={match.lastMessagePrev}
             handleClick={handleClick}
             handleImageClick={handleImageClick}
           />

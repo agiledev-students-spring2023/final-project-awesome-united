@@ -76,6 +76,7 @@ const Matches = props => {
   
   
   
+
   useEffect(() => {
     authenticate(setIsLoggedIn, setAccountInfo, jwtToken);
   }, []);
@@ -92,7 +93,7 @@ const Matches = props => {
   //take user to matches' profile
   const handleImageClick = e => {
     console.log("going to profile!")
-    let path = `/profile`; 
+    let path = `/listing/1`; 
     navigate(path);   
   }
     return (

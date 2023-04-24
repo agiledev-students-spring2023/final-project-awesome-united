@@ -29,6 +29,7 @@ const jwtStrategy = new JwtStrategy(jwtOptions, async function (
     firstName: accountExists.firstName,
     lastName: accountExists.lastName,
     email: accountExists.email,
+    accountType: accountExists.accountType
   }
   if (accountExists) {
     next(null, userData);

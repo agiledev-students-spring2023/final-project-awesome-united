@@ -45,7 +45,7 @@
 }
 
 .matchName {
-    grid-row: 1;
+    grid-row: 1 / span 2; /* IMPORTANT: remove span 2 if wish to include chatprev
     padding: 3px;
     /*border: 1px solid black;*/
     /*border-radius: 30px;*/

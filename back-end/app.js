@@ -253,11 +253,53 @@ app.get("/get-user-filter", (req, res) => {
 app.get("/*", (req, res) => {
   res.sendFile(path.join(__dirname, "../front-end/build/index.html"));
 });
-const seenListing = seenListingSchema.seenListing;
+const seenListingModel = seenListingSchema.seenListing;
 app.post("/see-listing", (req, res) => {
   bodyParser.json(req);
   const userId = req.body.userId;
   const listingId = req.body.listingId;
+  
+  
+  Listings.aggregate([
+    {
+      $lookup: {
+        from: 'seenListing',
+        let: { listingId: '$_id', userId: '$userId' },
+        pipeline: [
+          {
+            $match: {
+              $expr: { $and: [
+                { $eq: ['$listingId', '$$listingId'] },
+                { $eq: ['$userId', '$$userId'] }
+              ]}
+            }
+          }
+        ],
+        as: 'seen'
+      }
+    },
+    {
+      $addFields: {
+        seen: {
+          $cond: { 
+            if: { $eq: [{ $size: '$seen' }, 1] },
+            then: true,
+            else: false
+          }
+        }
+      }
+    },
+    {
+      $limit: 20
+    }
+  ])
+  .exec((err, results) => {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log(results);
+    }
+  });
   
 
 

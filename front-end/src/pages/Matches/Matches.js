@@ -1,4 +1,4 @@
-
+ 
 import "./Matches.css"
 import Match from "./Match"
 import { useState, useEffect, useContext } from "react"
@@ -15,10 +15,63 @@ const Matches = props => {
 
   const navigate = useNavigate();
 
-  const [feedback, setFeedback] = useState("")
   const jwtToken = localStorage.getItem("token"); // the JWT token, if we have already received one and stored it in localStorage
   const [isLoggedIn, setIsLoggedIn] = useState(jwtToken && true); // if we already have a JWT token in local storage, set this to true, otherwise false
   const [accountInfo, setAccountInfo] = useState([])
+  
+  
+
+  const [matches, setMatches] = useState([]);
+  useEffect(() =>{
+     const getMatches = async ()=>{
+      while(accountInfo == null ); // needed because info returned by authenticate is needed in this function
+       try{
+         const res = await axios.get("/matches/"+ accountInfo.id)
+         console.log(res)
+         setMatches(res.data)
+       }catch(err){
+         console.log("THIS IS ME: ")
+         console.log("THIS IS ME22: " + accountInfo.firstName)
+         //console.log(err)
+ 
+         // DELETE THIS ONCE MONGO STUFF FOR SELLER AND DISCOVER PAGE IS DONE 
+         // AND MONGO STUFF WORKS WORKS
+         const backupData = [
+           {
+             id:999999999998,
+             firstName:"Jane",
+             lastName:"Smith",
+             profilePhoto: `${process.env.PUBLIC_URL}/nno-profile-pic.webp`,
+             createdAt: "2023-04-18T18:25:43.511Z",
+             members:["4e8df0eb-6b1d-45a2-8272-0993de89334e",""],
+             updatedAt: "2023-04-18T18:25:43.511Z",
+             id:"9999998",
+             __v: 0
+           },
+           {
+             id: 999999999999,
+             firstName: "John",
+             lastName: "Doe",
+             profilePhoto: `${process.env.PUBLIC_URL}/nno-profile-pic.webp`,
+             createdAt: "2023-04-18T19:14:43.511Z",
+             members:["4e8df0eb-6b1d-45a2-8272-0993de89334e",""],
+             updatedAt: "2023-04-18T19:14:43.511Z",
+             id:"9999999",
+             __v: 0
+           }
+         ]
+         setMatches(backupData)
+       }
+     };
+     getMatches()
+  },[accountInfo.id])
+  
+  
+  
+  
+  
+  
+  
   useEffect(() => {
     authenticate(setIsLoggedIn, setAccountInfo, jwtToken);
   }, []);
@@ -38,59 +91,10 @@ const Matches = props => {
     let path = `/profile`; 
     navigate(path);   
   }
-
-  /*
-  console.log("BEFORE OBJECT")
-  console.log(accountInfo);
-  console.log("AFTER OBJECT")
- */
- const [matches, setMatches] = useState([]);
- useEffect(() =>{
-    const getMatches = async ()=>{
-      try{
-        const res = await axios.get("/matches/"+ accountInfo.id)
-        console.log(res)
-        setMatches(res.data)
-      }catch(err){
-        console.log(err)
-
-        // DELETE THIS ONCE MONGO STUFF FOR SELLER AND DISCOVER PAGE IS DONE 
-        // AND MONGO STUFF WORKS WORKS
-        const backupData = [
-          {
-            createdAt: "2023-04-18T18:25:43.511Z",
-            members:["4e8df0eb-6b1d-45a2-8272-0993de89334e",""],
-            updatedAt: "2023-04-18T18:25:43.511Z",
-            id:"9999998",
-            __v: 0
-          },
-          {
-            createdAt: "2023-04-18T19:14:43.511Z",
-            members:["4e8df0eb-6b1d-45a2-8272-0993de89334e",""],
-            updatedAt: "2023-04-18T19:14:43.511Z",
-            id:"9999999",
-            __v: 0
-          }
-        ]
-        setMatches(backupData)
-      }
-    };
-    getMatches();
- },[accountInfo])
     return (
       <>
       {isLoggedIn ? 
       <main className="Matches">
-
-      {/*
-      <SearchBar /> 
-    
-      {feedback && (
-        <div>
-          <p class="Home-feedback">{feedback}</p>
-        </div>
-      )}
-      */}
       {/*
         <header>
           <button onClick={}>Yes</button>
@@ -104,9 +108,7 @@ const Matches = props => {
         {matches.map((match, i, matchesArray) => (
           <Match
             match = {match}
-            currentUserId = {accountInfo.id}
-            profileImg={match.profilePicture}
-            name={match.name}
+            currentUser = {accountInfo}
             chatPreview={match.lastMessagePrev}
             handleClick={handleClick}
             handleImageClick={handleImageClick}

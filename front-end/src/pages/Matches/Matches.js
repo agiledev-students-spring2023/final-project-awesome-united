@@ -19,12 +19,13 @@ const Matches = props => {
   const [isLoggedIn, setIsLoggedIn] = useState(jwtToken && true); // if we already have a JWT token in local storage, set this to true, otherwise false
   const [accountInfo, setAccountInfo] = useState([])
   
-  
+  useEffect(() => {
+    authenticate(setIsLoggedIn, setAccountInfo, jwtToken);
+  }, []);
 
   const [matches, setMatches] = useState([]);
   useEffect(() =>{
      const getMatches = async ()=>{
-      while(accountInfo == null ); // needed because info returned by authenticate is needed in this function
        try{
          const res = await axios.get("/matches/"+ accountInfo.id)
          console.log(res)
@@ -69,17 +70,7 @@ const Matches = props => {
      getMatches()
      console.log(matches)
   },[accountInfo.id])
-  
-  
-  
-  
-  
-  
-  
 
-  useEffect(() => {
-    authenticate(setIsLoggedIn, setAccountInfo, jwtToken);
-  }, []);
 
   //for spring01 set to take user to static page
   //take user to chat session with match

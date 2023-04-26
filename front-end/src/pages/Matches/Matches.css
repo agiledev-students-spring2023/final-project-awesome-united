@@ -15,3 +15,12 @@
   margin-left: 0%;
   margin-right: 0%;
 }
+
+.noMatches{
+  text-align: center;
+  color: darkgray;
+  position: absolute;
+  top: 15%;
+  font-size: 20px;
+  cursor:default;
+}

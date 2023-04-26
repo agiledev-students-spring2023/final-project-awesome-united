@@ -5,7 +5,6 @@ import "./Chat.css"
 
 
 
-
 const Chat = props => {
 
   // create state variables and their setters so everytime thier value changes, the component updates them in the browser
@@ -142,6 +141,12 @@ const Chat = props => {
       setMessage('')
   }
 
+
+  useEffect( () =>{
+    const getMessages = async () => {
+      const res = axios.get( "/messages/"+ "currentMatch" )
+    }
+  },[])
 
     return (
       <main>

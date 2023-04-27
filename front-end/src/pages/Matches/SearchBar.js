@@ -6,6 +6,9 @@ const SearchBar = props => {
   // create state variables and their setters so everytime thier value changes, the component updates them in the browser
   const [query, setQuery] = useState("")
   const [error, setError] = useState("")
+  const jwtToken = localStorage.getItem("token"); // the JWT token, if we have already received one and stored it in localStorage
+  const [isLoggedIn, setIsLoggedIn] = useState(jwtToken && true); // if we already have a JWT token in local storage, set this to true, otherwise false
+  const [accountInfo, setAccountInfo] = useState([]);
 
   
   /* //IF want to perform queries as user is typing:

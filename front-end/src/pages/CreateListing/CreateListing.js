@@ -1,10 +1,7 @@
 import React, { useState } from "react";
-import "./CreateListing.css"
+import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { TextField, Grid, Button, Typography } from "@mui/material";
-import DiscoverHeader from "../../components/DiscoverHeader";
-import { Link } from "react-router-dom";
-import axios from "axios";
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
 import ImageListItemBar from '@mui/material/ImageListItemBar';
@@ -19,7 +16,8 @@ import InputLabel from '@mui/material/InputLabel';
 import InputAdornment from '@mui/material/InputAdornment';
 import FormControl from '@mui/material/FormControl';
 import SaveIcon from '@mui/icons-material/Save';
-import LoadingButton from '@mui/lab/LoadingButton';
+import axios from "axios";
+import "./CreateListing.css"
 
 const CreateListing = props => {
     return (
@@ -63,7 +61,7 @@ const CreateListing = props => {
       Images <br></br>
       <ImageList sx={{ width: 500, height: 450 }}>
       <ImageListItem key="Subheader" cols={2}>
-        <ListSubheader component="div">Photos</ListSubheader>
+        <ListSubheader component="div">Interior</ListSubheader>
       </ImageListItem>
       {listingPhotos.map((item) => (
         <ImageListItem key={item.img}>
@@ -151,7 +149,6 @@ const CreateListing = props => {
       title: 'Living Room',
       rows: 2,
       cols: 2,
-      featured: true,
     },
     {
       img: 'http://murphysvacationhouse.com/files/resized/7cf78900-1b46-43b5-8fad-ffbea5790982/1024;485;998e6fe33d7526dc448d1f01b99cbe831d72b7b9.jpg',
@@ -176,7 +173,6 @@ const CreateListing = props => {
       title: 'Basement',
       rows: 2,
       cols: 2,
-      featured: true,
     },
     {
       img: 'http://murphysvacationhouse.com/files/resized/7cf78900-1b46-43b5-8fad-ffbea5790982/1024;485;998e6fe33d7526dc448d1f01b99cbe831d72b7b9.jpg',

@@ -45,6 +45,7 @@ const Discover = (props) => {
   const canSwipe = currentIndex >= 0;
 
   async function fetchData() {
+    
     const response = await axios("http://localhost:3001/get-listings")
       .then((response) => {
         setListings(response.data);
@@ -53,68 +54,117 @@ const Discover = (props) => {
         updateCurrentIndex(response.data.length - 1);
       })
       .catch((err) => {
-        const backupData = [
-          {
-            id: 1,
-            leaseType: "rent",
-            propertyType: "House",
-            price: 30,
-            rooms: 2,
-            address: "jjjjjjjjgggggggyyyyyyyyyyyyy",
-            desc: "Amazing Place",
-            amenities: "Dishwasher",
-            images: [
-              "https://www.akc.org/wp-content/uploads/2017/11/Beagle-Puppy.jpg",
-              "https://www.akc.org/wp-content/uploads/2017/11/Beagle-History-02.jpg",
-              "https://media-be.chewy.com/wp-content/uploads/2021/04/16140525/Beagle_Featured-Image-1024x615.jpg",
-            ],
-          },
-          {
-            id: 2,
-            price: 33,
-            rooms: 3,
-            address: "2 Hacker Way",
-            propertyType: "House",
-            leaseType: "buy",
-            desc: "Amazing Place 2",
-            amenities: "Laundry",
-            images: [
-              "https://www.akc.org/wp-content/uploads/2017/11/Beagle-Puppy.jpg",
-              "https://www.akc.org/wp-content/uploads/2017/11/Beagle-History-02.jpg",
-              "https://media-be.chewy.com/wp-content/uploads/2021/04/16140525/Beagle_Featured-Image-1024x615.jpg",
-            ],
-          },
-          {
-            id: 3,
-            price: 33,
-            rooms: 3,
-            address: "3 Hacker Way",
-            propertyType: "Apartment",
-            leaseType: "rent",
-            desc: "Amazing Place 3",
-            amenities: "Laundry",
-            images: [
-              "https://www.akc.org/wp-content/uploads/2017/11/Beagle-Puppy.jpg",
-              "https://www.akc.org/wp-content/uploads/2017/11/Beagle-History-02.jpg",
-              "https://media-be.chewy.com/wp-content/uploads/2021/04/16140525/Beagle_Featured-Image-1024x615.jpg",
-            ],
-          },
-          {
-            id: 4,
-            price: 33,
-            rooms: 3,
-            address: "4 Hacker Way",
-            desc: "Amazing Place 4",
-            propertyType: "House",
-            leaseType: "rent",
-            amenities: "Laundry",
-            images: [
-              "https://www.akc.org/wp-content/uploads/2017/11/Beagle-Puppy.jpg",
-              "https://www.akc.org/wp-content/uploads/2017/11/Beagle-History-02.jpg",
-              "https://media-be.chewy.com/wp-content/uploads/2021/04/16140525/Beagle_Featured-Image-1024x615.jpg",
-            ],
-          },
-        ];
+        if((accountInfo.accountType == "Buyer" || !isLoggedIn)){
+          const backupData = [
+            {
+              id: 1,
+              leaseType: "rent",
+              propertyType: "House",
+              price: 30,
+              rooms: 2,
+              address: "jjjjjjjjgggggggyyyyyyyyyyyyy",
+              desc: "Amazing Place",
+              amenities: "Dishwasher",
+              images: [
+                "https://www.akc.org/wp-content/uploads/2017/11/Beagle-Puppy.jpg",
+                "https://www.akc.org/wp-content/uploads/2017/11/Beagle-History-02.jpg",
+                "https://media-be.chewy.com/wp-content/uploads/2021/04/16140525/Beagle_Featured-Image-1024x615.jpg",
+              ],
+            },
+            {
+              id: 2,
+              price: 33,
+              rooms: 3,
+              address: "2 Hacker Way",
+              propertyType: "House",
+              leaseType: "buy",
+              desc: "Amazing Place 2",
+              amenities: "Laundry",
+              images: [
+                "https://www.akc.org/wp-content/uploads/2017/11/Beagle-Puppy.jpg",
+                "https://www.akc.org/wp-content/uploads/2017/11/Beagle-History-02.jpg",
+                "https://media-be.chewy.com/wp-content/uploads/2021/04/16140525/Beagle_Featured-Image-1024x615.jpg",
+              ],
+            },
+            {
+              id: 3,
+              price: 33,
+              rooms: 3,
+              address: "3 Hacker Way",
+              propertyType: "Apartment",
+              leaseType: "rent",
+              desc: "Amazing Place 3",
+              amenities: "Laundry",
+              images: [
+                "https://www.akc.org/wp-content/uploads/2017/11/Beagle-Puppy.jpg",
+                "https://www.akc.org/wp-content/uploads/2017/11/Beagle-History-02.jpg",
+                "https://media-be.chewy.com/wp-content/uploads/2021/04/16140525/Beagle_Featured-Image-1024x615.jpg",
+              ],
+            },
+            {
+              id: 4,
+              price: 33,
+              rooms: 3,
+              address: "4 Hacker Way",
+              desc: "Amazing Place 4",
+              propertyType: "House",
+              leaseType: "rent",
+              amenities: "Laundry",
+              images: [
+                "https://www.akc.org/wp-content/uploads/2017/11/Beagle-Puppy.jpg",
+                "https://www.akc.org/wp-content/uploads/2017/11/Beagle-History-02.jpg",
+                "https://media-be.chewy.com/wp-content/uploads/2021/04/16140525/Beagle_Featured-Image-1024x615.jpg",
+              ],
+            },
+          ]; 
+        } 
+        else {
+          const backupData = [
+            {
+              id: 1,
+              firstName: "John",
+              lastName: "Doe",
+              email: "JohnDoe123@gmail.com",
+              filter: {},
+              profilePhoto: [
+                "https://www.akc.org/wp-content/uploads/2017/11/Beagle-Puppy.jpg",
+              ],
+            },
+            {
+              id: 2,
+              firstName: "Caitlyn",
+              lastName: "Runner",
+              email: "CaitlynRunner123@gmail.com",
+              filter: {},
+              profilePhoto: [
+                "https://www.akc.org/wp-content/uploads/2017/11/Beagle-Puppy.jpg",
+              ],
+            },
+            {
+              id: 3,
+              firstName: "Carl",
+              lastName: "Monroe",
+              email: "CarlMonroe123@gmail.com",
+              filter: {},
+              profilePhoto: [
+                "https://www.akc.org/wp-content/uploads/2017/11/Beagle-Puppy.jpg",
+              ],
+            },
+            {
+              id: 4,
+              firstName: "Chase",
+              lastName: "Hunter",
+              email: "ChaseHunter123@gmail.com",
+              filter: {},
+              profilePhoto: [
+                "https://www.akc.org/wp-content/uploads/2017/11/Beagle-Puppy.jpg",
+              ],
+            }
+          ];
+        } 
+      
+      
+        
         setLoaded(true);
         setListings(backupData);
 

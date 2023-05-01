@@ -92,7 +92,7 @@ const Checkbox = ({option, k, parent, useStateVariables}) => {
   );
 }
 
-const Option = ({name="Option", type="text", unit="", def, useStateVariables}) => {
+const Option = ({name="Option", type="text", unit="", minValue=null, maxValue=null ,def, useStateVariables}) => {
   const key = name//.split(" ").join("");
   const [option, changeOption] = useState(useStateVariables[key] ? useStateVariables[key] : def)
 
@@ -106,13 +106,24 @@ const Option = ({name="Option", type="text", unit="", def, useStateVariables}) =
     useStateVariables[key] = option
   }, [option])
 
+  // this function is just to  make sure no values are accidentally
+  // passed to minValue and maxValue when the object's type is not "number"
+  useEffect(() => {
+    if (type != "number"){
+      minValue = null
+      maxValue = null
+    }
+  }, [])
+
   return(
     <Box className="Option">
       <FormLabel className="Option-name">{name}</FormLabel>
       <TextField 
         className="Input" 
         value={option}
-        type={type} 
+        type={type}  
+        // https://stackoverflow.com/questions/64933296/reactjs-material-ui-textfield-number-max-and-min
+        InputProps={{ inputProps: { min: minValue, max: maxValue } }}
         id={name.replace(/\s/g, '')}
         helperText={unit}
         onChange={e => changeOption(e.target.value)}
@@ -153,7 +164,7 @@ function SearchSettings() {
       console.log("got data:");
       console.log(response.data);
       setOptions([<Option name="Search Location" default="" useStateVariables={response.data}/>,
-      <Option name="Distance from Location" type="number" unit="miles" def={5} useStateVariables={response.data}/>,
+      <Option name="Distance from Location" type="number" unit="miles" minValue={0} def={5} useStateVariables={response.data}/>,
       <SliderOption name="Price Range" min={10000} max={1000000} step={100} useStateVariables={response.data}/>,
       <GridOption name="Property Types" options={Object.keys(response.data.PropertyTypes)} useStateVariables={response.data}/>,
       <GridOption name="Amenities" options={Object.keys(response.data.Amenities)} useStateVariables={response.data}/>,
@@ -163,7 +174,7 @@ function SearchSettings() {
     .catch(function (error) {
       console.log(error);
       setOptions([<Option name="Search Location" default="" useStateVariables={useStateVariables}/>,
-      <Option name="Distance from Location" type="number" unit="miles" def={5} useStateVariables={useStateVariables}/>,
+      <Option name="Distance from Location" type="number" unit="miles" minValue={0} def={5} useStateVariables={useStateVariables}/>,
       <SliderOption name="Price Range" min={0} max={1000} step={100} useStateVariables={useStateVariables}/>,
       <GridOption name="Property Types" options={["test1", "test2", "test3"]} useStateVariables={useStateVariables}/>,
       <GridOption name="Amenities" options={["test1", "test2", "test3"]} useStateVariables={useStateVariables}/>,

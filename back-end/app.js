@@ -18,6 +18,8 @@ app.use(passport.initialize()); // tell express to use passport middleware
 const { jwtOptions, jwtStrategy } = require("./jwt-config.js");
 passport.use(jwtStrategy);
 const seenListingSchema = require("./models/seenListing")
+const chatRoute = require("./routes/Chat");
+const matchRoute = require("./routes/Matches")
 
 dotenv.config();
 
@@ -448,5 +450,8 @@ app.post("/get-user-data", async (req, res) => {
 app.use((err, req, res, next) => {
   res.status(500).send(err.message);
 });
+
+app.use("/back-end/chat", chatRoute);
+app.use("/back-end/matches", matchRoute);
 // export the express app we created to make it available to other modules
 module.exports = app;

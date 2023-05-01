@@ -45,7 +45,10 @@ const Discover = (props) => {
   const canSwipe = currentIndex >= 0;
 
   async function fetchData() {
-    const response = await axios("http://localhost:3001/get-listings")
+    const response = await axios
+      .post("http://localhost:3001/get-listings", {
+        userId: accountInfo.userId,
+      })
       .then((response) => {
         setListings(response.data);
         setLoaded(true);
@@ -170,8 +173,8 @@ const Discover = (props) => {
   }
 
   useEffect(() => {
-    fetchData();
     authenticate(setIsLoggedIn, setAccountInfo, jwtToken);
+    fetchData();
   }, [loaded]);
 
   const handlers = useSwipeable({
@@ -214,7 +217,6 @@ const Discover = (props) => {
     console.log(childRefs[currentIndex].current.setAttribute("swiped", 1));
     console.log("swiped right on " + listings[currentIndex].id);
     updateCurrentIndex(currentIndex - 1);
-    axios.post();
   };
   const swipeLeft = () => {
     console.log("swiped left on " + listings[currentIndex].id);

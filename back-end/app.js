@@ -60,8 +60,6 @@ const storage = multer.diskStorage({
 
 const upload_pfp = multer({ storage, storage });
 
-let current_user = null;
-
 // we will put some server logic here later...
 
 app.use(session(sessionOptions));// gives us req.session
@@ -189,9 +187,9 @@ app.get("/middleware-example", (req, res) => {
       console.log('you are neither a buyer nor seller')
     }
     console.log("filtering listings")
-    console.log(current_user.filter)
+    console.log(req.session.user)
     
-    const filterSettings = current_user.filter;
+    const filterSettings = req.session.user.filter;
     const filteredListings = filterListings(listings, filterSettings);
 
     res.json(filteredListings);
@@ -260,16 +258,11 @@ const generateFilter = (req, res, next) => {
 app.use(express.static(path.join(__dirname, '../front-end/build')))
 
 app.get("/get-search-settings", (req, res) => {
-  let response;
-  if (current_user == null){
-    res.json({});
-  } else {
-    res.json(current_user.filter);
-  }
+  res.json(res.session.user.filter);
 });
 
 app.get("/get-user-filter", (req, res) => {
-  res.json(current_user.filter);
+  res.json(res.locals.user.filter);
 });
 
 app.get("/*", (req, res) => {
@@ -277,10 +270,15 @@ app.get("/*", (req, res) => {
 });
 
 app.post("/post-user-filter", (req, res) => {
-  current_user.filter = req.body;
+  res.locals.user.filter = req.body;
+  //this can't be safe
+});
+
+const name = async (req, res, next) => {
+  await User.updateOne({ id: res.locals.user.id }, { filter: res.locals.user.filter }).exec();
   console.log(req.body);
   res.send("saved user data");
-});
+};
 
 app.post("/upload-pfp", upload_pfp.single("image"), (req, res) => {
   console.log("Profile Picture Uploaded");
@@ -387,13 +385,7 @@ const sendAuthTokens = (req, res, next) => {
   next();
 };
 
-const setCurrentUser = (req, res, next) => {
-  console.log("setting current_user")
-  current_user = req.account;
-  next();
-}
-
-app.post("/login", checkLoginDetails, sendAuthTokens, setCurrentUser);
+app.post("/login", checkLoginDetails, sendAuthTokens);
 
 app.post("/get-user-data", async (req, res) => {
   if (

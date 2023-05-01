@@ -28,6 +28,11 @@ const CreateListing = props => {
     const navigate = useNavigate();
     const [isLoggedIn, setIsLoggedIn] = useState(jwtToken && true);
     const [accountInfo, setAccountInfo] = useState([])
+    const [userCountry, setUserCountry] = useState('');
+    const [userState, setUserState] = useState('');
+    const [userCity, setUserCity] = useState('');
+    const[userAddress, setUserAddress] = useState('');
+    const Redirect = useNavigate();
     return (
       <div className="listingPage">
       <Typography variant="h6" className="headerText">

@@ -34,9 +34,9 @@ const Discover = (props) => {
   const updateCurrentIndex = (val) => {
     setCurrentIndex(val);
     currentIndexRef.current = val;
- 
-    if(currentIndex == 0){
-      setLoaded(false)
+
+    if (currentIndex == 0) {
+      setLoaded(false);
     }
   };
 
@@ -45,17 +45,17 @@ const Discover = (props) => {
   const canSwipe = currentIndex >= 0;
 
   async function fetchData() {
-    
     const response = await axios("http://localhost:3001/get-listings")
       .then((response) => {
         setListings(response.data);
         setLoaded(true);
-        
+
         updateCurrentIndex(response.data.length - 1);
       })
       .catch((err) => {
-        if((accountInfo.accountType == "Buyer" || !isLoggedIn)){
-          const backupData = [
+        let backupData;
+        if (accountInfo.accountType == "Buyer" || !isLoggedIn) {
+          backupData = [
             {
               id: 1,
               leaseType: "rent",
@@ -116,10 +116,9 @@ const Discover = (props) => {
                 "https://media-be.chewy.com/wp-content/uploads/2021/04/16140525/Beagle_Featured-Image-1024x615.jpg",
               ],
             },
-          ]; 
-        } 
-        else {
-          const backupData = [
+          ];
+        } else {
+          backupData = [
             {
               id: 1,
               firstName: "John",
@@ -159,12 +158,10 @@ const Discover = (props) => {
               profilePhoto: [
                 "https://www.akc.org/wp-content/uploads/2017/11/Beagle-Puppy.jpg",
               ],
-            }
+            },
           ];
-        } 
-      
-      
-        
+        }
+
         setLoaded(true);
         setListings(backupData);
 
@@ -180,6 +177,13 @@ const Discover = (props) => {
   const handlers = useSwipeable({
     onSwiped: (eventData) => {
       let dir = eventData.dir;
+      console.log(eventData);
+      const seenData = {
+        userId: accountInfo.id,
+        listingId: listings[currentIndex].id,
+      };
+      seeListing(seenData);
+
       if (dir === "Right") {
         swipeRight();
       }
@@ -194,34 +198,31 @@ const Discover = (props) => {
   });
   const seeListing = (data) => {
     axios
-    .post("http://localhost:3001/see-listing", {
-      userId: data.userId,
-      listingId: data.listingId,
-    })
-    .then((response) => {
-      console.log("Seen")
-    })
-    .catch((err) => {
-      const data = err.response.data;
- 
-    });
-  }
+      .post("http://localhost:3001/see-listing", {
+        userId: data.userId,
+        listingId: data.listingId,
+      })
+      .then((response) => {
+        console.log("Seen");
+      })
+      .catch((err) => {
+        const data = err.response.data;
+      });
+  };
   const swipeRight = () => {
     // childRefs[currentIndex].current.style.display = "none";
-    console.log(childRefs[currentIndex].current.setAttribute('swiped', 1))
+    console.log(childRefs[currentIndex].current.setAttribute("swiped", 1));
     console.log("swiped right on " + listings[currentIndex].id);
     updateCurrentIndex(currentIndex - 1);
-    axios.post()
+    axios.post();
   };
   const swipeLeft = () => {
-   
-
     console.log("swiped left on " + listings[currentIndex].id);
-    console.log(childRefs[currentIndex].current.setAttribute('swiped', 2))
+    console.log(childRefs[currentIndex].current.setAttribute("swiped", 2));
     updateCurrentIndex(currentIndex - 1);
   };
   const swipeUp = () => {
-    console.log(childRefs[currentIndex].current.setAttribute('swiped', 3));
+    console.log(childRefs[currentIndex].current.setAttribute("swiped", 3));
     console.log("swiped up on " + listings[currentIndex].id);
     updateCurrentIndex(currentIndex - 1);
   };
@@ -247,9 +248,7 @@ const Discover = (props) => {
               })
             ) : (
               <div className="loadingBar">
-              <CircularProgress size={120}/>
-           
-              
+                <CircularProgress size={120} />
               </div>
             )}
           </div>

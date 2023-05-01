@@ -142,11 +142,26 @@ const Discover = (props) => {
     },
     trackMouse: true,
   });
+  const seeListing = (data) => {
+    axios
+    .post("http://localhost:3001/see-listing", {
+      userId: data.userId,
+      listingId: data.listingId,
+    })
+    .then((response) => {
+      console.log("Seen")
+    })
+    .catch((err) => {
+      const data = err.response.data;
+ 
+    });
+  }
   const swipeRight = () => {
     // childRefs[currentIndex].current.style.display = "none";
     console.log(childRefs[currentIndex].current.setAttribute('swiped', 1))
     console.log("swiped right on " + listings[currentIndex].id);
     updateCurrentIndex(currentIndex - 1);
+    axios.post()
   };
   const swipeLeft = () => {
    

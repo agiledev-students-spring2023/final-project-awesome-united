@@ -41,10 +41,11 @@
     overflow: hidden; 
     padding-bottom: 11px; /*same px as font-size... makes sure no partially cut off text shows at bottom */
     max-height: 30px;
+    text-overflow: clip;
 }
 
 .matchName {
-    grid-row: 1;
+    grid-row: 1 / span 2; /* IMPORTANT: remove span 2 if wish to include chatprev
     padding: 3px;
     /*border: 1px solid black;*/
     /*border-radius: 30px;*/
@@ -56,6 +57,7 @@
     /* see: https://css-tricks.com/almanac/properties/t/text-overflow/ */
     white-space: nowrap;
     overflow: hidden;
+    text-overflow: clip;
 }
 
 .chat:hover{

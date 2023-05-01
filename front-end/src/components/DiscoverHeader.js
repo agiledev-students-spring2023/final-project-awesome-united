@@ -3,6 +3,8 @@ import { Grid, Typography } from "@mui/material";
 import "./DiscoverHeader.css";
 import authenticate from "../auth/Authenticate";
 import { useState, useEffect } from "react";
+
+//Alright, finally found out where the existing Buyer/Seller split is in front-end
 const DiscoverHeader = (props) => {
   const jwtToken = localStorage.getItem("token"); // the JWT token, if we have already received one and stored it in localStorage
   const [isLoggedIn, setIsLoggedIn] = useState(jwtToken && true); // if we already have a JWT token in local storage, set this to true, otherwise false
@@ -15,7 +17,7 @@ const DiscoverHeader = (props) => {
 
         <CottageIcon className="homie-icon" fontSize="90px" />
       
-       
+        
         {(accountInfo.accountType == "Buyer" || !isLoggedIn) ? <Typography variant="h4" className="header-text" sx= {
           {
             fontSize: 45,

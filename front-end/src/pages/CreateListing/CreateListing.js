@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { TextField, Grid, Button, Typography } from "@mui/material";
 import ImageList from '@mui/material/ImageList';
@@ -17,9 +18,16 @@ import InputAdornment from '@mui/material/InputAdornment';
 import FormControl from '@mui/material/FormControl';
 import SaveIcon from '@mui/icons-material/Save';
 import axios from "axios";
+import authenticate from "../../auth/Authenticate";
+import ListingInfo from "./ListingInfo";
 import "./CreateListing.css"
 
+const jwtToken = localStorage.getItem("token");
+
 const CreateListing = props => {
+    const navigate = useNavigate();
+    const [isLoggedIn, setIsLoggedIn] = useState(jwtToken && true);
+    const [accountInfo, setAccountInfo] = useState([])
     return (
       <div className="listingPage">
       <Typography variant="h6" className="headerText">

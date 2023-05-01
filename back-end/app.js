@@ -338,6 +338,10 @@ const createAccountInDatabase = (req, res, next) => {
     });
 };
 
+const createListingInDatabase = (req, res, next) => {
+  console.log(req.body);
+}
+
 app.post(
   "/create-account",
   checkDuplicateUsernameOrEmail,

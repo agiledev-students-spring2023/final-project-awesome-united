@@ -258,50 +258,66 @@ app.get("/*", (req, res) => {
 const seenListingModel = seenListingSchema.seenListing;
 app.post("/see-listing", (req, res) => {
   bodyParser.json(req);
-  const userId = req.body.userId;
-  const listingId = req.body.listingId;
-  
-  
-  Listings.aggregate([
-    {
-      $lookup: {
-        from: 'seenListing',
-        let: { listingId: '$_id', userId: '$userId' },
-        pipeline: [
-          {
-            $match: {
-              $expr: { $and: [
-                { $eq: ['$listingId', '$$listingId'] },
-                { $eq: ['$userId', '$$userId'] }
-              ]}
-            }
-          }
-        ],
-        as: 'seen'
-      }
-    },
-    {
-      $addFields: {
-        seen: {
-          $cond: { 
-            if: { $eq: [{ $size: '$seen' }, 1] },
-            then: true,
-            else: false
-          }
-        }
-      }
-    },
-    {
-      $limit: 20
-    }
-  ])
-  .exec((err, results) => {
-    if (err) {
-      console.log(err);
-    } else {
-      console.log(results);
-    }
+  const reqUserId = req.body.userId;
+  const reqListingId = req.body.listingId;
+
+
+  const newSeenListing = new seenListingModel ({
+      userId: reqUserId,
+      listingId: reqListingId,
+  })
+  newSeenListing
+  .save()
+  .then((seenListing) => {
+    res.status(200).send("OK");
+  })
+  .catch((error) => {
+    console.error(error)
+    res.status(400).send("Could not save to DB");
   });
+
+  
+  
+  // Listings.aggregate([
+  //   {
+  //     $lookup: {
+  //       from: 'seenListing',
+  //       let: { listingId: '$_id', userId: '$userId' },
+  //       pipeline: [
+  //         {
+  //           $match: {
+  //             $expr: { $and: [
+  //               { $eq: ['$listingId', '$$listingId'] },
+  //               { $eq: ['$userId', '$$userId'] }
+  //             ]}
+  //           }
+  //         }
+  //       ],
+  //       as: 'seen'
+  //     }
+  //   },
+  //   {
+  //     $addFields: {
+  //       seen: {
+  //         $cond: { 
+  //           if: { $eq: [{ $size: '$seen' }, 1] },
+  //           then: true,
+  //           else: false
+  //         }
+  //       }
+  //     }
+  //   },
+  //   {
+  //     $limit: 20
+  //   }
+  // ])
+  // .exec((err, results) => {
+  //   if (err) {
+  //     console.log(err);
+  //   } else {
+  //     console.log(results);
+  //   }
+  // });
   
 
 

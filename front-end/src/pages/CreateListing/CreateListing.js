@@ -19,6 +19,7 @@ import FormControl from '@mui/material/FormControl';
 import SaveIcon from '@mui/icons-material/Save';
 import axios from "axios";
 import authenticate from "../../auth/Authenticate";
+import SingleListing from "../SingleListing/SingleListing"; 
 import "./CreateListing.css"
 
 const CreateListing = props => {
@@ -33,13 +34,14 @@ const CreateListing = props => {
     const[listingPrice, setListingPrice] = useState('');
     const[listingAmenitiesNum, setListingAmenitiesNum] = useState('');
     const[listingBedroomsNum, setListingBedroomsNum] = useState('');
-    const[listingDescription, setListingDescription] = useState('');
+    const[listingBathroomsNum, setListingBathroomsNum] = useState('');
 
 
     const Redirect = useNavigate();
 
     function saveClicked(e){
-      const sellerListing = { listingCountry, listingState, listingCity, listingAddress, listingPrice, listingAmenitiesNum, listingBedroomsNum, listingDescription };
+      authenticate(setIsLoggedIn, setAccountInfo, jwtToken);
+      const sellerListing = { listingCountry, listingState, listingCity, listingAddress, listingPrice, listingAmenitiesNum, listingBedroomsNum, listingBathroomsNum };
       console.log(sellerListing);
       axios.post(userUrl, sellerListing, {
         headers: {
@@ -200,12 +202,14 @@ const CreateListing = props => {
         maxWidth: '100%',
       }}
     >
-      <TextField 
-        fullWidth 
-        label="Description" 
-        id="fullWidth"
-        type="text"
-        onChange={(e) => setListingDescription(e.target.value)}
+      <TextField
+        id="outlined-number"
+        label="Number of Bathrooms"
+        type="number"
+        InputLabelProps={{
+          shrink: true,
+        }}
+        onChange={(e) => setListingBathroomsNum(e.target.value)}
       />
     </Box>
     <br></br>

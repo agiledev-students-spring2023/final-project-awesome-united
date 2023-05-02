@@ -554,7 +554,7 @@ app.post("/get-listing-data", async (req, res) => {
       listingAddress: "",
       listingPrice: "",
       listingAmenitiesNum: "",
-      listingBedroomsNum: "",
+      listingBathroomsNum: "",
       listingDescription: "",
     })
   ) {

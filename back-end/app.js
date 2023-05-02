@@ -249,7 +249,7 @@ const generateFilter = (req, res, next) => {
     data.basicDetails.propertyType.enum.map((x) => [String(x), true])
   );
   let amenities = Object.fromEntries(
-    data.amenities[0].enum.map((x) => [String(x), true])
+    data.amenities[0].enum.map((x) => [String(x), false])
   );
   req.body.filter = {
     PropertyTypes: propertyTypes,

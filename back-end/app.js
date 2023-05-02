@@ -64,8 +64,6 @@ const storage = multer.diskStorage({
 
 const upload_pfp = multer({ storage, storage });
 
-let current_user = null;
-
 // we will put some server logic here later...
 
 app.use(session(sessionOptions)); // gives us req.session
@@ -165,11 +163,11 @@ app.get("/middleware-example", (req, res) => {
   res.send(message);
 });
 
-app.post("/get-listings", async (req, res) => {
+app.post("/get-listings", passport.authenticate("jwt", { session: false }), 
+async (req, res) => {
   let listings;
-
-  bodyParser.json(req);
-  console.log(req.body.userId);
+  //bodyParser.json(req);
+  //console.log(req.body.userId);
   listings = await listingSchema.Listing.aggregate([
     {
       $lookup: {
@@ -214,9 +212,14 @@ app.post("/get-listings", async (req, res) => {
       },
     },
   ]).exec();
-  console.log(listings);
 
-  res.json(listings);
+  const user = await User.findOne({ id: req.user.id }).exec();
+  const filterSettings = user.filter;
+  const filteredListings = filterListings(listings, filterSettings);
+
+  console.log(filteredListings);
+
+  res.json(filteredListings);
 });
 
 app.get(
@@ -292,7 +295,7 @@ const generateFilter = (req, res, next) => {
     data.basicDetails.propertyType.enum.map((x) => [String(x), true])
   );
   let amenities = Object.fromEntries(
-    data.amenities[0].enum.map((x) => [String(x), true])
+    data.amenities[0].enum.map((x) => [String(x), false])
   );
   req.body.filter = {
     PropertyTypes: propertyTypes,
@@ -306,17 +309,18 @@ const generateFilter = (req, res, next) => {
 
 app.use(express.static(path.join(__dirname, "../front-end/build")));
 
-app.get("/get-search-settings", (req, res) => {
-  let response;
-  if (current_user == null) {
-    res.json({});
-  } else {
-    res.json(current_user.filter);
+app.get("/get-search-settings",
+  passport.authenticate("jwt", { session: false }),
+  async (req, res) => {
+    const user = await User.findOne({ id: req.user.id }).exec();
+    res.json(user.filter);
   }
-});
+);
 
-app.get("/get-user-filter", (req, res) => {
-  res.json(current_user.filter);
+app.post("/post-user-filter", passport.authenticate("jwt", { session: false }), 
+async (req, res) => {
+  const status = await User.updateOne({ id: req.user.id }, {filter: req.body}).exec();
+  res.send(status.acknowledged ? "acknowledged" : "not acknowledged");
 });
 
 app.get("/*", (req, res) => {
@@ -385,11 +389,11 @@ app.post("/see-listing", (req, res) => {
   // });
 });
 
-app.post("/post-user-filter", (req, res) => {
-  current_user.filter = req.body;
+const name = async (req, res, next) => {
+  await User.updateOne({ id: res.locals.user.id }, { filter: res.locals.user.filter }).exec();
   console.log(req.body);
   res.send("saved user data");
-});
+};
 
 app.post("/upload-pfp", upload_pfp.single("image"), (req, res) => {
   console.log("Profile Picture Uploaded");
@@ -521,13 +525,7 @@ const sendAuthTokens = (req, res, next) => {
   next();
 };
 
-const setCurrentUser = (req, res, next) => {
-  console.log("setting current_user");
-  current_user = req.account;
-  next();
-};
-
-app.post("/login", checkLoginDetails, sendAuthTokens, setCurrentUser);
+app.post("/login", checkLoginDetails, sendAuthTokens);
 
 app.post("/get-user-data", async (req, res) => {
   if (

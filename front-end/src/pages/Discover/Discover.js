@@ -48,7 +48,7 @@ const Discover = (props) => {
     const response = await axios
       .post("http://localhost:3001/get-listings", {
         userId: accountInfo.userId,
-      })
+      }, {headers: {Authorization: `JWT ${jwtToken}`}})
       .then((response) => {
         setListings(response.data);
         setLoaded(true);

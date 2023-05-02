@@ -1,7 +1,8 @@
 import { useScrollTrigger, FormGroup, FormControl, Input, Typography, FormLabel, Slider, Box, TextField } from '@mui/material';
 import { useState, useEffect } from "react"
 import './SearchSettings.css';
-import axios from "axios"
+import axios from "axios";
+import authenticate from "../../auth/Authenticate";
 
 const SliderOption = ({name="Option", min=0, max=10, step=1, useStateVariables}) => {
   const key = name.split(" ").join("");
@@ -154,11 +155,15 @@ const Option = ({name="Option", type="text", unit="", minValue=null, maxValue=nu
 
 function SearchSettings() {  
   const [useStateVariables, setStateVariables] = useState({});
+  const jwtToken = localStorage.getItem("token");
+  const [isLoggedIn, setIsLoggedIn] = useState(jwtToken && true);
+  const [accountInfo, setAccountInfo] = useState([]);
 
   const [options, setOptions] = useState([]);
 
   useEffect(() => {
-    axios.get('http://localhost:3001/get-search-settings')
+    authenticate(setIsLoggedIn, setAccountInfo, jwtToken);
+    axios.get('http://localhost:3001/get-search-settings', {headers: {Authorization: `JWT ${jwtToken}`}})
     .then(function (response) {
       setStateVariables(response.data);
       console.log("got data:");
@@ -182,10 +187,6 @@ function SearchSettings() {
       <SliderOption name="Number of Beds" useStateVariables={useStateVariables}/>,
       <SliderOption name="Number of Bathrooms" useStateVariables={useStateVariables}/>])
     })
-    axios.get('http://localhost:3001/get-user-filter')
-    .then(function (response){
-      
-    })
   }, [])
 
   const useStates = []
@@ -203,7 +204,7 @@ function SearchSettings() {
     console.log(useStateVariables)
 
     axios
-    .post("http://localhost:3001/post-user-filter", useStateVariables)
+    .post("http://localhost:3001/post-user-filter", useStateVariables, {headers: {Authorization: `JWT ${jwtToken}`}})
     .then(response => {
       console.log(`Received server response: ${response.data}`)
     })

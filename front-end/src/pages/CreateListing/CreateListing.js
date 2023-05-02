@@ -25,14 +25,30 @@ import "./CreateListing.css"
 const jwtToken = localStorage.getItem("token");
 
 const CreateListing = props => {
-    const navigate = useNavigate();
+
     const [isLoggedIn, setIsLoggedIn] = useState(jwtToken && true);
     const [accountInfo, setAccountInfo] = useState([])
     const [userCountry, setUserCountry] = useState('');
     const [userState, setUserState] = useState('');
     const [userCity, setUserCity] = useState('');
     const[userAddress, setUserAddress] = useState('');
+
     const Redirect = useNavigate();
+
+    function createClicked(e){
+      const userLocation = { userCountry, userState, userCity, userAddress };
+      console.log(userLocation);
+      axios.post(userUrl, userLocation, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+      .then((res) => {
+        console.log(res);
+      });
+      Redirect('/discover');
+    }
+
     return (
       <div className="listingPage">
       <Typography variant="h6" className="headerText">

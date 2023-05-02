@@ -45,8 +45,10 @@ const Discover = (props) => {
   const canSwipe = currentIndex >= 0;
 
   async function fetchData() {
-    
-    const response = await axios("http://localhost:3001/get-listings", {headers: {Authorization: `JWT ${jwtToken}`}})
+    const response = await axios
+      .post("http://localhost:3001/get-listings", {
+        userId: accountInfo.userId,
+      }, {headers: {Authorization: `JWT ${jwtToken}`}})
       .then((response) => {
         setListings(response.data);
         setLoaded(true);

@@ -1,8 +1,8 @@
 // import and instantiate express
-const auth = require('./authenticate.js');
+const auth = require("./authenticate.js");
 const express = require("express"); // CommonJS import style!
 const app = express(); // instantiate an Express object
-const session = require('express-session')
+const session = require("express-session");
 const morgan = require("morgan"); // middleware for nice logging of incoming HTTP requests
 const _ = require("lodash");
 const mongoose = require("mongoose");
@@ -17,8 +17,9 @@ const passport = require("passport");
 app.use(passport.initialize()); // tell express to use passport middleware
 const { jwtOptions, jwtStrategy } = require("./jwt-config.js");
 passport.use(jwtStrategy);
+const seenListingSchema = require("./models/seenListing");
 const chatRoute = require("./routes/Chat");
-const matchRoute = require("./routes/Matches")
+const matchRoute = require("./routes/Matches");
 
 dotenv.config();
 
@@ -42,13 +43,13 @@ mongoose
     console.log(err);
   });
 var cors = require("cors");
-const { Console } = require('console');
+const { seenListing } = require("./models/seenListing.js");
 app.use(cors());
 
-const sessionOptions = { 
-  secret: 'secret for signing session id', 
-  saveUninitialized: false, 
-  resave: false 
+const sessionOptions = {
+  secret: "secret for signing session id",
+  saveUninitialized: false,
+  resave: false,
 };
 
 const storage = multer.diskStorage({
@@ -65,58 +66,60 @@ const upload_pfp = multer({ storage, storage });
 
 // we will put some server logic here later...
 
-app.use(session(sessionOptions));// gives us req.session
-app.use(morgan("dev")) // dev style gives a concise color-coded style of log output
-app.use(express.json()) // decode JSON-formatted incoming POST data
-app.use(express.urlencoded({ extended: true })) // decode url-encoded incoming POST data
+app.use(session(sessionOptions)); // gives us req.session
+app.use(morgan("dev")); // dev style gives a concise color-coded style of log output
+app.use(express.json()); // decode JSON-formatted incoming POST data
+app.use(express.urlencoded({ extended: true })); // decode url-encoded incoming POST data
 // app.use(express.static("../front-end/public"))
 
-
-app.use(function(req, res, next) { //cookie parsing
-  const cookie = req.get('Cookie');
-  if(cookie === undefined){
-      console.log('empty cookie');
-  }else{
-      const pairs = cookie.split(';');
-      req.myCookies = {};
-      for(let i = 0; i< pairs.length;i++){
-          const nameVal = pairs[i].split('=');
-          req.myCookies[nameVal[0].trim()] = nameVal[1];
-      } //parse cookie values into the myCookies property object
-      console.log(req.method, req.path);
+app.use(function (req, res, next) {
+  //cookie parsing
+  const cookie = req.get("Cookie");
+  if (cookie === undefined) {
+    console.log("empty cookie");
+  } else {
+    const pairs = cookie.split(";");
+    req.myCookies = {};
+    for (let i = 0; i < pairs.length; i++) {
+      const nameVal = pairs[i].split("=");
+      req.myCookies[nameVal[0].trim()] = nameVal[1];
+    } //parse cookie values into the myCookies property object
+    console.log(req.method, req.path);
   }
   next();
 });
-app.use(function(req,res,next) { //logging middleware
-  console.log('Request Method : ',req.method);
-  console.log('Request Path : ', req.path);
-  console.log('Request Query : ', req.query);
-  console.log('Request Body : ',req.body );
-  console.log('Request Cookies : ');
-  if(req.myCookies === undefined){
-      console.log('No Cookies');
-      res.locals.user = 'seller'
-  } else{
-      for (const [key, value] of Object.entries(req.myCookies)) {
-          if(key ==='connect.sid'){
-              console.log('connect.sid=[REDACTED]');
-          } else{
-              console.log(`${key} = ${value}`);
-          }
+app.use(function (req, res, next) {
+  //logging middleware
+  console.log("Request Method : ", req.method);
+  console.log("Request Path : ", req.path);
+  console.log("Request Query : ", req.query);
+  console.log("Request Body : ", req.body);
+  console.log("Request Cookies : ");
+  if (req.myCookies === undefined) {
+    console.log("No Cookies");
+    res.locals.user = "seller";
+  } else {
+    for (const [key, value] of Object.entries(req.myCookies)) {
+      if (key === "connect.sid") {
+        console.log("connect.sid=[REDACTED]");
+      } else {
+        console.log(`${key} = ${value}`);
       }
-      res.locals.user = 'buyer'
+    }
+    res.locals.user = "buyer";
   }
   next();
 });
-app.use(function(req, res, next) { //host header checking
-  const host = req.get('Host');
-  if(host === undefined){
-      console.log('HTTP/1.1 400 Bad Request');
-      console.log('X-Powered-By: Express');
-      console.log('Content-Type: text/html; charset=utf-8');
-      console.log('Host Header Undefined');
-  }else{
-      console.log('Host Header Present');
+app.use(function (req, res, next) {
+  //host header checking
+  const host = req.get("Host");
+  if (host === undefined) {
+    console.log("HTTP/1.1 400 Bad Request");
+    console.log("X-Powered-By: Express");
+    console.log("Content-Type: text/html; charset=utf-8");
+    console.log("Host Header Undefined");
+  } else {
+    console.log("Host Header Present");
   }
   next();
 });
@@ -138,67 +141,86 @@ app.use((req, res, next) => {
 });
 // custom middleware - example
 app.use((req, res, next) => {
-    // make a modification to either the req or res objects
-    res.addedStuff = "First middleware function run!"
-    // run the next middleware function, if any
-    next()
-  })
+  // make a modification to either the req or res objects
+  res.addedStuff = "First middleware function run!";
+  // run the next middleware function, if any
+  next();
+});
 // custom middleware - second
 app.use((req, res, next) => {
-    // make a modification to either the req or res objects
-    res.addedStuff += " Second middleware function run!"
-    // run the next middleware function, if any
-    next()
-  })
+  // make a modification to either the req or res objects
+  res.addedStuff += " Second middleware function run!";
+  // run the next middleware function, if any
+  next();
+});
 // route for HTTP GET requests to /middleware-example
 app.get("/middleware-example", (req, res) => {
-    // grab data passed along by the middleware, if available
-    const message = res.addedStuff
-      ? res.addedStuff
-      : "Sorry, the middleware did not work!"
-    // use the data added by the middleware in some way
-    res.send(message)
-  })
+  // grab data passed along by the middleware, if available
+  const message = res.addedStuff
+    ? res.addedStuff
+    : "Sorry, the middleware did not work!";
+  // use the data added by the middleware in some way
+  res.send(message);
+});
 
-  app.get('/get-listings', passport.authenticate("jwt", { session: false }), 
-  async (req, res) => {
-    let listings;
-    if(req.session.user = 'buyer'){
-      listings = [listingSchema.generateMockListing(),
-      listingSchema.generateMockListing(),
-      listingSchema.generateMockListing(),
-      listingSchema.generateMockListing(),
-      listingSchema.generateMockListing()
-    ];
-      console.log('you are a buyer')
-    }
-    else if(req.session.user = 'seller'){
-      listings = [listingSchema.generateMockListing(),
-      listingSchema.generateMockListing(),
-      listingSchema.generateMockListing(),
-      listingSchema.generateMockListing(),
-      listingSchema.generateMockListing()
-    ];
-      console.log('you are a seller')
-    }
-    else{
-      listings = [listingSchema.generateMockListing(),
-      listingSchema.generateMockListing(),
-      listingSchema.generateMockListing(),
-      listingSchema.generateMockListing(),
-      listingSchema.generateMockListing()
-    ];
-      console.log('you are neither a buyer nor seller')
-    }
-    console.log("filtering listings")
-    console.log(req.session.user)
-    
-    const user = await User.findOne({ id: req.user.id }).exec();
-    const filterSettings = user.filter;
-    const filteredListings = filterListings(listings, filterSettings);
+app.post("/get-listings", passport.authenticate("jwt", { session: false }), 
+async (req, res) => {
+  let listings;
+  bodyParser.json(req);
+  console.log(req.body.userId);
+  listings = await listingSchema.Listing.aggregate([
+    {
+      $lookup: {
+        from: "seenlistings",
+        let: { listingId: "$listingId", userId: "$userId" },
+        pipeline: [
+          {
+            $match: {
+              $expr: {
+                $and: [
+                  { $eq: ["$listingId", "$$listingId"] },
+                  { $eq: ["$userId", "$$userId"] },
+                ],
+              },
+            },
+          },
+        ],
+        as: "seen",
+      },
+    },
+    {
+      $redact: {
+        $cond: {
+          if: { $eq: [{ $size: "$seen" }, 0] },
+          then: "$$KEEP",
+          else: "$$PRUNE",
+        },
+      },
+    },
+    {
+      $sample: { size: 120 },
+    },
+    {
+      $addFields: {
+        seen: {
+          $cond: {
+            if: { $eq: [{ $size: "$seen" }, 1] },
+            then: true,
+            else: false,
+          },
+        },
+      },
+    },
+  ]).exec();
 
-    res.json(filteredListings);
-  })
+  const user = await User.findOne({ id: req.user.id }).exec();
+  const filterSettings = user.filter;
+  const filteredListings = filterListings(listings, filterSettings);
+
+  console.log(filteredListings);
+
+  res.json(filteredListings);
+});
 
 app.get(
   "/auth",
@@ -210,37 +232,61 @@ app.get(
   }
 );
 
-function filterListings(listings, filterSettings){
-  console.log(filterSettings);
-  return listings.filter(listing => {
-    if(true/*filterSettings.Amenities != undefined*/){
-      for (const [amenity, need] of Object.entries(filterSettings.Amenities)){
-        if(need && !listing.amenities.includes(amenity)){
+function filterListings(listings, filterSettings) {
+  return listings.filter((listing) => {
+    if (true /*filterSettings.Amenities != undefined*/) {
+      for (const [amenity, need] of Object.entries(filterSettings.Amenities)) {
+        if (need && !listing.amenities.includes(amenity)) {
           console.log("Filtered out: missing " + amenity);
           return false;
         }
       }
     }
-    if(/*filterSettings.propertyTypes != undefined &&*/ !filterSettings.PropertyTypes[listing.basicDetails.propertyType]){
+    if (
+      /*filterSettings.propertyTypes != undefined &&*/ !filterSettings
+        .PropertyTypes[listing.basicDetails.propertyType]
+    ) {
       console.log("Filtered out: wrong property type");
       return false;
     }
     let match = true;
-    [(filterSettings.PriceRange != undefined ? {listingValue: listing.listingDetails.price, filterRange: filterSettings.PriceRange, name: "price"} : null),
-    (filterSettings.NumberofBeds != undefined ? {listingValue: listing.basicDetails.bedrooms, filterRange: filterSettings.NumberofBeds, name: "number of beds"} : null),
-    (filterSettings.NumberofBathrooms != undefined ? {listingValue: listing.basicDetails.bathrooms, filterRange: filterSettings.NumberofBathrooms, name: "number of bathrooms"} : null)]
-    .forEach((prop) => {
-      if(prop != null){
-        console.log(prop.name)
-        if(prop.listingValue < prop.filterRange.min || prop.listingValue > prop.filterRange.max){
-          console.log("Filtered out: " + prop.name + " out of range")
+    [
+      filterSettings.PriceRange != undefined
+        ? {
+            listingValue: listing.listingDetails.price,
+            filterRange: filterSettings.PriceRange,
+            name: "price",
+          }
+        : null,
+      filterSettings.NumberofBeds != undefined
+        ? {
+            listingValue: listing.basicDetails.bedrooms,
+            filterRange: filterSettings.NumberofBeds,
+            name: "number of beds",
+          }
+        : null,
+      filterSettings.NumberofBathrooms != undefined
+        ? {
+            listingValue: listing.basicDetails.bathrooms,
+            filterRange: filterSettings.NumberofBathrooms,
+            name: "number of bathrooms",
+          }
+        : null,
+    ].forEach((prop) => {
+      if (prop != null) {
+        console.log(prop.name);
+        if (
+          prop.listingValue < prop.filterRange.min ||
+          prop.listingValue > prop.filterRange.max
+        ) {
+          console.log("Filtered out: " + prop.name + " out of range");
           match = false;
           return false;
         }
       }
     });
     return match;
-  })    
+  });
 }
 
 const generateFilter = (req, res, next) => {
@@ -254,14 +300,14 @@ const generateFilter = (req, res, next) => {
   req.body.filter = {
     PropertyTypes: propertyTypes,
     Amenities: amenities,
-    PriceRange: {min: 100000, max: 1000000},
-    NumberofBeds: {min: 0, max: 10},
-    NumberofBathrooms: {min: 0, max: 10}
+    PriceRange: { min: 100000, max: 1000000 },
+    NumberofBeds: { min: 0, max: 10 },
+    NumberofBathrooms: { min: 0, max: 10 },
   };
   next();
 };
 
-app.use(express.static(path.join(__dirname, '../front-end/build')))
+app.use(express.static(path.join(__dirname, "../front-end/build")));
 
 app.get("/get-search-settings",
   passport.authenticate("jwt", { session: false }),
@@ -279,6 +325,68 @@ async (req, res) => {
 
 app.get("/*", (req, res) => {
   res.sendFile(path.join(__dirname, "../front-end/build/index.html"));
+});
+const seenListingModel = seenListingSchema.seenListing;
+app.post("/see-listing", (req, res) => {
+  bodyParser.json(req);
+  const reqUserId = req.body.userId;
+  const reqListingId = req.body.listingId;
+
+  const newSeenListing = new seenListingModel({
+    userId: reqUserId,
+    listingId: reqListingId,
+  });
+  console.log(newSeenListing.collection.name);
+  newSeenListing
+    .save()
+    .then((seenListing) => {
+      res.status(200).send("OK");
+    })
+    .catch((error) => {
+      console.error(error);
+      res.status(400).send("Could not save to DB");
+    });
+
+  // Listings.aggregate([
+  //   {
+  //     $lookup: {
+  //       from: 'seenListing',
+  //       let: { listingId: '$_id', userId: '$userId' },
+  //       pipeline: [
+  //         {
+  //           $match: {
+  //             $expr: { $and: [
+  //               { $eq: ['$listingId', '$$listingId'] },
+  //               { $eq: ['$userId', '$$userId'] }
+  //             ]}
+  //           }
+  //         }
+  //       ],
+  //       as: 'seen'
+  //     }
+  //   },
+  //   {
+  //     $addFields: {
+  //       seen: {
+  //         $cond: {
+  //           if: { $eq: [{ $size: '$seen' }, 1] },
+  //           then: true,
+  //           else: false
+  //         }
+  //       }
+  //     }
+  //   },
+  //   {
+  //     $limit: 20
+  //   }
+  // ])
+  // .exec((err, results) => {
+  //   if (err) {
+  //     console.log(err);
+  //   } else {
+  //     console.log(results);
+  //   }
+  // });
 });
 
 const name = async (req, res, next) => {
@@ -329,7 +437,7 @@ const createAccountInDatabase = (req, res, next) => {
     lastName: req.body.lastName,
     id: uuid.v4(),
     accountType: req.body.accountType,
-    filter: req.body.filter
+    filter: req.body.filter,
   });
   newUser
     .save()
@@ -340,6 +448,31 @@ const createAccountInDatabase = (req, res, next) => {
       res.status(400).send("Could not save to DB");
     });
 };
+
+/*
+const createListingInDatabase = (req, res, next) => {
+  console.log(req.body);
+  const newListing = new Listing({
+    userName: req.body.userName,
+    id: uuid.v4(),
+    accountType: req.body.accountType,
+    filter: req.body.filter
+  });
+  newUser
+    .save()
+    .then((user) => {
+      res.status(200).send("OK");
+    })
+    .catch((error) => {
+      res.status(400).send("Could not save to DB");
+    });
+}
+
+app.post(
+  "/create-listing",
+  createListingInDatabase
+);
+*/
 
 app.post(
   "/create-account",
@@ -379,7 +512,7 @@ const sendAuthTokens = (req, res, next) => {
     email: req.account.email,
     id: req.account.id,
     accountType: req.account.accountType,
-    filter: req.account.filter
+    filter: req.account.filter,
   };
 
   console.log(payload);
@@ -411,6 +544,29 @@ app.post("/get-user-data", async (req, res) => {
     res.send("saved user data");
   }
 });
+
+app.post("/get-listing-data", async (req, res) => {
+  if (
+    _.isEqual(req.body, {
+      listingCountry: "",
+      listingState: "",
+      listingCity: "",
+      listingAddress: "",
+      listingPrice: "",
+      listingAmenitiesNum: "",
+      listingBedroomsNum: "",
+      listingDescription: "",
+    })
+  ) {
+    console.log("Invalid Listing Data");
+    res.status(404).end();
+  } else {
+    const sellerListing = JSON.stringify(req.body);
+    console.log(sellerListing);
+    res.send("saved listing data");
+  }
+});
+
 app.use((err, req, res, next) => {
   res.status(500).send(err.message);
 });

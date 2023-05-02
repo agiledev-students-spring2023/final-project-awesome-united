@@ -160,7 +160,8 @@ app.get("/middleware-example", (req, res) => {
     res.send(message)
   })
 
-  app.get('/get-listings', (req, res) => {
+  app.get('/get-listings', passport.authenticate("jwt", { session: false }), 
+  async (req, res) => {
     let listings;
     if(req.session.user = 'buyer'){
       listings = [listingSchema.generateMockListing(),
@@ -192,7 +193,8 @@ app.get("/middleware-example", (req, res) => {
     console.log("filtering listings")
     console.log(req.session.user)
     
-    const filterSettings = req.session.user.filter;
+    const user = await User.findOne({ id: req.user.id }).exec();
+    const filterSettings = user.filter;
     const filteredListings = filterListings(listings, filterSettings);
 
     res.json(filteredListings);
@@ -209,6 +211,7 @@ app.get(
 );
 
 function filterListings(listings, filterSettings){
+  console.log(filterSettings);
   return listings.filter(listing => {
     if(true/*filterSettings.Amenities != undefined*/){
       for (const [amenity, need] of Object.entries(filterSettings.Amenities)){

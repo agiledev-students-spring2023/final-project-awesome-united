@@ -41,7 +41,7 @@ const Discover = (props) => {
 
   async function fetchData() {
     
-    const response = await axios("http://localhost:3001/get-listings")
+    const response = await axios("http://localhost:3001/get-listings", {headers: {Authorization: `JWT ${jwtToken}`}})
       .then((response) => {
         setListings(response.data);
         setLoaded(true);

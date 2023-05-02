@@ -40,7 +40,7 @@ const CreateListing = props => {
     const Redirect = useNavigate();
 
     function saveClicked(e){
-      authenticate(setIsLoggedIn, setAccountInfo, jwtToken);
+      //authenticate(setIsLoggedIn, setAccountInfo, jwtToken);
       const sellerListing = { listingCountry, listingState, listingCity, listingAddress, listingPrice, listingAmenitiesNum, listingBedroomsNum, listingBathroomsNum };
       console.log(sellerListing);
       axios.post(userUrl, sellerListing, {

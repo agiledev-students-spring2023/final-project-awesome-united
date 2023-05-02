@@ -270,9 +270,8 @@ app.get("/get-search-settings",
 
 app.post("/post-user-filter", passport.authenticate("jwt", { session: false }), 
 async (req, res) => {
-  console.log(req.body);
-  await User.updateOne({ id: req.user.id }, req.body).exec();
-  res.send("success");
+  const status = await User.updateOne({ id: req.user.id }, {filter: req.body}).exec();
+  res.send(status.acknowledged ? "acknowledged" : "not acknowledged");
 });
 
 app.get("/*", (req, res) => {

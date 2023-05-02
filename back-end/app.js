@@ -42,6 +42,7 @@ mongoose
     console.log(err);
   });
 var cors = require("cors");
+const { Console } = require('console');
 app.use(cors());
 
 const sessionOptions = { 
@@ -259,21 +260,23 @@ const generateFilter = (req, res, next) => {
 
 app.use(express.static(path.join(__dirname, '../front-end/build')))
 
-app.get("/get-search-settings", (req, res) => {
-  res.json(res.session.user.filter);
-});
+app.get("/get-search-settings",
+  passport.authenticate("jwt", { session: false }),
+  async (req, res) => {
+    const user = await User.findOne({ id: req.user.id }).exec();
+    res.json(user.filter);
+  }
+);
 
-app.get("/get-user-filter", (req, res) => {
-  res.json(res.locals.user.filter);
+app.post("/post-user-filter", passport.authenticate("jwt", { session: false }), 
+async (req, res) => {
+  console.log(req.body);
+  await User.updateOne({ id: req.user.id }, req.body).exec();
+  res.send("success");
 });
 
 app.get("/*", (req, res) => {
   res.sendFile(path.join(__dirname, "../front-end/build/index.html"));
-});
-
-app.post("/post-user-filter", (req, res) => {
-  res.locals.user.filter = req.body;
-  //this can't be safe
 });
 
 const name = async (req, res, next) => {

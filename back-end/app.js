@@ -439,6 +439,29 @@ app.post("/get-user-data", async (req, res) => {
     res.send("saved user data");
   }
 });
+
+app.post("/get-listing-data", async (req, res) => {
+  if (
+    _.isEqual(req.body, {
+      listingCountry: "",
+      listingState: "",
+      listingCity: "",
+      listingAddress: "",
+      listingPrice: "",
+      listingAmenitiesNum: "",
+      listingBedroomsNum: "",
+      listingDescription: "",
+    })
+  ) {
+    console.log("Invalid Listing Data");
+    res.status(404).end();
+  } else {
+    const sellerListing = JSON.stringify(req.body);
+    console.log(sellerListing);
+    res.send("saved listing data");
+  }
+});
+
 app.use((err, req, res, next) => {
   res.status(500).send(err.message);
 });

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { TextField, Grid, Button, Typography } from "@mui/material";
 import ImageList from '@mui/material/ImageList';
@@ -17,9 +18,40 @@ import InputAdornment from '@mui/material/InputAdornment';
 import FormControl from '@mui/material/FormControl';
 import SaveIcon from '@mui/icons-material/Save';
 import axios from "axios";
+import authenticate from "../../auth/Authenticate";
 import "./CreateListing.css"
 
 const CreateListing = props => {
+    const userUrl = 'http://localhost:3001/get-listing-data';
+    const jwtToken = localStorage.getItem("token");
+
+    const [isLoggedIn, setIsLoggedIn] = useState(jwtToken && true);
+    const [listingCountry, setListingCountry] = useState('');
+    const [listingState, setListingState] = useState('');
+    const [listingCity, setListingCity] = useState('');
+    const[listingAddress, setListingAddress] = useState('');
+    const[listingPrice, setListingPrice] = useState('');
+    const[listingAmenitiesNum, setListingAmenitiesNum] = useState('');
+    const[listingBedroomsNum, setListingBedroomsNum] = useState('');
+    const[listingDescription, setListingDescription] = useState('');
+
+
+    const Redirect = useNavigate();
+
+    function saveClicked(e){
+      const sellerListing = { listingCountry, listingState, listingCity, listingAddress, listingPrice, listingAmenitiesNum, listingBedroomsNum, listingDescription };
+      console.log(sellerListing);
+      axios.post(userUrl, sellerListing, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+      .then((res) => {
+        console.log(res);
+      });
+      Redirect('/discover');
+    }
+
     return (
       <div className="listingPage">
       <Typography variant="h6" className="headerText">
@@ -31,7 +63,14 @@ const CreateListing = props => {
         maxWidth: '100%',
       }}
     >
-      <TextField fullWidth label="Address" id="Address" />
+      <TextField 
+          fullWidth 
+          label="Address"          
+          type='text' 
+          id='myText'
+          className='AddressInput' 
+          placeholder='Address'
+          onChange={(e) => setListingAddress(e.target.value)}/>
     </Box>
     <Box className="cityField"
       sx={{
@@ -39,7 +78,16 @@ const CreateListing = props => {
         maxWidth: '100%',
       }}
     ><br></br>
-      <TextField fullWidth label="City" id="City" />
+      <TextField 
+        fullWidth 
+        label='City'
+        type='text' 
+        id='myText' 
+        name='UserCity' 
+        className='CityInput' 
+        placeholder='City'
+        onChange={(e) => setListingCity(e.target.value)}
+      />
     </Box>
     <Box className="stateField"
       sx={{
@@ -47,7 +95,16 @@ const CreateListing = props => {
         maxWidth: '100%',
       }}
     ><br></br>
-      <TextField fullWidth label="State" id="State" />
+      <TextField 
+        fullWidth 
+        label='State'
+        type='text' 
+        id='myText' 
+        name='UserState' 
+        className='StateInput' 
+        placeholder='State'
+        onChange={(e) => setListingState(e.target.value)}
+      />
     </Box>
     <Box className="countryField"
       sx={{
@@ -55,7 +112,16 @@ const CreateListing = props => {
         maxWidth: '100%',
       }}
     ><br></br>
-      <TextField fullWidth label="Country" id="Country" />
+      <TextField 
+        fullWidth 
+        label='Country'
+        type='text' 
+        id='myText' 
+        name='UserCountry' 
+        className='CountryInput' 
+        placeholder='Country'
+        onChange={(e) => setListingCountry(e.target.value)}
+      />
     </Box>
     <br></br>
       Images <br></br>
@@ -103,6 +169,8 @@ const CreateListing = props => {
             id="outlined-adornment-amount"
             startAdornment={<InputAdornment position="start">$</InputAdornment>}
             label="Amount"
+            type="number"
+            onChange={(e) => setListingPrice(e.target.value)}
           />
         </FormControl><br></br>
         <br></br>
@@ -113,6 +181,7 @@ const CreateListing = props => {
           InputLabelProps={{
             shrink: true,
           }}
+          onChange={(e) => setListingAmenitiesNum(e.target.value)}
         /><br></br>
         <br></br>
         <TextField
@@ -122,6 +191,7 @@ const CreateListing = props => {
           InputLabelProps={{
             shrink: true,
           }}
+          onChange={(e) => setListingBedroomsNum(e.target.value)}
         /><br></br>
         <br></br>
     <Box
@@ -130,11 +200,17 @@ const CreateListing = props => {
         maxWidth: '100%',
       }}
     >
-      <TextField fullWidth label="Description" id="fullWidth"></TextField>
+      <TextField 
+        fullWidth 
+        label="Description" 
+        id="fullWidth"
+        type="text"
+        onChange={(e) => setListingDescription(e.target.value)}
+      />
     </Box>
     <br></br>
     <br></br>
-    <Button className="saveButton" variant="contained" size="medium" maxWidth= '100%' endIcon={<SaveIcon />}>
+    <Button className="saveButton" variant="contained" size="medium" maxWidth= '100%' endIcon={<SaveIcon />} onClick={()=>saveClicked()}>
         Save
       </Button>
       </Typography>

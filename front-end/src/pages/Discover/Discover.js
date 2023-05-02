@@ -161,9 +161,9 @@ const Discover = (props) => {
       
         
         setLoaded(true);
-        setListings(backupData);
+        //setListings(backupData);
 
-        updateCurrentIndex(backupData.length - 1);
+        //updateCurrentIndex(backupData.length - 1);
       });
   }
 

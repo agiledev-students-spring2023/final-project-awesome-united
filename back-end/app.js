@@ -338,9 +338,30 @@ const createAccountInDatabase = (req, res, next) => {
     });
 };
 
+/*
 const createListingInDatabase = (req, res, next) => {
   console.log(req.body);
+  const newListing = new Listing({
+    userName: req.body.userName,
+    id: uuid.v4(),
+    accountType: req.body.accountType,
+    filter: req.body.filter
+  });
+  newUser
+    .save()
+    .then((user) => {
+      res.status(200).send("OK");
+    })
+    .catch((error) => {
+      res.status(400).send("Could not save to DB");
+    });
 }
+
+app.post(
+  "/create-listing",
+  createListingInDatabase
+);
+*/
 
 app.post(
   "/create-account",

@@ -19,23 +19,22 @@ import FormControl from '@mui/material/FormControl';
 import SaveIcon from '@mui/icons-material/Save';
 import axios from "axios";
 import authenticate from "../../auth/Authenticate";
-import ListingInfo from "./ListingInfo";
 import "./CreateListing.css"
 
-const jwtToken = localStorage.getItem("token");
-
 const CreateListing = props => {
+    const userUrl = 'http://localhost:3001/get-user-data';
+    const jwtToken = localStorage.getItem("token");
 
     const [isLoggedIn, setIsLoggedIn] = useState(jwtToken && true);
-    const [accountInfo, setAccountInfo] = useState([])
     const [userCountry, setUserCountry] = useState('');
     const [userState, setUserState] = useState('');
     const [userCity, setUserCity] = useState('');
     const[userAddress, setUserAddress] = useState('');
+    const[userAmenities, setUserAmenities] = useState('');
 
     const Redirect = useNavigate();
 
-    function createClicked(e){
+    function saveClicked(e){
       const userLocation = { userCountry, userState, userCity, userAddress };
       console.log(userLocation);
       axios.post(userUrl, userLocation, {
@@ -84,7 +83,16 @@ const CreateListing = props => {
         maxWidth: '100%',
       }}
     ><br></br>
-      <TextField fullWidth label="Country" id="Country" />
+      <TextField 
+        fullWidth 
+        label="Country" 
+        type='text' 
+        id='myText' 
+        name='UserCountry' 
+        className='CountryInput' 
+        placeholder='Country'
+        onChange={(e) => setUserCountry(e.target.value)}
+      />
     </Box>
     <br></br>
       Images <br></br>
@@ -163,7 +171,7 @@ const CreateListing = props => {
     </Box>
     <br></br>
     <br></br>
-    <Button className="saveButton" variant="contained" size="medium" maxWidth= '100%' endIcon={<SaveIcon />}>
+    <Button className="saveButton" variant="contained" size="medium" maxWidth= '100%' endIcon={<SaveIcon />} onClick={()=>saveClicked()}>
         Save
       </Button>
       </Typography>

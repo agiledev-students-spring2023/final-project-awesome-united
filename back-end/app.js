@@ -237,7 +237,7 @@ function filterListings(listings, filterSettings) {
     if (true /*filterSettings.Amenities != undefined*/) {
       for (const [amenity, need] of Object.entries(filterSettings.Amenities)) {
         if (need && !listing.amenities.includes(amenity)) {
-          console.log("Filtered out: missing " + amenity);
+          //console.log("Filtered out: missing " + amenity);
           return false;
         }
       }
@@ -246,7 +246,7 @@ function filterListings(listings, filterSettings) {
       /*filterSettings.propertyTypes != undefined &&*/ !filterSettings
         .PropertyTypes[listing.basicDetails.propertyType]
     ) {
-      console.log("Filtered out: wrong property type");
+      //console.log("Filtered out: wrong property type");
       return false;
     }
     let match = true;
@@ -274,12 +274,12 @@ function filterListings(listings, filterSettings) {
         : null,
     ].forEach((prop) => {
       if (prop != null) {
-        console.log(prop.name);
+        //console.log(prop.name);
         if (
           prop.listingValue < prop.filterRange.min ||
           prop.listingValue > prop.filterRange.max
         ) {
-          console.log("Filtered out: " + prop.name + " out of range");
+          //console.log("Filtered out: " + prop.name + " out of range");
           match = false;
           return false;
         }
@@ -400,6 +400,7 @@ app.post("/upload-pfp", upload_pfp.single("image"), (req, res) => {
 });
 
 const User = userSchema.User;
+const Listing = listingSchema.Listing;
 
 const checkDuplicateUsernameOrEmail = async (req, res, next) => {
   bodyParser.json(req);
@@ -449,30 +450,54 @@ const createAccountInDatabase = (req, res, next) => {
     });
 };
 
-/*
-const createListingInDatabase = (req, res, next) => {
+const createListingInDatabase = async (req, res, next) => {
   console.log(req.body);
-  const newListing = new Listing({
-    userName: req.body.userName,
-    id: uuid.v4(),
-    accountType: req.body.accountType,
-    filter: req.body.filter
-  });
-  newUser
+
+  const newListing = {
+    id: req.user.id,
+    location: {
+      streetAddress: req.body.listingAddress,
+      unitNumber: req.body.listingUnitNumber,
+      city: req.body.listingCity,
+      state: req.body.listingState,
+      zip: req.body.listingZipcode
+    },
+    listingDetails: {
+      status: req.body.listingStatus,
+      price: req.body.listingPrice
+    },
+    basicDetails: {
+      propertyType: req.body.listingPropertyType,
+      bedrooms: req.body.listingBedroomsNum,
+      bathrooms: req.body.listingBathroomsNum
+    },
+    agent: {
+      email: req.user.email,
+      firstName: req.user.firstName,
+      lastName: req.user.lastName
+    },
+    amenities: req.body.listingAmenities,
+    images: req.body.listingPhotos
+  };
+  if (req.listingExists == true){
+    const status = Listing.updateOne({id: req.user.id}, newListing).exec();
+    res.status(200).send("Listing Updated");
+  }
+  else{
+    new Listing(newListing)
     .save()
-    .then((user) => {
-      res.status(200).send("OK");
+    .then((newListing) => {
+      //res.status(200).send("OK");
+      console.log("success");
     })
     .catch((error) => {
-      res.status(400).send("Could not save to DB");
-    });
-}
-
-app.post(
-  "/create-listing",
-  createListingInDatabase
-);
-*/
+      console.log(newListing);
+      //res.statusCode = 404;
+      console.log(error);
+      //res.send("Could not save to DB");
+    });  
+  }
+};
 
 app.post(
   "/create-account",
@@ -521,6 +546,7 @@ const sendAuthTokens = (req, res, next) => {
   res.status(200).json({
     success: true,
     token: token,
+    user: payload
   });
   next();
 };
@@ -545,7 +571,7 @@ app.post("/get-user-data", async (req, res) => {
   }
 });
 
-app.post("/get-listing-data", async (req, res) => {
+const checkIfListingExists = async (req, res, next) => {
   if (
     _.isEqual(req.body, {
       listingCountry: "",
@@ -554,18 +580,29 @@ app.post("/get-listing-data", async (req, res) => {
       listingAddress: "",
       listingPrice: "",
       listingAmenitiesNum: "",
-      listingBedroomsNum: "",
+      listingBathroomsNum: "",
       listingDescription: "",
     })
   ) {
     console.log("Invalid Listing Data");
-    res.status(404).end();
+    //res.status(404).end();
   } else {
     const sellerListing = JSON.stringify(req.body);
     console.log(sellerListing);
-    res.send("saved listing data");
+    const curr_listing = await Listing.findOne({ id: req.user.id }).exec();
+    console.log(curr_listing);
+    if (curr_listing != null){
+      console.log("listing already exists");
+      req.listingExists = true;
+    }
+    else{
+      req.listingExists = false;
+    }
+    next();
   }
-});
+}  
+
+app.post("/get-listing-data", passport.authenticate("jwt", { session: false }), checkIfListingExists, createListingInDatabase);
 
 app.use((err, req, res, next) => {
   res.status(500).send(err.message);

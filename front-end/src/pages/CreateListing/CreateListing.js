@@ -17,33 +17,43 @@ import InputLabel from '@mui/material/InputLabel';
 import InputAdornment from '@mui/material/InputAdornment';
 import FormControl from '@mui/material/FormControl';
 import SaveIcon from '@mui/icons-material/Save';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
 import axios from "axios";
 import authenticate from "../../auth/Authenticate";
+import SingleListing from "../SingleListing/SingleListing"; 
 import "./CreateListing.css"
 
 const CreateListing = props => {
     const userUrl = 'http://localhost:3001/get-listing-data';
     const jwtToken = localStorage.getItem("token");
 
+
+    //zip unit amenities active/rent type
     const [isLoggedIn, setIsLoggedIn] = useState(jwtToken && true);
     const [listingCountry, setListingCountry] = useState('');
     const [listingState, setListingState] = useState('');
     const [listingCity, setListingCity] = useState('');
     const[listingAddress, setListingAddress] = useState('');
     const[listingPrice, setListingPrice] = useState('');
-    const[listingAmenitiesNum, setListingAmenitiesNum] = useState('');
     const[listingBedroomsNum, setListingBedroomsNum] = useState('');
-    const[listingDescription, setListingDescription] = useState('');
-
+    const[listingBathroomsNum, setListingBathroomsNum] = useState('');
+    const[listingZipcode, setListingZipcode] = useState('');
+    const[listingUnitNumber, setListingUnitNumber] = useState('');
+    const[listingAmenities, setListingAmenities] = useState('');
+    const[listingPropertyType, setListingPropertyType] = useState('');
+    const[listingStatus, setListingStatus] = useState('');
 
     const Redirect = useNavigate();
 
     function saveClicked(e){
-      const sellerListing = { listingCountry, listingState, listingCity, listingAddress, listingPrice, listingAmenitiesNum, listingBedroomsNum, listingDescription };
+      //authenticate(setIsLoggedIn, setAccountInfo, jwtToken);
+      const sellerListing = { listingCountry, listingState, listingCity, listingAddress, listingPrice, listingAmenities, listingBedroomsNum, listingBathroomsNum, listingZipcode, listingUnitNumber, listingPropertyType, listingStatus };
       console.log(sellerListing);
       axios.post(userUrl, sellerListing, {
         headers: {
           'Content-Type': 'application/json',
+          Authorization: `JWT ${jwtToken}`
         },
       })
       .then((res) => {
@@ -71,6 +81,36 @@ const CreateListing = props => {
           className='AddressInput' 
           placeholder='Address'
           onChange={(e) => setListingAddress(e.target.value)}/>
+    </Box><br></br>
+    <Box className="UnitNumberField"
+      sx={{
+        width: 500,
+        maxWidth: '100%',
+      }}
+    >
+    <TextField 
+          fullWidth 
+          label="Unit Number"          
+          type='number' 
+          id='myNumber'
+          className='UnitNumberInput' 
+          placeholder='UnitNumber'
+          onChange={(e) => setListingUnitNumber(e.target.value)}/>
+    </Box><br></br>
+    <Box className="zipCodeField"
+      sx={{
+        width: 500,
+        maxWidth: '100%',
+      }}
+    >
+      <TextField 
+          fullWidth 
+          label="Zip Code"          
+          type='number' 
+          id='myNumber'
+          className='ZipCodeInput' 
+          placeholder='Zip Code'
+          onChange={(e) => setListingZipcode(e.target.value)}/>
     </Box>
     <Box className="cityField"
       sx={{
@@ -153,10 +193,10 @@ const CreateListing = props => {
     <Stack direction="row" alignItems="center" spacing={2}>
       <Button variant="contained" component="label">
         Upload
-        <input hidden accept="image/*" multiple type="file" />
+        <input hidden accept="image/*" multiple type="file" method='POST' action='/upload-pfp' encType='multipart/form-data'/>
       </Button>
       <IconButton color="primary" aria-label="upload picture" component="label">
-        <input hidden accept="image/*" type="file" />
+        <input hidden accept="image/*" type="file"/>
         <PhotoCamera />
       </IconButton>
     </Stack>
@@ -174,16 +214,58 @@ const CreateListing = props => {
           />
         </FormControl><br></br>
         <br></br>
-        <TextField
-          id="outlined-number"
-          label="Number of Amenities"
-          type="number"
-          InputLabelProps={{
-            shrink: true,
-          }}
-          onChange={(e) => setListingAmenitiesNum(e.target.value)}
-        /><br></br>
-        <br></br>
+        <Box sx={{ minWidth: 120 }}>
+        <FormControl sx={{ m: 1, width: '20ch' }}>
+        <InputLabel id="select-label">Status</InputLabel>
+        <Select
+          labelId="select-label"
+          id="select"
+          label="Status"
+          onChange={(e) => setListingStatus(e.target.value)}
+        >
+          <MenuItem value={'Active'}>Active</MenuItem>
+          <MenuItem value={'For Rent'}>For Rent</MenuItem>
+          <MenuItem value={'Sold'}>Sold</MenuItem>
+          <MenuItem value={'Rented'}>Rented</MenuItem>
+        </Select>
+      </FormControl>
+    </Box><br></br>
+    <Box sx={{ minWidth: 120 }}>
+        <FormControl sx={{ m: 1, width: '20ch' }}>
+        <InputLabel id="select-label">Type</InputLabel>
+        <Select
+          labelId="select-label"
+          id="select"
+          label="Type"
+          onChange={(e) => setListingPropertyType(e.target.value)}
+        >
+          <MenuItem value={'Single-Family'}>Single-Family</MenuItem>
+          <MenuItem value={'Condo'}>Condo</MenuItem>
+          <MenuItem value={'Coop'}>Coop</MenuItem>
+          <MenuItem value={'Multi-Family'}>Multi-Family</MenuItem>
+          <MenuItem value={'Manufactured'}>Manufactured</MenuItem>
+          <MenuItem value={'Vacant Land'}>Vacant Land</MenuItem>
+          <MenuItem value={'Apartment'}>Apartment</MenuItem>
+        </Select>
+      </FormControl>
+    </Box><br></br>
+    <Box sx={{ minWidth: 120 }}>
+        <FormControl sx={{ m: 1, width: '20ch' }}>
+        <InputLabel id="select-label">Amenities</InputLabel>
+        <Select
+          labelId="select-label"
+          id="select"
+          label="Amenities"
+          onChange={(e) => setListingAmenities(e.target.value)}
+        >
+          <MenuItem value={'pool'}>pool</MenuItem>
+          <MenuItem value={'gym'}>gym</MenuItem>
+          <MenuItem value={'fireplace'}>fireplace</MenuItem>
+          <MenuItem value={'washer/dryer'}>washer/dryer</MenuItem>
+          <MenuItem value={'balcony'}>balcony</MenuItem>
+        </Select>
+      </FormControl>
+    </Box><br></br>
         <TextField
           id="outlined-number"
           label="Number of Bedrooms"
@@ -200,12 +282,14 @@ const CreateListing = props => {
         maxWidth: '100%',
       }}
     >
-      <TextField 
-        fullWidth 
-        label="Description" 
-        id="fullWidth"
-        type="text"
-        onChange={(e) => setListingDescription(e.target.value)}
+      <TextField
+        id="outlined-number"
+        label="Number of Bathrooms"
+        type="number"
+        InputLabelProps={{
+          shrink: true,
+        }}
+        onChange={(e) => setListingBathroomsNum(e.target.value)}
       />
     </Box>
     <br></br>

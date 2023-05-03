@@ -214,21 +214,60 @@ const Discover = (props) => {
   };
   const swipeRight = () => {
     // childRefs[currentIndex].current.style.display = "none";
-    console.log(childRefs[currentIndex].current.setAttribute("swiped", 1));
+    //console.log(childRefs[currentIndex].current.setAttribute("swiped", 1));
     console.log("swiped right on " + listings[currentIndex].id);
+    // create the match!
+    createMatch(listings[currentIndex], "yes")
     updateCurrentIndex(currentIndex - 1);
   };
   const swipeLeft = () => {
-    console.log("swiped left on " + listings[currentIndex].id);
+    //console.log("swiped left on " + listings[currentIndex].id);
     console.log(childRefs[currentIndex].current.setAttribute("swiped", 2));
     updateCurrentIndex(currentIndex - 1);
   };
   const swipeUp = () => {
-    console.log(childRefs[currentIndex].current.setAttribute("swiped", 3));
+    //console.log(childRefs[currentIndex].current.setAttribute("swiped", 3));
     console.log("swiped up on " + listings[currentIndex].id);
+    //create the match!
+    createMatch(listings[currentIndex], "maybe")
     updateCurrentIndex(currentIndex - 1);
   };
   const r = React.useRef(null);
+
+  const createMatch = async ( listing , tp ) =>{
+    let locInfo = listing.location
+
+
+    //format listingAddress
+    let addr = ""
+    if ( locInfo.unitNumber == null ){
+      addr = locInfo.streetAddress + " " 
+      + locInfo.city + " " + locInfo.state
+    }
+    else{
+      addr = locInfo.streetAddress + " " + locInfo.unitNumber  + " " 
+      + locInfo.city + " " + locInfo.state
+    }
+
+    let match = {
+      //listing.id corresponds to the  id of the seller who posted listing
+      // senderId/receiverId name does not matter as both will go in members array
+      senderId: listing.id,
+      receiverId: accountInfo.id,
+      type: tp,
+      listingAddress: addr,
+    }
+    console.log("HEEEEERE")
+    console.log(accountInfo.id)
+    console.log(typeof(accountInfo.id))
+    try{
+      const res = await axios.post("http://localhost:3001/Matches", 
+      match)
+      console.log(res.data)
+    }catch(err){
+      console.log(err)
+    }
+  }
 
   return (
     <>

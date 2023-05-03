@@ -6,7 +6,6 @@
   /* use flexbox to create a tiling area with a row of match articles inside */
   display: flex;
   flex-direction: column;
-  flex-wrap: wrap;
   height: 100%;
   overflow-y: scroll;
   text-overflow: "ellipsis";
@@ -14,4 +13,14 @@
   /* some spacing around the entire contents of the frame */
   margin-left: 0%;
   margin-right: 0%;
+}
+
+.noMatches{
+  margin-top: 60%;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  color: darkgray;
+  font-size: 30px;
+  cursor:default;
 }

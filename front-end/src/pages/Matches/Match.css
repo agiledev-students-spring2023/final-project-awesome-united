@@ -14,7 +14,7 @@
     font-size: 11px;
 }
 
-.profileImage {
+.profilePhoto {
     grid-row: 1 / span 2;
     width: 50px;
     height: 50px;
@@ -22,7 +22,7 @@
     border: 1px solid black;
     padding: 1px; /* padding between image itself and the circle */
 }
-.profileImage:hover{
+.profilePhoto:hover{
         /* change the background color when a user hovers */
         color: rgb(40, 39, 39);
         background-color: rgb(179, 178, 178)!important;

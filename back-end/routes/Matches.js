@@ -5,6 +5,8 @@ const Match = require("../models/Matches");
 router.post("/", async (req, res) => {
   const newMatch = new Match({
     members: [req.body.senderId, req.body.receiverId],
+    type: req.body.type,
+    listingAddress: req.body.listingAddress,
   });
 
   try {
@@ -15,7 +17,7 @@ router.post("/", async (req, res) => {
   }
 });
 
-//get specific match of the user
+//get all matches that has userId
 router.get("/:userId", async (req, res) => {
   try {
     const Match = await Match.find({

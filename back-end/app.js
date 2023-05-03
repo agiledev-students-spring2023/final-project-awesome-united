@@ -546,6 +546,7 @@ const sendAuthTokens = (req, res, next) => {
   res.status(200).json({
     success: true,
     token: token,
+    user: payload
   });
   next();
 };

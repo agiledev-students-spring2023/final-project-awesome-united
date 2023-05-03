@@ -1,10 +1,22 @@
-main {  
+html, body, main {margin:0;padding:0;height:100%;}
+
+.main {  
   font-family: helvetica;
   font-weight: normal;
-  height: 100%;
-  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  height: 100%
+} 
+
+.chatBox{
+  flex: 5.5;
 }
 
+.chatBoxWrapper{
+
+  justify-content: space-between;
+  position: relative;
+}
 
 
 header{
@@ -32,99 +44,80 @@ header h3{
     font-weight: normal;
 }
 
+.messageBox {
+  background-color: #fff;
+  font-size: 1.0rem;
+  padding: 1.2rem 1.0rem;
+  height:100%;
+  display: flex;
+  flex-direction: column;
+  overflow-y: scroll;
 
+}
 
+p {
+  border-radius: 1.15rem;
+  line-height: 1.25;
+  max-width: 40%;
+  padding: 0.5rem .875rem;
+  position: relative;
+  word-wrap: break-word;
+}
 
-  .messageBox {
-    background-color: #fff;
-    border-radius: 0.25rem;
-    display: flex;
-    flex-direction: column;
-    font-size: 1.2rem;
-    padding: 1.2rem 1.0rem;
+p.self {
+  align-self: flex-end;
+  background-color: #248bf5;
+  color: #fff; 
+}
 
-    min-height: 100%;
-    position: relative;
-    overflow-y: scroll;
+p.self ~ p.self {
+  margin: 0.25rem 0 0;
+}
 
-  }
+p.other {
+  align-items: flex-start;
+  background-color: #e5e5ea;
+  color: #000;
+}
+
+p.other ~ p.other {
+  margin: 0.25rem 0 0;
+}
+
+.messageForm {
+  margin-top: 2px;
+  width:100%;
+  bottom: 60;
+  border-color: black;
+  background-color: #eee;
+}
+
+textarea {
+  padding: 0.3rem;
+  margin: 0 0.5rem;
+  width: calc(100% - 80px);
+  border: 1px solid #c2c2c2;
+  border-radius: 20px;
+  display: inline-block;
+  /* by having a max height and overflow auto, input box will expand
+  to limit of max-height and then further text can be seen via using scroll wheel
+  */
+  /* https://stackoverflow.com/questions/36522474/css-form-scroll-overflow */
+  max-height: 40px;
+  overflow-y:auto;
   
-  .messageBox p {
-    border-radius: 1.15rem;
-    line-height: 1.25;
-    max-width: 75%;
-    padding: 0.5rem .875rem;
-    position: relative;
-    word-wrap: break-word;
-  }
-  
-  .messageBox p::before,
-  .messageBox p::after {
-    bottom: -0.1rem;
-    content: "";
-    height: 1rem;
-    position: absolute;
-  }
-  
-  p.self {
-    align-self: flex-end;
-    background-color: #248bf5;
-    color: #fff; 
-  }
-  
-  p.self ~ p.self {
-    margin: 0.25rem 0 0;
-  }
+}
+/*modifies the placeholder value of 'input' */
+textarea::placeholder{
+  color: rgb(200,200,200);
+}
 
-  p.other {
-    align-items: flex-start;
-    background-color: #e5e5ea;
-    color: #000;
-  }
-
-
-  #messageForm {
-    position: sticky;
-    bottom:0;
-
-    border-color: black;
-    background-color: #eee;
-  }
-  textarea {
-    padding: 0.3rem;
-    margin: 0 0.5rem;
-    width: calc(100% - 80px);
-    border: 1px solid #c2c2c2;
-    border-radius: 20px;
-    display: inline-block;
-    /* by having a max height and overflow auto, input box will expand
-    to limit of max-height and then further text can be seen via using scroll wheel
-    */
-    /* https://stackoverflow.com/questions/36522474/css-form-scroll-overflow */
-    max-height: 40px;
-    overflow-y:auto;
-    
-  }
-  /*modifies the placeholder value of 'input' */
-  textarea::placeholder{
-    color: rgb(200,200,200);
-  }
-  textarea:active,
-  textarea:focus {
-    border-color: #9b0000;
-  }
-
-  #send-button{
-    border: none;
-    border-radius: 22px;
-    background: #248bf5;
-    color: #fff;
-    font-weight: bold;
-
-    width: 45px;
-    display: inline-block;
-  }
-
-  .error {
-    border-color: #fa7962 !important;
-  }
+#send-button{
+  border: none;
+  border-radius: 22px;
+  background: #248bf5;
+  color: #fff;
+  font-weight: bold;
+  display: inline-block;
+  width: 45px;
+}

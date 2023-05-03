@@ -2,7 +2,6 @@
 import "./Matches.css"
 import Match from "./Match"
 import { useState, useEffect, useContext } from "react"
-import SearchBar from "./SearchBar"
 import authenticate from "../../auth/Authenticate";
 import axios from "axios"
 import Chat from "../Chat/Chat"
@@ -26,36 +25,14 @@ const Matches = props => {
 
   useEffect(() =>{
      const getMatches = async ()=>{
+      let tmp = {userId: accountInfo.id}
       while( accountInfo == null );
        try{
-         const res = await axios.get("/Matches/"+ accountInfo.id)
+         const res = await axios.post("http://localhost:3001/get-Matches/", tmp )
          console.log(res)
          setMatches(res.data)
        }catch(err){
-         //console.log(err)
- 
-         // DELETE THIS ONCE MONGO STUFF FOR SELLER AND DISCOVER PAGE IS DONE 
-         // AND MONGO STUFF WORKS WORKS
-         const backupMatches = [
-           {
-             id: 999999999998,
-             createdAt: "2023-04-18T18:25:43.511Z",
-             members:["4e8df0eb-6b1d-45a2-8272-0993de89334e","abcdefghijk1"],
-             updatedAt: "2023-04-18T18:25:43.511Z",
-             __v: 0
-           },
-           {
-             id: 999999999999,
-             createdAt: "2023-04-18T19:14:43.511Z",
-             members:["4e8df0eb-6b1d-45a2-8272-0993de89334e","abcdefghijk2"],
-             updatedAt: "2023-04-18T19:14:43.511Z",
-             __v: 0
-           }
-         ];
-         setMatches(backupMatches)
-         console.log("LOOK AT MY MATCHES:")
-         console.log(matches)
-         console.log("DONE - LOOK AT MY MATCHES")
+         console.log(err) 
        }
      };
      getMatches()
@@ -79,8 +56,10 @@ const Matches = props => {
   useEffect( () => {
     const getChat = async () =>{
       // currentChat is really just the match that was clicked on
+      let tmp = { matchId: currentChat?.id}
       try{
-        const res = await axios.get("/Chat/"+currentChat?.id)
+        const res = await axios.post("http://localhost:3001/get-Chat/", tmp)
+        //const res = await axios.post("http://localhost:3001/Chat/" + currentChat?.id)
         setMessages(res.data)
       }catch(err){
         console.log(err)

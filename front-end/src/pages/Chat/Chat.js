@@ -62,28 +62,13 @@ const Chat = props => {
     const otherId = props.otherUserId
     // actually get the data associated with that userId
     const getUser = async ()=>{
+      let tmp = {userId: otherId}
       try{
-        const res = await axios("/User?userId="+otherId)
+        const res = await axios.post("http://localhost:3001/get-User/", tmp)
         setOtherUser(res.data)
         console.log(res)
       }catch(err){
         console.log(err)
-        // REMOVE WHEN DONE
-        // essentially the user model but stripped down
-        const backupMatch = 
-          {
-          id: otherId,
-          userName: "elapechao",
-          firstName: "Jose",
-          lastName: "Gomez",
-          email: "jgomez@mail.pr",
-          profilePhoto: null
-          }
-        ;
-        setOtherUser(backupMatch)
-        console.log("OVA HERE INGLAND")
-        console.log(otherUser[0].firstName)
-        console.log(backupMatch)
       }
     };
     getUser()
@@ -106,15 +91,11 @@ const Chat = props => {
     })
 
     try{
-      const res = await axios.post("/Chat", message)
+      const res = await axios.post("http://localhost:3001/post-Chat", message)
       setMessages([...messages, res.data])
       setNewMessage("")
     }catch(err){
       console.log(err)
-      // delete later:
-      setMessages([...messages, message])
-      console.log(messages)
-      setNewMessage("")
     }
   }
 
@@ -129,20 +110,22 @@ const Chat = props => {
 
   return (
     <>
-    <div className="main">
+    <main>
       <header>
+          {/*}
           <h2>1653 E 8th St, Brooklyn, NY</h2>
+          */}
           <h3>{otherUser.firstName + " " + otherUser.lastName}</h3>
       </header>
 
-      <div className="messageBox">
+      <section className="messageBox">
       {/*
         * loop through the array of messages, and display it
         */} 
       {messages.map((message, i, matchesArray) => (
           <p ref={scroll} className={whoSent(message.sender)}>{message.text}</p>
       ))}
-      </div>
+      </section>
       
       {/* input box */}
       <form className="messageForm" onSubmit={handleSubmit}>
@@ -154,7 +137,7 @@ const Chat = props => {
         />
         <input type="submit" id="send-button" value="Send"/>
       </form>
-      </div>
+      </main>
       </>
   )
 }

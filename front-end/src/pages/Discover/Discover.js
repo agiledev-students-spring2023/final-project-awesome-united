@@ -214,19 +214,19 @@ const Discover = (props) => {
   };
   const swipeRight = () => {
     // childRefs[currentIndex].current.style.display = "none";
-    console.log(childRefs[currentIndex].current.setAttribute("swiped", 1));
+    //console.log(childRefs[currentIndex].current.setAttribute("swiped", 1));
     console.log("swiped right on " + listings[currentIndex].id);
     // create the match!
     createMatch(listings[currentIndex], "yes")
     updateCurrentIndex(currentIndex - 1);
   };
   const swipeLeft = () => {
-    console.log("swiped left on " + listings[currentIndex].id);
+    //console.log("swiped left on " + listings[currentIndex].id);
     console.log(childRefs[currentIndex].current.setAttribute("swiped", 2));
     updateCurrentIndex(currentIndex - 1);
   };
   const swipeUp = () => {
-    console.log(childRefs[currentIndex].current.setAttribute("swiped", 3));
+    //console.log(childRefs[currentIndex].current.setAttribute("swiped", 3));
     console.log("swiped up on " + listings[currentIndex].id);
     //create the match!
     createMatch(listings[currentIndex], "maybe")
@@ -235,11 +235,11 @@ const Discover = (props) => {
   const r = React.useRef(null);
 
   const createMatch = async ( listing , tp ) =>{
-    const locInfo = listing.location
+    let locInfo = listing.location
 
 
     //format listingAddress
-    const addr = ""
+    let addr = ""
     if ( locInfo.unitNumber == null ){
       addr = locInfo.streetAddress + " " 
       + locInfo.city + " " + locInfo.state
@@ -249,16 +249,21 @@ const Discover = (props) => {
       + locInfo.city + " " + locInfo.state
     }
 
-
-    const match = {
+    let match = {
       //listing.id corresponds to the  id of the seller who posted listing
-      members: [listing.id, accountInfo.id ],
+      // senderId/receiverId name does not matter as both will go in members array
+      senderId: listing.id,
+      receiverId: accountInfo.id,
       type: tp,
       listingAddress: addr,
     }
+    console.log("HEEEEERE")
+    console.log(accountInfo.id)
+    console.log(typeof(accountInfo.id))
     try{
-      const res = await axios.post("/Matches", match)
-      console.log(res)
+      const res = await axios.post("http://localhost:3001/Matches", 
+      match)
+      console.log(res.data)
     }catch(err){
       console.log(err)
     }

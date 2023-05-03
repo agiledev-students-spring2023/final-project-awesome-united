@@ -22,30 +22,16 @@ const Match = props => {
     const otherId = props.match.members.find(m => m !== props.currentUser.id)
     // actually get the data associated with that userId
     const getUser = async ()=>{
+      let tmp = {userId: otherId}
       try{
         console.log("MATCH.JS try")
-        const res = await axios("/User?userId="+otherId)
-        setOtherUser(res.data)
+        console.log(tmp)
+        const res = await axios.post("http://localhost:3001/get-User/", tmp)
+        //const res = await axios("http://localhost:3001/User?userId="+otherId)
+        setOtherUser( res.data )
         console.log(res)
       }catch(err){
-        console.log("MATCH.JS catch error")
         console.log(err)
-        // REMOVE WHEN DONE
-        // essentially the user model but stripped down
-        const backupMatch = 
-          {
-          id: otherId,
-          userName: "elapechao",
-          firstName: "Jose",
-          lastName: "Gomez",
-          email: "jgomez@mail.pr",
-          profilePhoto: null
-          }
-        ;
-        setOtherUser(backupMatch)
-        console.log("OVA HERE INGLAND")
-        console.log(otherUser[0].firstName)
-        console.log(backupMatch)
       }
     };
     getUser()
@@ -53,9 +39,8 @@ const Match = props => {
 
   //take user to matches' listing
   const handleImageClick = e => {
-    console.log("going to profile!")
-    let path =  `/listing/1`
-    //let path = `/listing/`+otherUser.id; 
+    let otherUserId = props.match.members.find(m => m !== props.currentUser.id)
+    let path =  '/listing/' + otherUserId
     navigate(path);   
   }
 

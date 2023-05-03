@@ -1,6 +1,6 @@
 html, body, main {margin:0;padding:0;height:100%;}
 
-.main {  
+main {  
   font-family: helvetica;
   font-weight: normal;
   display: flex;
@@ -85,7 +85,6 @@ p.other ~ p.other {
 }
 
 .messageForm {
-  margin-top: 2px;
   width:100%;
   bottom: 60;
   border-color: black;
@@ -118,6 +117,6 @@ textarea::placeholder{
   background: #248bf5;
   color: #fff;
   font-weight: bold;
-  display: inline-block;
   width: 45px;
+  display: inline-block;
 }

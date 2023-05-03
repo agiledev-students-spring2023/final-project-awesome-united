@@ -18,8 +18,9 @@ app.use(passport.initialize()); // tell express to use passport middleware
 const { jwtOptions, jwtStrategy } = require("./jwt-config.js");
 passport.use(jwtStrategy);
 const seenListingSchema = require("./models/seenListing");
-const chatRoute = require("./routes/Chat");
-const matchRoute = require("./routes/Matches");
+const Match = require("./models/Matches");
+const Chat = require("./models/Chat");
+
 
 dotenv.config();
 
@@ -608,7 +609,80 @@ app.use((err, req, res, next) => {
   res.status(500).send(err.message);
 });
 
-app.use("/back-end/chat", chatRoute);
-app.use("/back-end/matches", matchRoute);
+
+//new match
+app.post("/Matches/", async (req, res) => {
+  const newMatch = new Match({
+    members: [req.body.senderId, req.body.receiverId],
+    type: req.body.type,
+    listingAddress: req.body.listingAddress,
+  });
+  try {
+    const savedMatch = await newMatch.save();
+    res.status(200).json(savedMatch);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+//get all matches that has userId. For some reason 'app.get' makes it not work...
+app.post("/get-Matches", async (req, res) => {
+  try {
+    const match = await Match.find({
+      members: { $in: [req.body.userId] },
+    });
+    res.status(200).json(match);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+// get match includes two userId
+app.post("/Matches/find/:firstUserId/:secondUserId", async (req, res) => {
+  try {
+    const match = await Match.findOne({
+      members: { $all: [req.params.firstUserId, req.params.secondUserId] },
+    });
+    res.status(200).json(match)
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+//add
+app.post("/post-Chat/", async (req, res) => {
+  const newChat = new Chat(req.body);
+
+  try {
+    const savedChat = await newChat.save();
+    res.status(200).json(savedChat);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+//get
+app.post("/get-Chat/", async (req, res) => {
+  try {
+    const chats = await Chat.find({
+      matchId: req.body.matchId,
+    });
+    res.status(200).json(chats);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+// get user
+app.post("/get-User/", async (req, res) => {
+  const userId = req.body.userId;
+  try {
+    const acct = await User.findOne( { id: userId }).exec();
+    res.status(200).json(acct);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
 // export the express app we created to make it available to other modules
 module.exports = app;

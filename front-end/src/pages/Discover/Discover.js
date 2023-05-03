@@ -216,6 +216,8 @@ const Discover = (props) => {
     // childRefs[currentIndex].current.style.display = "none";
     console.log(childRefs[currentIndex].current.setAttribute("swiped", 1));
     console.log("swiped right on " + listings[currentIndex].id);
+    // create the match!
+    createMatch(listings[currentIndex], "yes")
     updateCurrentIndex(currentIndex - 1);
   };
   const swipeLeft = () => {
@@ -226,9 +228,41 @@ const Discover = (props) => {
   const swipeUp = () => {
     console.log(childRefs[currentIndex].current.setAttribute("swiped", 3));
     console.log("swiped up on " + listings[currentIndex].id);
+    //create the match!
+    createMatch(listings[currentIndex], "maybe")
     updateCurrentIndex(currentIndex - 1);
   };
   const r = React.useRef(null);
+
+  const createMatch = async ( listing , tp ) =>{
+    const locInfo = listing.location
+
+
+    //format listingAddress
+    const addr = ""
+    if ( locInfo.unitNumber == null ){
+      addr = locInfo.streetAddress + " " 
+      + locInfo.city + " " + locInfo.state
+    }
+    else{
+      addr = locInfo.streetAddress + " " + locInfo.unitNumber  + " " 
+      + locInfo.city + " " + locInfo.state
+    }
+
+
+    const match = {
+      //listing.id corresponds to the  id of the seller who posted listing
+      members: [listing.id, accountInfo.id ],
+      type: tp,
+      listingAddress: addr,
+    }
+    try{
+      const res = await axios.post("/Matches", match)
+      console.log(res)
+    }catch(err){
+      console.log(err)
+    }
+  }
 
   return (
     <>

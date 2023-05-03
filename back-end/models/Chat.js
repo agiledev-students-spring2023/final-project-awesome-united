@@ -9,6 +9,7 @@ const ChatSchema = new mongoose.Schema(
     sender: {
       type: String,
     },
+    //the actual message
     text: {
       type: String,
     },

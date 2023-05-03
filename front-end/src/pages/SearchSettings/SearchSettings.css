@@ -50,6 +50,7 @@
 
 
 .Grid-option .Input{
+    /*background-image: url("http://placekitten.com/100/100");*/
     background-image: url("https://media.istockphoto.com/id/1201698934/vector/heart-sign-in-house-icon-ed-icon-love-home-symbol-stock-illustration.jpg?s=612x612&w=0&k=20&c=UN8a83p2BXuAfFWTOFm2Xu7dRKuXK_wZ_spdsuERAJM=");
     background-size: cover;
 }

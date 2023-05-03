@@ -26,6 +26,8 @@ const CreateListing = props => {
     const userUrl = 'http://localhost:3001/get-listing-data';
     const jwtToken = localStorage.getItem("token");
 
+
+    //zip unit amenities active/rent type
     const [isLoggedIn, setIsLoggedIn] = useState(jwtToken && true);
     const [listingCountry, setListingCountry] = useState('');
     const [listingState, setListingState] = useState('');
@@ -46,6 +48,7 @@ const CreateListing = props => {
       axios.post(userUrl, sellerListing, {
         headers: {
           'Content-Type': 'application/json',
+          Authorization: `JWT ${jwtToken}`
         },
       })
       .then((res) => {
@@ -72,6 +75,21 @@ const CreateListing = props => {
           id='myText'
           className='AddressInput' 
           placeholder='Address'
+          onChange={(e) => setListingAddress(e.target.value)}/>
+    </Box>
+    <Box className="zipCodeField"
+      sx={{
+        width: 500,
+        maxWidth: '100%',
+      }}
+    >
+      <TextField 
+          fullWidth 
+          label="Zip Code"          
+          type='text' 
+          id='myText'
+          className='ZipCodeInput' 
+          placeholder='Zip Code'
           onChange={(e) => setListingAddress(e.target.value)}/>
     </Box>
     <Box className="cityField"

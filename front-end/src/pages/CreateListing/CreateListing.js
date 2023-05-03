@@ -19,12 +19,15 @@ import FormControl from '@mui/material/FormControl';
 import SaveIcon from '@mui/icons-material/Save';
 import axios from "axios";
 import authenticate from "../../auth/Authenticate";
+import SingleListing from "../SingleListing/SingleListing"; 
 import "./CreateListing.css"
 
 const CreateListing = props => {
     const userUrl = 'http://localhost:3001/get-listing-data';
     const jwtToken = localStorage.getItem("token");
 
+
+    //zip unit amenities active/rent type
     const [isLoggedIn, setIsLoggedIn] = useState(jwtToken && true);
     const [listingCountry, setListingCountry] = useState('');
     const [listingState, setListingState] = useState('');
@@ -33,17 +36,19 @@ const CreateListing = props => {
     const[listingPrice, setListingPrice] = useState('');
     const[listingAmenitiesNum, setListingAmenitiesNum] = useState('');
     const[listingBedroomsNum, setListingBedroomsNum] = useState('');
-    const[listingDescription, setListingDescription] = useState('');
+    const[listingBathroomsNum, setListingBathroomsNum] = useState('');
 
 
     const Redirect = useNavigate();
 
     function saveClicked(e){
-      const sellerListing = { listingCountry, listingState, listingCity, listingAddress, listingPrice, listingAmenitiesNum, listingBedroomsNum, listingDescription };
+      //authenticate(setIsLoggedIn, setAccountInfo, jwtToken);
+      const sellerListing = { listingCountry, listingState, listingCity, listingAddress, listingPrice, listingAmenitiesNum, listingBedroomsNum, listingBathroomsNum };
       console.log(sellerListing);
       axios.post(userUrl, sellerListing, {
         headers: {
           'Content-Type': 'application/json',
+          Authorization: `JWT ${jwtToken}`
         },
       })
       .then((res) => {
@@ -70,6 +75,21 @@ const CreateListing = props => {
           id='myText'
           className='AddressInput' 
           placeholder='Address'
+          onChange={(e) => setListingAddress(e.target.value)}/>
+    </Box>
+    <Box className="zipCodeField"
+      sx={{
+        width: 500,
+        maxWidth: '100%',
+      }}
+    >
+      <TextField 
+          fullWidth 
+          label="Zip Code"          
+          type='text' 
+          id='myText'
+          className='ZipCodeInput' 
+          placeholder='Zip Code'
           onChange={(e) => setListingAddress(e.target.value)}/>
     </Box>
     <Box className="cityField"
@@ -200,12 +220,14 @@ const CreateListing = props => {
         maxWidth: '100%',
       }}
     >
-      <TextField 
-        fullWidth 
-        label="Description" 
-        id="fullWidth"
-        type="text"
-        onChange={(e) => setListingDescription(e.target.value)}
+      <TextField
+        id="outlined-number"
+        label="Number of Bathrooms"
+        type="number"
+        InputLabelProps={{
+          shrink: true,
+        }}
+        onChange={(e) => setListingBathroomsNum(e.target.value)}
       />
     </Box>
     <br></br>

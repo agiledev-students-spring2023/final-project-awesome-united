@@ -460,14 +460,14 @@ const createListingInDatabase = async (req, res, next) => {
       unitNumber: req.body.listingUnitNumber,
       city: req.body.listingCity,
       state: req.body.listingState,
-      zip: 10000
+      zip: req.body.listingZipcode
     },
     listingDetails: {
-      status: 'Active',
+      status: req.body.listingStatus,
       price: req.body.listingPrice
     },
     basicDetails: {
-      propertyType: 'Other',
+      propertyType: req.body.listingPropertyType,
       bedrooms: req.body.listingBedroomsNum,
       bathrooms: req.body.listingBathroomsNum
     },

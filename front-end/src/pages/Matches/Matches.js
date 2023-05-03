@@ -28,7 +28,7 @@ const Matches = props => {
      const getMatches = async ()=>{
       while( accountInfo == null );
        try{
-         const res = await axios.get("/matches/"+ accountInfo.id)
+         const res = await axios.get("/Matches/"+ accountInfo.id)
          console.log(res)
          setMatches(res.data)
        }catch(err){

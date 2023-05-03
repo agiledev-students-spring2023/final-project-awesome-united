@@ -7,6 +7,11 @@ import Chat from "../Chat/Chat"
 
 const Match = props => {
 
+  const jwtToken = localStorage.getItem("token"); // the JWT token, if we have already received one and stored it in localStorage
+  const [isLoggedIn, setIsLoggedIn] = useState(jwtToken && true); // if we already have a JWT token in local storage, set this to true, otherwise false
+  const [accountInfo, setAccountInfo] = useState([]);
+
+  
   const [otherUser,setOtherUser] = useState(null)
   const navigate = useNavigate();
 

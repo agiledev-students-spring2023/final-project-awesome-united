@@ -36,7 +36,6 @@ const Discover = (props) => {
   const updateCurrentIndex = (val) => {
     setCurrentIndex(val);
     currentIndexRef.current = val;
-
     if (currentIndex == 0) {
       setLoaded(false);
     }
@@ -47,15 +46,19 @@ const Discover = (props) => {
   const canSwipe = currentIndex >= 0;
 
   async function fetchData() {
+    if(loaded){
+      return;
+    }
     const response = await axios
       .post(`${environment.backendBaseUrl}/get-listings`, {
         userId: accountInfo.userId,
       }, {headers: {Authorization: `JWT ${jwtToken}`}})
       .then((response) => {
+ 
         setListings(response.data);
-        setLoaded(true);
-
         updateCurrentIndex(response.data.length - 1);
+        setLoaded(true);
+ 
       })
       .catch((err) => {
         let backupData;
@@ -176,18 +179,25 @@ const Discover = (props) => {
 
   useEffect(() => {
     authenticate(setIsLoggedIn, setAccountInfo, jwtToken);
-    fetchData();
+    if(!loaded){
+      fetchData()};
   }, [loaded]);
 
   const handlers = useSwipeable({
     onSwiped: (eventData) => {
+      if(!loaded){
+        return;
+      }
+      updateCurrentIndex(currentIndex)
       let dir = eventData.dir;
       console.log(eventData);
       const seenData = {
         userId: accountInfo.id,
         listingId: listings[currentIndex].id,
       };
-      seeListing(seenData);
+      console.log(childRefs)
+      console.log(currentIndex)
+      
 
       if (dir === "Right") {
         swipeRight();
@@ -198,6 +208,8 @@ const Discover = (props) => {
       if (dir === "Up") {
         swipeUp();
       }
+      seeListing(seenData);
+      
     },
     trackMouse: true,
   });
@@ -215,20 +227,25 @@ const Discover = (props) => {
       });
   };
   const swipeRight = () => {
-    // childRefs[currentIndex].current.style.display = "none";
+    if(loaded){
     console.log(childRefs[currentIndex].current.setAttribute("swiped", 1));
     console.log("swiped right on " + listings[currentIndex].id);
     updateCurrentIndex(currentIndex - 1);
+    }
   };
   const swipeLeft = () => {
+    if(loaded){
     console.log("swiped left on " + listings[currentIndex].id);
     console.log(childRefs[currentIndex].current.setAttribute("swiped", 2));
     updateCurrentIndex(currentIndex - 1);
+    }
   };
   const swipeUp = () => {
+    if(loaded){
     console.log(childRefs[currentIndex].current.setAttribute("swiped", 3));
     console.log("swiped up on " + listings[currentIndex].id);
     updateCurrentIndex(currentIndex - 1);
+    }
   };
   const r = React.useRef(null);
 
@@ -236,7 +253,7 @@ const Discover = (props) => {
     <>
       {isLoggedIn ? (
         <div className="discover">
-          <DiscoverHeader name={accountInfo.firstName} />
+          {loaded ? <DiscoverHeader name={accountInfo.firstName} accountType={accountInfo.accountType} /> : ""}
           <div className="discoverTinderCard" {...handlers}>
             {loaded ? (
               listings.map((listing, index) => {

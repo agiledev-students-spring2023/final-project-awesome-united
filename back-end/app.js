@@ -477,7 +477,7 @@ const createListingInDatabase = async (req, res, next) => {
       lastName: req.user.lastName
     },
     amenities: req.body.listingAmenities,
-    images: req.body.listingPictures
+    images: req.body.listingPhotos
   };
   if (req.listingExists == true){
     const status = Listing.updateOne({id: req.user.id}, newListing).exec();

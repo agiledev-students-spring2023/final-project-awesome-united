@@ -106,8 +106,8 @@ const CreateListing = props => {
       <TextField 
           fullWidth 
           label="Zip Code"          
-          type='text' 
-          id='myText'
+          type='number' 
+          id='myNumber'
           className='ZipCodeInput' 
           placeholder='Zip Code'
           onChange={(e) => setListingZipcode(e.target.value)}/>
@@ -193,10 +193,10 @@ const CreateListing = props => {
     <Stack direction="row" alignItems="center" spacing={2}>
       <Button variant="contained" component="label">
         Upload
-        <input hidden accept="image/*" multiple type="file" />
+        <input hidden accept="image/*" multiple type="file" method='POST' action='/upload-pfp' encType='multipart/form-data'/>
       </Button>
       <IconButton color="primary" aria-label="upload picture" component="label">
-        <input hidden accept="image/*" type="file" />
+        <input hidden accept="image/*" type="file"/>
         <PhotoCamera />
       </IconButton>
     </Stack>

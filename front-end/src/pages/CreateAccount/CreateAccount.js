@@ -18,7 +18,7 @@ function CreateAccount(props) {
       return;
     }
     axios
-      .post("http://localhost:3001/create-account", {
+      .post(`${environment.backendBaseUrl}/create-account`, {
         userName: data.userName,
         firstName: data.firstName,
         lastName: data.lastName,

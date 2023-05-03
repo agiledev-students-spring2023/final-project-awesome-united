@@ -46,7 +46,7 @@ const Discover = (props) => {
 
   async function fetchData() {
     const response = await axios
-      .post("http://localhost:3001/get-listings", {
+      .post(`${environment.backendBaseUrl}/get-listings`, {
         userId: accountInfo.userId,
       }, {headers: {Authorization: `JWT ${jwtToken}`}})
       .then((response) => {
@@ -201,7 +201,7 @@ const Discover = (props) => {
   });
   const seeListing = (data) => {
     axios
-      .post("http://localhost:3001/see-listing", {
+      .post(`${environment.backendBaseUrl}/see-listing`, {
         userId: data.userId,
         listingId: data.listingId,
       })

@@ -2,7 +2,7 @@ import axios from "axios";
 
 export async function authenticate (setIsLoggedIn, setAccountInfo, jwtToken) {
     await axios
-      .get("http://localhost:3001/auth", {
+      .get(`${environment.backendBaseUrl}/auth`, {
         headers: {
           Authorization: `JWT ${jwtToken}`,
         },

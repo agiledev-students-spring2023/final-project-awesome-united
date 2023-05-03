@@ -163,7 +163,7 @@ function SearchSettings() {
 
   useEffect(() => {
     authenticate(setIsLoggedIn, setAccountInfo, jwtToken);
-    axios.get('http://localhost:3001/get-search-settings', {headers: {Authorization: `JWT ${jwtToken}`}})
+    axios.get(`${environment.backendBaseUrl}/get-search-settings`, {headers: {Authorization: `JWT ${jwtToken}`}})
     .then(function (response) {
       setStateVariables(response.data);
       console.log("got data:");
@@ -204,7 +204,7 @@ function SearchSettings() {
     console.log(useStateVariables)
 
     axios
-    .post("http://localhost:3001/post-user-filter", useStateVariables, {headers: {Authorization: `JWT ${jwtToken}`}})
+    .post(`${environment.backendBaseUrl}/post-user-filter`, useStateVariables, {headers: {Authorization: `JWT ${jwtToken}`}})
     .then(response => {
       console.log(`Received server response: ${response.data}`)
     })

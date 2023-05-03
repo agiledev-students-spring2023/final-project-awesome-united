@@ -23,7 +23,7 @@ import SingleListing from "../SingleListing/SingleListing";
 import "./CreateListing.css"
 
 const CreateListing = props => {
-    const userUrl = 'http://localhost:3001/get-listing-data';
+    const userUrl = `${environment.backendBaseUrl}/get-listing-data`;
     const jwtToken = localStorage.getItem("token");
 
 

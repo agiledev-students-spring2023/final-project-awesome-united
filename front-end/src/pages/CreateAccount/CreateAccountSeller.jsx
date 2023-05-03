@@ -17,7 +17,7 @@ function CreateAccount(){
   let seller = False;
   let buyer = False;
 
-  const userUrl = 'http://localhost:3001/get-user-data';
+  const userUrl = `${environment.backendBaseUrl}/get-user-data`;
 
   function createClicked(e){
     const userLocation = { userCountry, userState, userCity, userAddress };

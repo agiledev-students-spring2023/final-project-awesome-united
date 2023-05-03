@@ -17,7 +17,7 @@ router.post("/", async (req, res) => {
   }
 });
 
-//get specific match of the user
+//get all matches that has userId
 router.get("/:userId", async (req, res) => {
   try {
     const Match = await Match.find({

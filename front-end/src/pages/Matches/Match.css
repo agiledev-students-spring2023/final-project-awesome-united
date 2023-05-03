@@ -1,0 +1,69 @@
+#myDIV {
+    flex:1;
+    cursor: pointer; /* change the cursor to make it look like a link */
+    height:50px;
+    display: grid;
+    grid-template-columns: 60px auto;
+    gap: 8px;
+    padding: 5px;
+    border-bottom: 0.5px solid black;
+}
+
+#myDIV div {
+    text-align: left;
+    font-size: 11px;
+}
+
+.profilePhoto {
+    grid-row: 1 / span 2;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 1px solid black;
+    padding: 1px; /* padding between image itself and the circle */
+}
+.profilePhoto:hover{
+        /* change the background color when a user hovers */
+        color: rgb(40, 39, 39);
+        background-color: rgb(179, 178, 178)!important;
+}
+
+.chatPrev {
+    grid-row: 2;
+    /*
+    padding is amount of space between text/content and border of element
+    */
+    padding: 3px;
+    padding-left: 5px;
+    /*border: 1px solid black;*/
+    /*border-radius: 30px;*/
+    width: 90%;
+    overflow: hidden; 
+    padding-bottom: 11px; /*same px as font-size... makes sure no partially cut off text shows at bottom */
+    max-height: 30px;
+    text-overflow: clip;
+}
+
+.matchName {
+    grid-row: 1 / span 2; /* IMPORTANT: remove span 2 if wish to include chatprev
+    padding: 3px;
+    /*border: 1px solid black;*/
+    /*border-radius: 30px;*/
+    width: 35%;
+    /*font & text formating*/
+    font-weight: bold;
+    font-size: large;
+    /* following is to handle text overflow: */
+    /* see: https://css-tricks.com/almanac/properties/t/text-overflow/ */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: clip;
+}
+
+.chat:hover{
+    /*
+    color: rgb(40, 39, 39);
+    background-color: rgb(179, 178, 178)!important;
+    width: 75%;
+    */
+}

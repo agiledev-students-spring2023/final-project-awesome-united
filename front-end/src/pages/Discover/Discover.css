@@ -1,0 +1,9 @@
+.discover {
+  overflow: hidden;
+  max-width: 100%;
+}
+.loadingBar{
+  position: absolute;
+  top: 30%;
+  left: 35%;
+}

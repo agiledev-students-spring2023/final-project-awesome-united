@@ -1,0 +1,88 @@
+.Options{
+    width: 100vw;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.Option{
+    width: 60%;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    padding: 10px;
+}
+
+.Grid{
+    width: 100%;
+}
+
+.Grid-form{
+    width: 100%g;
+    margin: auto;
+}
+
+.Grid-option{
+    position: relative;
+    display: inline-block;
+    margin: 2px;
+    overflow: hidden;
+    border-radius: 10px;
+}
+
+.Grid-option label{
+    position: absolute;
+    text-align: center;
+    padding-bottom: 3px;
+    bottom: -1px;
+    left: 50%;
+    width: 101%;
+    background-color: aliceblue;
+    transform: translate(-50%, 0%);
+    vertical-align: middle;
+    text-align: center;
+    font-size: 10px;
+    pointer-events: none;
+}
+
+.Range-dash{
+    margin: 10px;
+}
+
+.Checkbox-img{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    filter: grayscale(100%) blur(1px);
+    pointer-events: none;
+}
+
+.Input[type="checkbox"] {
+    appearance: none;
+    margin: 0;
+    width: 20vw;
+    height: 20vw;
+    display: grid;
+}
+
+.Input[type="checkbox"][value="true"] + .Checkbox-img {
+    filter: grayscale(0%) blur(0px);
+}
+
+.Input[type="checkbox"][value="true"] + img + label{
+    background-color: dodgerblue;
+    color: #fff;
+}
+
+.Input[type="submit"]{
+    background-color: dodgerblue;
+    padding: 5px;
+    border-radius: 10px;
+    border: none;
+    color: #fff;
+}
+
+.Input[unit="miles"]{
+    width: 50%;
+}

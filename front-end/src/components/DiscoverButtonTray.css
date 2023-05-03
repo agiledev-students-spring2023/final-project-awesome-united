@@ -1,0 +1,31 @@
+.discoverButtonTray {
+  margin-top: 1rem;
+  padding: 1rem;
+
+  position: fixed;
+
+  bottom: 105px;
+  right: -36px;
+  width: 100%;
+  height: 55px;
+}
+.discoverButton {
+  
+}
+
+.discoverButtonTrayButton {
+  font-size: 60px;
+
+  border-radius: 55%;
+  border-width: 50px;
+}
+.noButton {
+  color: rgb(253, 72, 69);
+}
+.saveButton {
+  color: rgb(227, 194, 92);
+}
+.likeButton {
+  font-size: 60px;
+  color: rgb(82, 203, 149);
+}

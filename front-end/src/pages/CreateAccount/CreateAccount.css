@@ -1,0 +1,32 @@
+.formContainer {
+  flex-direction: column;
+}
+.createForm {
+  background: white;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  margin: 0 auto;
+  max-width: 500px;
+  padding: 30px 50px;
+}
+.formBoxGrid {
+  margin-bottom: 15px;
+}
+.createAccountButton {
+  text-transform: none;
+}
+.accountCreatedButton {
+  text-transform: none;
+}
+.login-text {
+  margin-top: 15px;
+}
+.loginLink {
+  text-decoration: none;
+  color: rgb(6, 69, 173);
+}
+.loginType {
+  font-size: 16px;
+}

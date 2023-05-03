@@ -6,6 +6,7 @@ router.post("/", async (req, res) => {
   const newMatch = new Match({
     members: [req.body.senderId, req.body.receiverId],
     type: req.body.type,
+    listingAddress: req.body.listingAddress,
   });
 
   try {

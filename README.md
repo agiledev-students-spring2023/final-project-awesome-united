@@ -39,6 +39,9 @@ See [CONTRIBUTING.md](./CONTRIBUTING.md) for how to contribute.
 2. Navigate to the ```front-end``` directory
 3. Run ```npm install```, followed by ```npm run build```
 4. Navigate to the ```back-end``` directory
-5. run ```npm install```, followed by ```nodemon server.js```
+5. run ```npm install```, followed by ```npm start```
 6. Open your browser and run the corresponding local host address
+
+## Live Link
+http://homie.acello.cyou:3001/
 

@@ -2,7 +2,7 @@
 import "./Matches.css"
 import Match from "./Match"
 import { useState, useEffect, useContext } from "react"
-import SearchBar from "./SearchBar"
+import SearchBar from "./SearchBar.js"
 import { useNavigate } from "react-router-dom";
 import authenticate from "../../auth/Authenticate";
 import axios from "axios"

@@ -166,8 +166,7 @@ app.get("/middleware-example", (req, res) => {
 app.post("/get-listings", passport.authenticate("jwt", { session: false }), 
 async (req, res) => {
   let listings;
-  //bodyParser.json(req);
-  //console.log(req.body.userId);
+ 
   listings = await listingSchema.Listing.aggregate([
     {
       $lookup: {
@@ -198,7 +197,7 @@ async (req, res) => {
       },
     },
     {
-      $sample: { size: 120 },
+      $sample: { size: 10 },
     },
     {
       $addFields: {

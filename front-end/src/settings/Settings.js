@@ -1,4 +1,5 @@
 const environment = {
-    "backendBaseUrl": "http://68.183.130.198:8080",
+    "backendBaseUrl": "http://localhost:3001",
+    //"backendBaseUrl": "http://165.227.253.44:3001",
 }
 export default environment

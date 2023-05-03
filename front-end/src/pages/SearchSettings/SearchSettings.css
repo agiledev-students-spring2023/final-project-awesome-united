@@ -48,30 +48,29 @@
     margin: 10px;
 }
 
-
-.Grid-option .Input{
-    background-image: url("http://placekitten.com/100/100");
-    background-size: cover;
+.Checkbox-img{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    filter: grayscale(100%) blur(1px);
+    pointer-events: none;
 }
 
 .Input[type="checkbox"] {
     appearance: none;
-    background-color: #fff;
     margin: 0;
     width: 20vw;
     height: 20vw;
     display: grid;
 }
 
-.Input[type="checkbox"] {
-    filter: grayscale(100%) blur(1px);
-}
-
-.Input[type="checkbox"][value="true"] {
+.Input[type="checkbox"][value="true"] + .Checkbox-img {
     filter: grayscale(0%) blur(0px);
 }
 
-.Input[type="checkbox"][value="true"] + label{
+.Input[type="checkbox"][value="true"] + img + label{
     background-color: dodgerblue;
     color: #fff;
 }

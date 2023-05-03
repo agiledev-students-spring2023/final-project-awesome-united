@@ -43,12 +43,30 @@ const CreateListing = props => {
     const[listingAmenities, setListingAmenities] = useState('');
     const[listingPropertyType, setListingPropertyType] = useState('');
     const[listingStatus, setListingStatus] = useState('');
+    const[listingPhoto, setListingPhoto] = useState('');
 
     const Redirect = useNavigate();
 
+    window.addEventListener('load', function() {
+      console.log("Photo upload clicked");
+      document.querySelector('input[type="file"]').addEventListener('change', function() {
+          if (this.files && this.files[0]) {
+              var img = document.querySelector('img');
+              img.onload = () => {
+                  URL.revokeObjectURL(img.src);  
+              }
+    
+              img.src = URL.createObjectURL(this.files[0]); 
+              console.log(img.src);
+              setListingPhoto(img.src);
+              console.log("Photo uploaded");
+          }
+      });
+    });
+
     function saveClicked(e){
       //authenticate(setIsLoggedIn, setAccountInfo, jwtToken);
-      const sellerListing = { listingCountry, listingState, listingCity, listingAddress, listingPrice, listingAmenities, listingBedroomsNum, listingBathroomsNum, listingZipcode, listingUnitNumber, listingPropertyType, listingStatus };
+      const sellerListing = { listingCountry, listingState, listingCity, listingAddress, listingPrice, listingAmenities, listingBedroomsNum, listingBathroomsNum, listingZipcode, listingUnitNumber, listingPropertyType, listingStatus, listingPhoto };
       console.log(sellerListing);
       axios.post(userUrl, sellerListing, {
         headers: {
@@ -193,7 +211,7 @@ const CreateListing = props => {
     <Stack direction="row" alignItems="center" spacing={2}>
       <Button variant="contained" component="label">
         Upload
-        <input hidden accept="image/*" multiple type="file" method='POST' action='/upload-pfp' encType='multipart/form-data'/>
+        <input hidden accept="image/*" type="file" multiple encType='multipart/form-data'/>
       </Button>
       <IconButton color="primary" aria-label="upload picture" component="label">
         <input hidden accept="image/*" type="file"/>
@@ -306,41 +324,23 @@ const CreateListing = props => {
   const listingPhotos = [
     {
       img: 'http://murphysvacationhouse.com/files/resized/7cf78900-1b46-43b5-8fad-ffbea5790982/1024;485;998e6fe33d7526dc448d1f01b99cbe831d72b7b9.jpg',
-      title: 'Living Room',
+      title: 'Photo 1',
       rows: 2,
       cols: 2,
     },
     {
       img: 'http://murphysvacationhouse.com/files/resized/7cf78900-1b46-43b5-8fad-ffbea5790982/1024;485;998e6fe33d7526dc448d1f01b99cbe831d72b7b9.jpg',
-      title: 'Kitchen',
+      title: 'Photo 2',
     },
     {
       img: 'http://murphysvacationhouse.com/files/resized/7cf78900-1b46-43b5-8fad-ffbea5790982/1024;485;998e6fe33d7526dc448d1f01b99cbe831d72b7b9.jpg',
-      title: 'Bathroom',
-    },
-    {
-      img: 'http://murphysvacationhouse.com/files/resized/7cf78900-1b46-43b5-8fad-ffbea5790982/1024;485;998e6fe33d7526dc448d1f01b99cbe831d72b7b9.jpg',
-      title: 'Bedroom 1',
-      cols: 2,
-    },
-    {
-      img: 'http://murphysvacationhouse.com/files/resized/7cf78900-1b46-43b5-8fad-ffbea5790982/1024;485;998e6fe33d7526dc448d1f01b99cbe831d72b7b9.jpg',
-      title: 'Bedroom 2',
-      cols: 2,
-    },
-    {
-      img: 'http://murphysvacationhouse.com/files/resized/7cf78900-1b46-43b5-8fad-ffbea5790982/1024;485;998e6fe33d7526dc448d1f01b99cbe831d72b7b9.jpg',
-      title: 'Basement',
+      title: 'Photo 3',
       rows: 2,
       cols: 2,
     },
     {
       img: 'http://murphysvacationhouse.com/files/resized/7cf78900-1b46-43b5-8fad-ffbea5790982/1024;485;998e6fe33d7526dc448d1f01b99cbe831d72b7b9.jpg',
-      title: 'Backyard',
-    },
-    {
-      img: 'http://murphysvacationhouse.com/files/resized/7cf78900-1b46-43b5-8fad-ffbea5790982/1024;485;998e6fe33d7526dc448d1f01b99cbe831d72b7b9.jpg',
-      title: 'Garage',
+      title: 'Photo 4',
     },
   ];
   

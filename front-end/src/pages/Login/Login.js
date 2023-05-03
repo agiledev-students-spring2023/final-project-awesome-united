@@ -6,15 +6,19 @@ import "./Login.css";
 import { Link, redirect, useLocation, Navigate } from "react-router-dom";
 import axios from "axios";
 import NewAccountSelection from "../NewAccountSelection/NewAccountSelection";
+import authenticate from "../../auth/Authenticate";
 
 import environment from "../../settings/Settings";
 
 function Login(props) {
   const { register, handleSubmit, watch, getValues } = useForm();
+  const jwtToken = localStorage.getItem("token");
 
   const [invalidAccount, setInvalidAccount] = useState(false);
   const [invalidPassword, setInvalidPassword] = useState(false);
   const [loggedIn, setLoggedIn] = useState(false);
+  const [accountInfo, setAccountInfo] = useState([]);
+  const [dir, setDir] = useState("/discover");
 
   const onSubmit = (data) => {
     axios
@@ -23,6 +27,7 @@ function Login(props) {
         password: data.password,
       })
       .then((response) => {
+        console.log("In then");
         localStorage.setItem("token", response.data.token);
         setLoggedIn(true);
       })
@@ -38,15 +43,24 @@ function Login(props) {
       });
   };
   useEffect(() => {
+    authenticate(setLoggedIn, setAccountInfo, jwtToken);
     document.title = 'Login';
   }, []);
-
+  useEffect(() =>{
+    console.log(accountInfo.accountType);
+    if (accountInfo.accountType == "Seller"){
+      console.log("Seller authorized");
+      setDir("/createListing");
+    }
+    else{
+      console.log("Buyer authorized");
+    }
+  })
   return (
     <>
       {!loggedIn ? (
         <div>
           <header className="Header">
-            <DiscoverHeader />
           </header>
 
           <form className="createForm" onSubmit={handleSubmit(onSubmit)}>
@@ -104,7 +118,7 @@ function Login(props) {
           </form>
         </div>
       ) : (
-        <Navigate to="/discover" replace={true} />
+        <Navigate to={dir} replace={true} />
       )}
     </>
   );

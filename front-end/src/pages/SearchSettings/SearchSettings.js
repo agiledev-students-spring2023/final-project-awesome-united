@@ -3,6 +3,7 @@ import { useState, useEffect } from "react"
 import './SearchSettings.css';
 import axios from "axios";
 import authenticate from "../../auth/Authenticate";
+import environment from "../../settings/Settings";
 
 import environment from "../../settings/Settings";
 
@@ -63,7 +64,7 @@ const GridOption = ({name="Option", options, useStateVariables}) => {  //options
 
 const Checkbox = ({option, k, parent, useStateVariables}) => {
   const key = option//.split(" ").join("");
-  const pkey = parent.split(" ").join("")
+  const pkey = parent.split(" ").join("");
   if(!useStateVariables[pkey])
     useStateVariables[pkey] = {}
   const [checked, setChecked] = useState(useStateVariables[pkey] ? useStateVariables[pkey][key] : true);
@@ -90,6 +91,7 @@ const Checkbox = ({option, k, parent, useStateVariables}) => {
           value={checked}
           onChange={handleChange}>
         </input>
+        <img className="Checkbox-img" src={`${environment.backendBaseUrl}/images/${key.split("/").join("")}.jpg`}/>
         <label>{option}</label>
       </div>
   );

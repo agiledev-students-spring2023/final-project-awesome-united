@@ -70,7 +70,7 @@ app.use(session(sessionOptions)); // gives us req.session
 app.use(morgan("dev")); // dev style gives a concise color-coded style of log output
 app.use(express.json()); // decode JSON-formatted incoming POST data
 app.use(express.urlencoded({ extended: true })); // decode url-encoded incoming POST data
-// app.use(express.static("../front-end/public"))
+app.use('/images', express.static('images'));
 
 app.use(function (req, res, next) {
   //cookie parsing
@@ -460,14 +460,14 @@ const createListingInDatabase = async (req, res, next) => {
       unitNumber: req.body.listingUnitNumber,
       city: req.body.listingCity,
       state: req.body.listingState,
-      zip: 10000
+      zip: req.body.listingZipcode
     },
     listingDetails: {
-      status: 'Active',
+      status: req.body.listingStatus,
       price: req.body.listingPrice
     },
     basicDetails: {
-      propertyType: 'Other',
+      propertyType: req.body.listingPropertyType,
       bedrooms: req.body.listingBedroomsNum,
       bathrooms: req.body.listingBathroomsNum
     },
@@ -477,7 +477,7 @@ const createListingInDatabase = async (req, res, next) => {
       lastName: req.user.lastName
     },
     amenities: req.body.listingAmenities,
-    images: req.body.listingPictures
+    images: req.body.listingPhotos
   };
   if (req.listingExists == true){
     const status = Listing.updateOne({id: req.user.id}, newListing).exec();
@@ -546,6 +546,7 @@ const sendAuthTokens = (req, res, next) => {
   res.status(200).json({
     success: true,
     token: token,
+    user: payload
   });
   next();
 };

@@ -46,22 +46,11 @@ const Match = props => {
     getUser()
   },[props.currentUser, props.match])
 
-  //for spring01 set to take user to static page
-  //take user to chat session with match
-  const handleClick = e => {
-    console.log("going to chat!")
-    let path = `/chat`; 
-    return (
-      <Chat></Chat>
-    )
-    navigate(path);    
-  }
-
-  //for spring01 set to take user to static page
-  //take user to matches' profile
+  //take user to matches' listing
   const handleImageClick = e => {
     console.log("going to profile!")
-    let path = `/listing/1`; 
+    let path =  `/listing/1`
+    //let path = `/listing/`+otherUser.id; 
     navigate(path);   
   }
 
@@ -75,7 +64,7 @@ const Match = props => {
         // `${process.env.PUBLIC_URL}/no-profile-pic.webp`
         src={ otherUser.profilePhoto ? otherUser.profilePhoto : `${process.env.PUBLIC_URL}/no-profile-pic.webp` } 
         onClick={handleImageClick} />
-      <div className="chat" onClick={handleClick}>
+      <div className="chat">
           {/* for buyer POV, they will see the name of t*/}
           <div className="matchName">{ otherUser.firstName + " " + otherUser.lastName  }</div>
           {/* <div className="chatPrev">{props.chatPreview}</div> */}

@@ -453,7 +453,7 @@ const createAccountInDatabase = (req, res, next) => {
 const createListingInDatabase = async (req, res, next) => {
   console.log(req.body);
 
-  const newListing = new Listing({
+  const newListing = {
     id: req.user.id,
     location: {
       streetAddress: req.body.listingAddress,
@@ -478,8 +478,13 @@ const createListingInDatabase = async (req, res, next) => {
     },
     amenities: req.body.listingAmenities,
     images: req.body.listingPictures
-  });
-  newListing
+  };
+  if (req.listingExists == true){
+    const status = Listing.updateOne({id: req.user.id}, newListing).exec();
+    res.status(200).send("Listing Updated");
+  }
+  else{
+    new Listing(newListing)
     .save()
     .then((newListing) => {
       //res.status(200).send("OK");
@@ -490,7 +495,8 @@ const createListingInDatabase = async (req, res, next) => {
       //res.statusCode = 404;
       console.log(error);
       //res.send("Could not save to DB");
-    });
+    });  
+  }
 };
 
 app.post(
@@ -586,12 +592,12 @@ const checkIfListingExists = async (req, res, next) => {
     console.log(curr_listing);
     if (curr_listing != null){
       console.log("listing already exists");
-      res.status(404).send("Listing already exists");
+      req.listingExists = true;
     }
     else{
-      console.log("okkay");
-      next();
+      req.listingExists = false;
     }
+    next();
   }
 }  
 

@@ -7,6 +7,8 @@ import { Link, redirect, useLocation, Navigate } from "react-router-dom";
 import axios from "axios";
 import NewAccountSelection from "../NewAccountSelection/NewAccountSelection";
 
+import environment from "../../settings/Settings";
+
 function Login(props) {
   const { register, handleSubmit, watch, getValues } = useForm();
 

@@ -6,6 +6,8 @@ import DiscoverHeader from "../../components/DiscoverHeader";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
+import environment from "../../settings/Settings";
+
 function CreateAccount(props) {
   const { register, handleSubmit, watch, getValues } = useForm();
   const [passwordMatch, setPasswordMatch] = useState(false);

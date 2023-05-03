@@ -1,4 +1,5 @@
 import axios from "axios";
+import environment from "../settings/Settings";
 
 export async function authenticate (setIsLoggedIn, setAccountInfo, jwtToken) {
     await axios

@@ -22,6 +22,8 @@ import authenticate from "../../auth/Authenticate";
 import SingleListing from "../SingleListing/SingleListing"; 
 import "./CreateListing.css"
 
+import environment from "../../settings/Settings";
+
 const CreateListing = props => {
     const userUrl = `${environment.backendBaseUrl}/get-listing-data`;
     const jwtToken = localStorage.getItem("token");

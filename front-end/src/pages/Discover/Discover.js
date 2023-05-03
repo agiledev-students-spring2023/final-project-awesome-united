@@ -10,6 +10,8 @@ import { Navigate } from "react-router-dom";
 import authenticate from "../../auth/Authenticate";
 import { CircularProgress, Typography } from "@mui/material";
 
+import environment from "../../settings/Settings";
+
 import { useSwipeable } from "react-swipeable";
 const Discover = (props) => {
   const jwtToken = localStorage.getItem("token"); // the JWT token, if we have already received one and stored it in localStorage

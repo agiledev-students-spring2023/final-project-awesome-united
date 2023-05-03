@@ -4,6 +4,8 @@ import './SearchSettings.css';
 import axios from "axios";
 import authenticate from "../../auth/Authenticate";
 
+import environment from "../../settings/Settings";
+
 const SliderOption = ({name="Option", min=0, max=10, step=1, useStateVariables}) => {
   const key = name.split(" ").join("");
   const [minimum, setMinimum] = useState(useStateVariables[key] ? useStateVariables[key].min : min);
